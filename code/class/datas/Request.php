@@ -5,9 +5,7 @@ require_once("Parameters.php");
 class Request {
 
     private $get;
-
     private $post;
-
 
     public function __construct() {
         $this->get = new Parameters($_GET);
