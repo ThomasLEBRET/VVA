@@ -23,12 +23,12 @@ class Router {
   public function run()
   {
     $page = $this->request->getGet()->get('page');
-
+    $post = $this->request->getPost();
     try {
       if($page) {
         switch($page) {
           case 'accueil':
-            $this->userController->home($this->request->getPost());
+            $this->userController->home($post);
           break;
           default:
             $this->errorController->errorNotFound();

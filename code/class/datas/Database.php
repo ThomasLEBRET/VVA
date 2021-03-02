@@ -1,12 +1,13 @@
 <?php
 class Database
 {
-  private $host = "localhost";
-  private $dbname = "gatci";
-  private $user = "root";
+  private $host;
+  private $dbname;
+  private $user;
   private $password = "";
+  private $connection;
 
-  public function __construct($host, $dbname, $user, $password) {
+  public function __construct($host = "localhost", $dbname = "gatci", $user = "root", $password = "") {
     $this->host = $host;
     $this->dbname = $dbname;
     $this->user = $user;
@@ -14,9 +15,10 @@ class Database
   }
 
   public function getConnection() {
-    if($this->pdo === null) {
-      $connection = new PDO('mysql:host=localhost;dbname=gatci;charset=utf8', 'root', 'root');
+    if($this->connection === null) {
+      $connection = new PDO('mysql:host=localhost;dbname=gatci;charset=utf8', 'root', '');
       $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->connection = $connection;
     }
     return $this->connection;
   }
@@ -32,9 +34,9 @@ class Database
     $req->execute($attr);
     $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
     if($one) {
-      $datas = $req->fetch(PDO::FETCH_CLASS, $class_name);
+      $datas = $req->fetch();
     } else {
-      $datas = $req->fetchAll(PDO::FETCH_CLASS, $class_name);
+      $datas = $req->fetchAll();
     }
     return $datas;
   }
