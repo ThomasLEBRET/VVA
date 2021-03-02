@@ -7,14 +7,11 @@ require_once("datas/Request.php");
 class Router {
 
   private $userController;
-
   private $errorController;
-
   private $request;
 
   public function __construct() {
     $this->userController = new UserController();
-
     $this->errorController = new ErrorController();
     $this->request = new Request();
   }
@@ -34,7 +31,7 @@ class Router {
             $this->userController->home($this->request->getPost());
           break;
           default:
-          $this->errorController->errorNotFound();
+            $this->errorController->errorNotFound();
           break;
         }
       } else {
