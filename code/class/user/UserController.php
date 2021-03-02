@@ -16,7 +16,31 @@ class UserController extends User {
    * @return void       la vue associée en fonction du succès ou de l'échec de l'inscription
    */
   public function home($post) {
-
+    if(!empty(Session::get("USER"))) {
+      switch (Session::get('TYPEPROFIL')) {
+        case 'VA':
+          require_once("view/user/accueilVacancier.php");
+          break;
+        case 'EN':
+          require_once("view/user/accueilVacancier.php");
+          break;
+        }
+    } else {
+      if(empty($post->getArray())) {
+        include_once("view/user/accueil.php");
+      } else {
+        if($this->user->connexion($post)) {
+          switch (Session::get('TYPEPROFIL')) {
+            case 'VA':
+              require_once("view/user/accueilVacancier.php");
+              break;
+            case 'EN':
+              require_once("view/user/accueilVacancier.php");
+              break;
+          }
+        }
+      }
+    }
   }
 
 }
