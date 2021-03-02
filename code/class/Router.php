@@ -30,6 +30,10 @@ class Router {
           case 'accueil':
             $this->userController->home($post);
           break;
+          case 'deconnexion':
+              Session::stop();
+              header('Location: index.php?page=accueil');
+              break;
           default:
             $this->errorController->errorNotFound();
           break;
