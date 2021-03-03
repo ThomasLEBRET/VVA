@@ -22,7 +22,7 @@ class UserController extends User {
           require_once("view/user/accueilVacancier.php");
           break;
         case 'EN':
-          require_once("view/user/accueilVacancier.php");
+          require_once("view/user/accueilEncadrant.php");
           break;
         }
     } else {
@@ -35,7 +35,7 @@ class UserController extends User {
               require_once("view/user/accueilVacancier.php");
               break;
             case 'EN':
-              require_once("view/user/accueilVacancier.php");
+              require_once("view/user/accueilEncadrant.php");
               break;
           }
         }
