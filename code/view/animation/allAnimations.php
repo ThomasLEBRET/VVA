@@ -1,3 +1,7 @@
+<?php $title = "VVA - Animations" ?>
+
+<?php ob_start(); ?>
+
 <?php echo "All Animations" ?>
 
 <?php
@@ -8,3 +12,6 @@ foreach ($animations as $animation) {
 }
 
 ?>
+
+<?php $content = ob_get_clean(); ?>
+<?php require("view/template.php"); ?>
