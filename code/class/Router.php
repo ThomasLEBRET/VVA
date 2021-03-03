@@ -35,6 +35,7 @@ class Router {
         switch($page) {
           case 'accueil':
             $this->userController->home($post);
+            break;
           case 'animation':
             $this->animationController->allAnimations();
           break;
