@@ -1,16 +1,16 @@
 <?php
   $getAll =
     "
-      SELECT *
+      SELECT *, Nb_place_rest(CODEANIM)
       FROM ANIMATION
     ";
 
   $getAllValides =
     "
-      SELECT AN.*
-      FROM ANIMATION AN, ACTIVITE A
+      SELECT AN.*, TA.NOMTYPEANIM, Nb_place_rest(AN.CODEANIM) as places_restantes
+      FROM ANIMATION AN, ACTIVITE A, TYPE_ANIM TA
       WHERE AN.CODEANIM = A.CODEANIM
-      AND ? >= DATE(NOW())
+      AND AN.CODETYPEANIM = TA.CODETYPEANIM
       AND AN.LIMITEAGE <= ?
       AND Nb_place_rest(AN.CODEANIM) > 0
       AND A.DATEANNULEACT IS NULL
