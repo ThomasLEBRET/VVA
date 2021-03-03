@@ -24,8 +24,9 @@ class User extends Database {
     if(empty($user)) {
       return false;
     } else {
-      Session::set('USER', $user->USER);
-      Session::set('TYPEPROFIL', $user->TYPEPROFIL);
+      foreach ($user as $key => $value) {
+        Session::set($key, $value);
+      }
       return true;
     }
   }
