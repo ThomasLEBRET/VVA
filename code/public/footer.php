@@ -3,7 +3,7 @@
     <div class="container text-center">
       <div class="row justify-content-center">
         <div class="col-md-7">
-          <h1 class="font-weight-light mt-4 text-white">Village Vacances des Alpes</h1>
+          <h1 class="font-weight-light mt-4 text-black">Village Vacances des Alpes</h1>
         </div>
       </div>
     </div>

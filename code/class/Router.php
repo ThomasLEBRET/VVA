@@ -1,17 +1,23 @@
 <?php
 
 require_once("user/UserController.php");
+require_once("animation/AnimationController.php");
+
 require_once("datas/ErrorController.php");
 require_once("datas/Request.php");
 
 class Router {
 
   private $userController;
+  private $animationController;
+
   private $errorController;
   private $request;
 
   public function __construct() {
     $this->userController = new UserController();
+    $this->animationController = new AnimationController();
+
     $this->errorController = new ErrorController();
     $this->request = new Request();
   }
@@ -29,6 +35,9 @@ class Router {
         switch($page) {
           case 'accueil':
             $this->userController->home($post);
+            break;
+          case 'animation':
+            $this->animationController->allAnimations();
           break;
           case 'deconnexion':
               Session::stop();
