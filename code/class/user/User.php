@@ -16,7 +16,7 @@ class User extends Database {
     $sql =
     "
     SELECT *
-    FROM COMPTE
+    FROM compte
     WHERE USER = ?
       AND MDP = ?
     ";
