@@ -22,7 +22,7 @@
     <li class="list-group-item">Prix : <?= $prix ?></li>
   </ul>
   <div class="card-body">
-    <a href="#" class="card-link">Voir les activités pour l'animation <?= $animation->NOMANIM ?></a>
+    <a href="index.php?page=activite&codeAnimation=<?=$animation->CODEANIM?>" class="card-link">Voir les activités pour l'animation <?= $animation->NOMANIM ?></a>
   </div>
 </div>
 <?php endforeach ?>
