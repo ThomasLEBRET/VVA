@@ -38,6 +38,8 @@ class UserController extends User {
               require_once("view/user/accueilEncadrant.php");
               break;
           }
+        } else {
+          require_once("view/user/error/errorLogin.php");
         }
       }
     }
