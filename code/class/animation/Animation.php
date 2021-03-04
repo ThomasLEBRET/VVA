@@ -11,7 +11,7 @@ class Animation extends Database {
     global $getAllValides;
 
     if(Session::get('TYPEPROFIL') == 'EN') {
-      $animations = $this->prepare($getAll, [], 'Animation', 0);
+      $animations = $this->query($getAll, 'Animation');
     } else {
       $dtFinSej = Session::get('DATEFINSEJOUR');
       $dtDebSej = Session::get('DATEDEBSEJOUR');
