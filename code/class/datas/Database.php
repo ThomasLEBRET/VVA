@@ -32,6 +32,7 @@ class Database
   public function prepare($stmt, $attr, $class_name, $one = false) {
     $req = $this->getConnection()->prepare($stmt);
     $req->execute($attr);
+    //$req->debugDumpParams();
     $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
     if($one) {
       $datas = $req->fetch();
