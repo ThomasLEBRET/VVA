@@ -2,6 +2,7 @@
 
 require_once("user/UserController.php");
 require_once("animation/AnimationController.php");
+require_once("activite/ActiviteController.php");
 
 require_once("datas/ErrorController.php");
 require_once("datas/Request.php");
@@ -10,6 +11,7 @@ class Router {
 
   private $userController;
   private $animationController;
+  private $activiteController;
 
   private $errorController;
   private $request;
@@ -17,6 +19,7 @@ class Router {
   public function __construct() {
     $this->userController = new UserController();
     $this->animationController = new AnimationController();
+    $this->activiteController = new ActiviteController();
 
     $this->errorController = new ErrorController();
     $this->request = new Request();
@@ -29,6 +32,8 @@ class Router {
   public function run()
   {
     $page = $this->request->getGet()->get('page');
+    $codeAnim = $this->request->getGet()->get('codeAnimation');
+
     $post = $this->request->getPost();
     try {
       if($page) {
@@ -39,6 +44,9 @@ class Router {
           case 'animation':
             $this->animationController->allAnimations();
           break;
+          case 'activite':
+            $this->activiteController->getAllByCodeAnim($codeAnim);
+            break;
           case 'deconnexion':
               Session::stop();
               header('Location: index.php?page=accueil');
