@@ -7,7 +7,7 @@ class Database
   private $password = "";
   private $connection;
 
-  public function __construct($host = "localhost", $dbname = "gatci", $user = "root", $password = "") {
+  public function __construct($host = "db", $dbname = "gatci", $user = "root", $password = "root") {
     $this->host = $host;
     $this->dbname = $dbname;
     $this->user = $user;
@@ -16,7 +16,7 @@ class Database
 
   public function getConnection() {
     if($this->connection === null) {
-      $connection = new PDO('mysql:host=localhost;dbname=gatci;charset=utf8', 'root', '');
+      $connection = new PDO('mysql:host=db;dbname=gatci;charset=utf8', 'root', 'root');
       $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $this->connection = $connection;
     }

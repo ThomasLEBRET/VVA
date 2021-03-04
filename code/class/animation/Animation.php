@@ -26,6 +26,36 @@ class Animation extends Database {
 
   }
 
+  public function getCodesTypeAnimations() {
+    global $getCodesTypeAnim;
+    $pre_datas = $this->query($getCodesTypeAnim, 'Animation');
+    $datas = [];
+    foreach ($pre_datas as $data) {
+      $datas[] = $data->CODETYPEANIM;
+    }
+    return $datas;
+  }
+
+  public function add($post) {
+    global $addAnimation;
+
+    $datas = $post->getArray();
+    foreach ($datas as $key => $value) {
+      $data[] = $value;
+    }
+
+    try {
+      $this->prepare($addAnimation, $data, 'Animation');
+      return true;
+    } catch (\Exception $e) {
+      return false;
+    }
+
+
+
+
+  }
+
 }
 
 ?>

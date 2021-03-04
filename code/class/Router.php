@@ -44,6 +44,9 @@ class Router {
           case 'animation':
             $this->animationController->allAnimations();
           break;
+          case 'addAnimation':
+            $this->animationController->addAnimation($post);
+            break;
           case 'activite':
             $this->activiteController->getAllByCodeAnim($codeAnim);
             break;
