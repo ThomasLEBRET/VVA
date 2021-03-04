@@ -15,7 +15,11 @@
         require_once("view/activite/errors/errorCodeAnimation.php");
       } else {
         $activites = $this->activite->getAll($codeActivite);
-        require_once("view/activite/activitesByCodeAnimation.php");
+        if(empty($activites)) {
+          require_once("view/activite/errors/errorCodeAnimation.php");
+        } else {
+          require_once("view/activite/activitesByCodeAnimation.php");
+        }
       }
 
     }
