@@ -6,16 +6,29 @@ class Activite extends Database {
 
   public function getAll($codeAnimation) {
 
-    global $getAllActivites;
-    $activites = $this->prepare
-    (
-      $getAllActivites,
-      [
-        $codeAnimation,
-        Session::get('DATEDEBSEJOUR')
-      ],
-      'Activite'
-    );
+    global $getAllActivitesForVacancier;
+    global $getAllActivitesForEncadrant;
+
+    if(Session::get('TYPEPROFIL') == 'EN') {
+      $activites = $this->prepare
+      (
+        $getAllActivitesForEncadrant,
+        [
+          $codeAnimation
+        ],
+        'Activite'
+      );
+    } else {
+      $activites = $this->prepare
+      (
+        $getAllActivitesForVacancier,
+        [
+          $codeAnimation,
+          Session::get('DATEDEBSEJOUR')
+        ],
+        'Activite'
+      );
+    }
     return $activites;
 
   }
