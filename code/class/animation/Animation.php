@@ -51,9 +51,17 @@ class Animation extends Database {
       return false;
     }
 
+  }
 
+  public function isValid($codeAnim) {
+    global $getCommonAnimations;
 
-
+    try {
+      $this->prepare($getCommonAnimations, [$codeAnim], 'Animation');
+      return true;
+    } catch (\Exception $e) {
+      return false;
+    }
   }
 
 }
