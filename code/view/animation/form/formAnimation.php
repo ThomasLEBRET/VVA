@@ -21,7 +21,7 @@
   <div class="form-row">
     <div class="col-md-3 mb-3">
       <label for="datevalidite">Date de validité de l'animation</label>
-      <input name="datevalidanim" type="date" class="form-control" id="datevalidite" required>
+      <input name="datevalidanim" type="date" min="<?= date('Y-m-d'); ?>" class="form-control" id="datevalidite" required>
     </div>
     <div class="col-md-3 mb-3">
       <label for="dureeanim">Durée de l'animation</label>
