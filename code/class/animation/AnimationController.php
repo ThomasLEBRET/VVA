@@ -26,7 +26,7 @@ class AnimationController extends Animation {
           $allIsset = false;
         }
       }
-      if($allIsset) {
+      if($allIsset && $this->animation->isValid($post->get('codeanim'))) {
         if($this->animation->add($post)) {
           $addSuccess = "L'animation a bien été ajoutée";
           require_once("view/animation/allAnimations.php");
