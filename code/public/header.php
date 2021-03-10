@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <?php if(!empty(Session::get('USER'))): ?>
+            <?php if(!empty(Session::get('user'))): ?>
               <li class="nav-item <?php if($page == 'accueil' || $page == 'dashboard') echo "active" ?>">
                   <a class="nav-link" href="index.php?page=accueil">Accueil<span class="sr-only"></span></a>
               </li>
