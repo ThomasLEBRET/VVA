@@ -1,11 +1,6 @@
 <?php
 class Database
 {
-  private $host;
-  private $dbname;
-  private $user;
-  private $password = "";
-  private $connection;
 
   public function __construct($host = "db", $dbname = "gatci", $user = "root", $password = "root") {
     $this->host = $host;
@@ -23,23 +18,42 @@ class Database
     return $this->connection;
   }
 
-  public function query($stmt, $class_name) {
-    $req = $this->getConnection()->query($stmt);
-    $datas = $req->fetchAll(PDO::FETCH_CLASS, $class_name);
-    return $datas;
-  }
-
-  public function prepare($stmt, $attr, $class_name, $one = false) {
+  private function prepare($stmt, $attr) {
     $req = $this->getConnection()->prepare($stmt);
     $req->execute($attr);
-    //$req->debugDumpParams();
-    $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
-    if($one) {
-      $datas = $req->fetch();
-    } else {
-      $datas = $req->fetchAll();
+    return $req;
+  }
+
+  public function hydrate(array $datas, $object) {
+    $instance = new $object();
+    foreach($datas as $key =>$val) {
+        $method ='set'.ucfirst(strtolower($key));
+        if(method_exists($instance, $method)) {
+            $instance->$method($val);
+        }
     }
-    return $datas;
+    return $instance;
+  }
+
+  public function select($stmt, $attr, $class_name, $one = false) {
+    $req = $this->prepare($stmt, $attr);
+    //$req->debugDumpParams();
+    $req->setFetchMode(PDO::FETCH_ASSOC);
+    if($one) {
+      $array = $req->fetch();
+      $objects = $this->hydrate($array, $class_name);
+    } else {
+      $objs = $req->fetchAll();
+      foreach ($objs as $o) {
+        $objects[] = $this->hydrate($o, $class_name);
+      }
+    }
+    return $objects;
+  }
+
+  public function insert($stmt, $attr) {
+    $req = $this->prepare($stmt, $attr);
+    //$req->debugDumpParams();
   }
 }
 ?>
