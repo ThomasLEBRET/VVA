@@ -166,7 +166,7 @@ class Animation extends Database {
     $pre_datas = $this->select($getCodesTypeAnim, [], 'Animation');
     $datas = [];
     foreach ($pre_datas as $data) {
-      $datas[] = $data->CODETYPEANIM;
+      $datas[] = $data->codetypeanim;
     }
     return $datas;
   }
