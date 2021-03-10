@@ -16,8 +16,8 @@ class UserController extends User {
    * @return void       la vue associée en fonction du succès ou de l'échec de l'inscription
    */
   public function home($post) {
-    if(!empty(Session::get("USER"))) {
-      switch (Session::get('TYPEPROFIL')) {
+    if(!empty(Session::get("user"))) {
+      switch (Session::get('typeprofil')) {
         case 'VA':
           require_once("view/user/accueilVacancier.php");
           break;
@@ -30,7 +30,7 @@ class UserController extends User {
         include_once("view/user/accueil.php");
       } else {
         if($this->user->connexion($post)) {
-          switch (Session::get('TYPEPROFIL')) {
+          switch (Session::get('typeprofil')) {
             case 'VA':
               require_once("view/user/accueilVacancier.php");
               break;

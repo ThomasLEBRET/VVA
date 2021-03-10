@@ -4,8 +4,8 @@
 
 <div class="jumbotron jumbotron-fluid justify">
     <div class="container">
-        <h1 class="display-4">Erreur : Code d'animation non trouvé ou invalide</h1>
-        <p class="lead">Le code saisie n'est pas valide, veuillez nous en excuser.</p>
+        <h1 class="display-4">Erreur : Code d'animation invalide ou dénué d'activité</h1>
+        <p class="lead">Le code saisie n'est pas valide ou ne contient aucune activité pour le code d'animation renseigné, veuillez nous en excuser.</p>
     </div>
 </div>
 
