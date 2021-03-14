@@ -15,6 +15,7 @@
       AND AN.LIMITEAGE <= ?
       AND Nb_place_rest(AN.CODEANIM) > 0
       AND A.DATEANNULEACT IS NULL
+      AND A.CODEETATACT = 'O'
       GROUP BY AN.CODEANIM
     ";
 
@@ -37,4 +38,12 @@
       FROM animation
       WHERE CODEANIM = ?
     ";
+
+  $getAnimation =
+  "
+    SELECT *, Nb_place_rest(CODEANIM) as places_restantes, TA.NOMTYPEANIM
+    FROM animation AN, type_anim TA
+    WHERE AN.CODETYPEANIM = TA.CODETYPEANIM
+    AND CODEANIM = ?
+  ";
 ?>
