@@ -2,6 +2,8 @@
 require_once("class/datas/Database.php");
 include("sqlRequests.php");
 
+require_once("class/animation/Animation.php");
+
 class Activite extends Database {
 
   private $noact;
@@ -146,6 +148,54 @@ class Activite extends Database {
     }
     return $activites;
 
+  }
+
+  public function getAllCodeEtatAct() {
+    global $getAllCodeEtatAct;
+
+    $pre_datas = $this->select($getAllCodeEtatAct, [], 'Activite');
+    $datas = [];
+    foreach ($pre_datas as $data) {
+      $datas[] = $data->codeetatact;
+    }
+    return $datas;
+  }
+
+  public function add($animation, $post) {
+    global $addActivite;
+
+    $codeanim = $animation->getCodeanim();
+    $codeetatact = $post->get('codeetatact');
+    $dateact = $post->get('dateact');
+    $hrrdvact = $post->get('hrrdvact');
+    $prixact = $post->get('prixact');
+    $hrdebutact = $post->get('hrdebutact');
+    $hrfinact = date($post->get('hrrdvact'), strtotime('+'.$animation->getDureeanim().' day'));
+    $nomresp = Session::get('nomcompte');
+    $prenomresp = Session::get('prenomcompte');
+
+    $this->insert($addActivite,
+    [
+      $codeanim,
+      $codeetatact,
+      $dateact,
+      $hrrdvact,
+      $prixact,
+      $hrdebutact,
+      $hrfinact,
+      $nomresp,
+      $prenomresp
+    ]);
+  }
+
+  public function noExistActiviteInSameDayForAnimation($codeanim, $dateact) {
+    global $countActiviteInSameDayForAnimation;
+
+    if($this->select($countActiviteInSameDayForAnimation, [$codeanim, $dateact], 'Activite') === NULL) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
