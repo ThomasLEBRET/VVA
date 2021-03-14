@@ -52,8 +52,6 @@ class Animation extends Database {
     $this->places_restantes = $places_restantes;
   }
 
-
-
   public function getCodeanim(){
     return $this->codeanim;
   }
@@ -142,6 +140,7 @@ class Animation extends Database {
     $this->commentanim = $commentanim;
   }
 
+
   public function getAll() {
     global $getAll;
     global $getAllValides;
@@ -159,6 +158,12 @@ class Animation extends Database {
       $animations = $this->select($getAllValides, [$ageUser->y], 'Animation');
     }
     return $animations;
+  }
+
+  public function get($codeAnimation) {
+    global $getAnimation;
+
+    return $this->select($getAnimation, [$codeAnimation], 'Animation', 1);
   }
 
   public function getCodesTypeAnimations() {

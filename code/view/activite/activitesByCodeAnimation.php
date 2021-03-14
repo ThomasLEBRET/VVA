@@ -2,6 +2,9 @@
 
 <?php ob_start(); ?>
 
+<?php if(isset($formAddActivite)) { echo $formAddActivite; } ?>
+
+
 <?php foreach ($activites as $activite) : ?>
   <?php $prix = str_replace(".", "€", strval($activite->getPrixact())) ?>
 

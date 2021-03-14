@@ -9,5 +9,7 @@
     </div>
 </div>
 
+<?php if(isset($formAddActivite)) { echo $formAddActivite; } ?>
+
 <?php $content = ob_get_clean(); ?>
 <?php require("view/template.php"); ?>
