@@ -137,125 +137,270 @@ class Activite extends Database {
   }
 
 
+
   /**
-  * Get the value of Class to manage activity object
-  *
-  * @return mixed
-  */
+   * Get the value of Class to manage activity object
+   *
+   * @return mixed
+   */
   public function getNoact()
   {
-    return $this->noact;
+      return $this->noact;
   }
 
   /**
-  * Set the value of Class to manage activity object
-  *
-  * @param mixed $noact
-  *
-  * @return self
-  */
+   * Set the value of Class to manage activity object
+   *
+   * @param mixed $noact
+   *
+   * @return self
+   */
   public function setNoact($noact)
   {
-    $this->noact = $noact;
+      $this->noact = $noact;
 
-    return $this;
+      return $this;
   }
 
   /**
-  * Get the value of Dateact
-  *
-  * @return mixed
-  */
-  public function getDateact()
+   * Get the value of Class to manage activity object
+   *
+   * @return mixed
+   */
+  public function getCodeanim()
   {
-    return $this->dateact;
+      return $this->codeanim;
   }
 
   /**
-  * Set the value of Dateact
-  *
-  * @param mixed $dateact
-  *
-  * @return self
-  */
-  public function setDateact($dateact)
+   * Set the value of codeanim
+   *
+   * @param mixed $codeanim
+   *
+   * @return self
+   */
+  public function setCodeanim($codeanim)
   {
-    $this->dateact = $dateact;
+      $this->codeanim = $codeanim;
 
-    return $this;
+      return $this;
   }
 
   /**
-  * Get the value of Hrrdvact
-  *
-  * @return mixed
-  */
-  public function getHrrdvact()
+   * Get the value of Codeetatact
+   *
+   * @return mixed
+   */
+  public function getCodeetatact()
   {
-    return $this->hrrdvact;
+      return $this->codeetatact;
   }
 
   /**
-  * Set the value of Hrrdvact
-  *
-  * @param mixed $hrrdvact
-  *
-  * @return self
-  */
-  public function setHrrdvact($hrrdvact)
+   * Set the value of Codeetatact
+   *
+   * @param mixed $codeetatact
+   *
+   * @return self
+   */
+  public function setCodeetatact($codeetatact)
   {
-    $this->hrrdvact = $hrrdvact;
+      $this->codeetatact = $codeetatact;
 
-    return $this;
+      return $this;
   }
 
-  /**
-  * Get the value of Hrdebutact
-  *
-  * @return mixed
-  */
-  public function getHrdebutact()
-  {
-    return $this->hrdebutact;
-  }
+    /**
+     * Get the value of Dateact
+     *
+     * @return mixed
+     */
+    public function getDateact()
+    {
+        return $this->dateact;
+    }
 
-  /**
-  * Set the value of Hrdebutact
-  *
-  * @param mixed $hrdebutact
-  *
-  * @return self
-  */
-  public function setHrdebutact($hrdebutact)
-  {
-    $this->hrdebutact = $hrdebutact;
+    /**
+     * Set the value of Dateact
+     *
+     * @param mixed $dateact
+     *
+     * @return self
+     */
+    public function setDateact($dateact)
+    {
+        $this->dateact = $dateact;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-  * Get the value of Dateannuleact
-  *
-  * @return mixed
-  */
-  public function getDateannuleact()
-  {
-    return $this->dateannuleact;
-  }
+    /**
+     * Get the value of Hrrdvact
+     *
+     * @return mixed
+     */
+    public function getHrrdvact()
+    {
+        return $this->hrrdvact;
+    }
 
-  /**
-  * Set the value of Dateannuleact
-  *
-  * @param mixed $dateannuleact
-  *
-  * @return self
-  */
-  public function setDateannuleact($dateannuleact)
-  {
-    $this->dateannuleact = $dateannuleact;
+    /**
+     * Set the value of Hrrdvact
+     *
+     * @param mixed $hrrdvact
+     *
+     * @return self
+     */
+    public function setHrrdvact($hrrdvact)
+    {
+        $this->hrrdvact = $hrrdvact;
 
-    return $this;
-  }
+        return $this;
+    }
+
+    /**
+     * Get the value of Prixact
+     *
+     * @return mixed
+     */
+    public function getPrixact()
+    {
+        return $this->prixact;
+    }
+
+    /**
+     * Set the value of Prixact
+     *
+     * @param mixed $getPrixact
+     *
+     * @return self
+     */
+    public function setPrixact($prixact)
+    {
+        $this->prixact = $prixact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Hrdebutact
+     *
+     * @return mixed
+     */
+    public function getHrdebutact()
+    {
+        return $this->hrdebutact;
+    }
+
+    /**
+     * Set the value of Hrdebutact
+     *
+     * @param mixed $hrdebutact
+     *
+     * @return self
+     */
+    public function setHrdebutact($hrdebutact)
+    {
+        $this->hrdebutact = $hrdebutact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Hrfinact
+     *
+     * @return mixed
+     */
+    public function getHrfinact()
+    {
+        return $this->hrfinact;
+    }
+
+    /**
+     * Set the value of Hrfinact
+     *
+     * @param mixed $hrfinact
+     *
+     * @return self
+     */
+    public function setHrfinact($hrfinact)
+    {
+        $this->hrfinact = $hrfinact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Dateannuleact
+     *
+     * @return mixed
+     */
+    public function getDateannuleact()
+    {
+        return $this->dateannuleact;
+    }
+
+    /**
+     * Set the value of Dateannuleact
+     *
+     * @param mixed $dateannuleact
+     *
+     * @return self
+     */
+    public function setDateannuleact($dateannuleact)
+    {
+        $this->dateannuleact = $dateannuleact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Prenomresp
+     *
+     * @return mixed
+     */
+    public function getPrenomresp()
+    {
+        return $this->prenomresp;
+    }
+
+    /**
+     * Set the value of Prenomresp
+     *
+     * @param mixed $prenomresp
+     *
+     * @return self
+     */
+    public function setPrenomresp($prenomresp)
+    {
+        $this->prenomresp = $prenomresp;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Prenomresp
+     *
+     * @return mixed
+     */
+    public function getNomresp()
+    {
+        return $this->nomresp;
+    }
+
+    /**
+     * Set the value of Nomresp
+     *
+     * @param mixed $nomresp
+     *
+     * @return self
+     */
+    public function setNomresp($nomresp)
+    {
+        $this->nomresp = $nomresp;
+
+        return $this;
+    }
 
 }
 
