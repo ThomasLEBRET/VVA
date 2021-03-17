@@ -229,7 +229,7 @@ class Activite extends Database {
      */
     public function setDateact($dateact)
     {
-        $this->dateact = $dateact;
+        $this->dateact = date('d/m/Y', strtotime($dateact));
 
         return $this;
     }
@@ -349,7 +349,7 @@ class Activite extends Database {
      */
     public function setDateannuleact($dateannuleact)
     {
-        $this->dateannuleact = $dateannuleact;
+        $this->dateannuleact = date('d/m/Y', strtotime($dateannuleact));
 
         return $this;
     }

@@ -134,7 +134,7 @@ class Animation extends Database {
   */
   public function setDatecreationanim($datecreationanim)
   {
-    $this->datecreationanim = $datecreationanim;
+    $this->datecreationanim = date('d/m-Y', strtotime($datecreationanim));
 
     return $this;
   }
@@ -158,7 +158,7 @@ class Animation extends Database {
   */
   public function setDatevaliditeanim($datevaliditeanim)
   {
-    $this->datevaliditeanim = $datevaliditeanim;
+    $this->datevaliditeanim = date('d/m-Y', strtotime($datevaliditeanim));;
 
     return $this;
   }
