@@ -1,18 +1,21 @@
 <?php
 
+/**
+ * Class to manage Error and send view in a controller
+ */
 class ErrorController {
 
   /**
-   * Retourne la vue erreur page non trouvée
-   * @return void une vue erreur 404
+   * Return error not found view
+   * @return void
    */
   public function errorNotFound() {
     require_once 'view/errors/404.php';
   }
 
   /**
-   * Retourne la vue erreur interne serveur
-   * @return void une vue erreur 500
+   * Return error server view (when SQL request fail for example)
+   * @return void
    */
   public function errorServer() {
     require_once 'view/errors/500.php';

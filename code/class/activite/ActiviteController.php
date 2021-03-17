@@ -8,11 +8,19 @@
     private $activite;
     private $animation;
 
+    /**
+     * default constructor
+     */
     public function __construct() {
       $this->activite = new Activite();
       $this->animation = new Animation();
     }
 
+    /**
+     * return view with all activity by a animation code
+     * @param  string $codeAnimation an animation code
+     * @return void
+     */
     public function getAllByCodeAnim($codeAnimation) {
       $animation = $this->animation->get($codeAnimation);
       $codesEtatAct = $this->activite->getAllCodeEtatAct();
@@ -31,6 +39,10 @@
       }
     }
 
+    /**
+     * route to add an activity
+     * @param Parameters $post a Parameters object contains a $_POST superglobal variable
+     */
     public function addActivite($post) {
       $codeanim = $post->get('codeanim');
       $dateact = $post->get('dateact');

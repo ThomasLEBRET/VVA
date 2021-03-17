@@ -7,6 +7,9 @@ require_once("activite/ActiviteController.php");
 require_once("datas/ErrorController.php");
 require_once("datas/Request.php");
 
+/**
+ * Class to redirect path on a data controller
+ */
 class Router {
 
   private $userController;
@@ -16,6 +19,9 @@ class Router {
   private $errorController;
   private $request;
 
+  /**
+   * default constructor
+   */
   public function __construct() {
     $this->userController = new UserController();
     $this->animationController = new AnimationController();
@@ -26,8 +32,8 @@ class Router {
   }
 
   /**
-  * Réparti l'utilisation des controleurs de données en fonction du chemin emprunté par l'utilisateur
-  * @return void  le controleur de données associé au chemin choisi par l'utilisateur
+  * Distributes the use of data controllers according to the path taken by the user
+  * @return void  the data controller associated with the path chosen by the user
   */
   public function run()
   {

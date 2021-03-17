@@ -2,12 +2,19 @@
 
 require_once("Parameters.php");
 
+/**
+ * Class to get superglobal variables ($_GET and $_POST actually)
+ */
 class Request {
 
     private $get;
     private $post;
 
+    /**
+     * default constructor
+     */
     public function __construct() {
+      // Add two Parameters (GET and POST)
         $this->get = new Parameters($_GET);
         $this->post = new Parameters($_POST);
     }
