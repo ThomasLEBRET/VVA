@@ -11,9 +11,9 @@ class UserController extends User {
   }
 
   /**
-   * Redirige vers la page d'accueil après une connexion d'un utilisateur ou lors de l'arrivée sur le site pour la premère fois
-   * @param  array $post un tableau associatif $_POST
-   * @return void       la vue associée en fonction du succès ou de l'échec de l'inscription
+   * Redirect to the home page after a login user or whene a user start to navigate into the website
+   * @param  array $post a $_POST array issue from Parameters class
+   * @return void just required associate view
    */
   public function home($post) {
     if(!empty(Session::get("user"))) {

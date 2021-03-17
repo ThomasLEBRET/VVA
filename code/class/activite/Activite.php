@@ -4,6 +4,9 @@ include("sqlRequests.php");
 
 require_once("class/animation/Animation.php");
 
+/**
+* Class to manage activity object
+*/
 class Activite extends Database {
 
   private $noact;
@@ -18,6 +21,9 @@ class Activite extends Database {
   private	$nomresp;
   private	$prenomresp;
 
+  /**
+  * default constructor
+  */
   public function __construct() {
     $this->noact = "null";
     $this->codeanim = "null";
@@ -33,94 +39,11 @@ class Activite extends Database {
   }
 
 
-  public function getNoact(){
-    return $this->noact;
-  }
-
-  public function setNoact($noact){
-    $this->noact = $noact;
-  }
-
-  public function getCodeanim(){
-    return $this->codeanim;
-  }
-
-  public function setCodeanim($codeanim){
-    $this->codeanim = $codeanim;
-  }
-
-  public function getCodeetatact(){
-    return $this->codeetatact;
-  }
-
-  public function setCodeetatact($codeetatact){
-    $this->codeetatact = $codeetatact;
-  }
-
-  public function getDateact(){
-    return $this->dateact;
-  }
-
-  public function setDateact($dateact){
-    $this->dateact = $dateact;
-  }
-
-  public function getHrrdvact(){
-    return $this->hrrdvact;
-  }
-
-  public function setHrrdvact($hrrdvact){
-    $this->hrrdvact = $hrrdvact;
-  }
-
-  public function getPrixact(){
-    return $this->prixact;
-  }
-
-  public function setPrixact($prixact){
-    $this->prixact = $prixact;
-  }
-
-  public function getHrdebutact(){
-    return $this->hrdebutact;
-  }
-
-  public function setHrdebutact($hrdebutact){
-    $this->hrdebutact = $hrdebutact;
-  }
-
-  public function getHrfinact(){
-    return $this->hrfinact;
-  }
-
-  public function setHrfinact($hrfinact){
-    $this->hrfinact = $hrfinact;
-  }
-
-  public function getDateannuleact(){
-    return $this->dateannuleact;
-  }
-
-  public function setDateannuleact($dateannuleact){
-    $this->dateannuleact = $dateannuleact;
-  }
-
-  public function getNomresp(){
-    return $this->nomresp;
-  }
-
-  public function setNomresp($nomresp){
-    $this->nomresp = $nomresp;
-  }
-
-  public function getPrenomresp(){
-    return $this->prenomresp;
-  }
-
-  public function setPrenomresp($prenomresp){
-    $this->prenomresp = $prenomresp;
-  }
-
+  /**
+   * get all activity for an animation
+   * @param  string $codeAnimation an animation code
+   * @return array  an array contain Activite objects
+   */
   public function getAll($codeAnimation) {
 
     global $getAllActivitesForVacancier;
@@ -150,6 +73,10 @@ class Activite extends Database {
 
   }
 
+  /**
+   * get all code activity state
+   * @return array activity code exists
+   */
   public function getAllCodeEtatAct() {
     global $getAllCodeEtatAct;
 
@@ -161,6 +88,11 @@ class Activite extends Database {
     return $datas;
   }
 
+  /**
+   * Add an activity
+   * @param Animation $animation an animation object
+   * @param Parameters $post      the array data post $_POST superglobal variables
+   */
   public function add($animation, $post) {
     global $addActivite;
 
@@ -188,6 +120,12 @@ class Activite extends Database {
     ]);
   }
 
+  /**
+   * Verify if activity we are insert already exist in the same day
+   * @param  string $codeanim an animation code
+   * @param  date $dateact  a date for insert activity
+   * @return bool  true if not exist false also
+   */
   public function noExistActiviteInSameDayForAnimation($codeanim, $dateact) {
     global $countActiviteInSameDayForAnimation;
 
@@ -196,6 +134,127 @@ class Activite extends Database {
     } else {
       return false;
     }
+  }
+
+
+  /**
+  * Get the value of Class to manage activity object
+  *
+  * @return mixed
+  */
+  public function getNoact()
+  {
+    return $this->noact;
+  }
+
+  /**
+  * Set the value of Class to manage activity object
+  *
+  * @param mixed $noact
+  *
+  * @return self
+  */
+  public function setNoact($noact)
+  {
+    $this->noact = $noact;
+
+    return $this;
+  }
+
+  /**
+  * Get the value of Dateact
+  *
+  * @return mixed
+  */
+  public function getDateact()
+  {
+    return $this->dateact;
+  }
+
+  /**
+  * Set the value of Dateact
+  *
+  * @param mixed $dateact
+  *
+  * @return self
+  */
+  public function setDateact($dateact)
+  {
+    $this->dateact = $dateact;
+
+    return $this;
+  }
+
+  /**
+  * Get the value of Hrrdvact
+  *
+  * @return mixed
+  */
+  public function getHrrdvact()
+  {
+    return $this->hrrdvact;
+  }
+
+  /**
+  * Set the value of Hrrdvact
+  *
+  * @param mixed $hrrdvact
+  *
+  * @return self
+  */
+  public function setHrrdvact($hrrdvact)
+  {
+    $this->hrrdvact = $hrrdvact;
+
+    return $this;
+  }
+
+  /**
+  * Get the value of Hrdebutact
+  *
+  * @return mixed
+  */
+  public function getHrdebutact()
+  {
+    return $this->hrdebutact;
+  }
+
+  /**
+  * Set the value of Hrdebutact
+  *
+  * @param mixed $hrdebutact
+  *
+  * @return self
+  */
+  public function setHrdebutact($hrdebutact)
+  {
+    $this->hrdebutact = $hrdebutact;
+
+    return $this;
+  }
+
+  /**
+  * Get the value of Dateannuleact
+  *
+  * @return mixed
+  */
+  public function getDateannuleact()
+  {
+    return $this->dateannuleact;
+  }
+
+  /**
+  * Set the value of Dateannuleact
+  *
+  * @param mixed $dateannuleact
+  *
+  * @return self
+  */
+  public function setDateannuleact($dateannuleact)
+  {
+    $this->dateannuleact = $dateannuleact;
+
+    return $this;
   }
 
 }

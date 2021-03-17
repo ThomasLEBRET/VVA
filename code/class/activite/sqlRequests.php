@@ -1,5 +1,9 @@
 <?php
 
+ /**
+  * get activites for encadrant
+  * @var string
+  */
   $getAllActivitesForEncadrant =
   "
     SELECT *

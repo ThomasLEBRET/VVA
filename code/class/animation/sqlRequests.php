@@ -1,4 +1,9 @@
 <?php
+
+  /**
+   * get all animation
+   * @var string
+   */
   $getAll =
     "
       SELECT AN.*, Nb_place_rest(CODEANIM) as places_restantes, TA.NOMTYPEANIM
@@ -6,6 +11,10 @@
       WHERE AN.CODETYPEANIM = TA.CODETYPEANIM
     ";
 
+  /**
+   * get just valid animations
+   * @var string
+   */
   $getAllValides =
     "
       SELECT AN.*, TA.NOMTYPEANIM, Nb_place_rest(AN.CODEANIM) as places_restantes
@@ -19,12 +28,20 @@
       GROUP BY AN.CODEANIM
     ";
 
+ /**
+  * get code type animation
+  * @var string
+  */
   $getCodesTypeAnim =
     "
       SELECT CODETYPEANIM
       FROM type_anim
     ";
 
+  /**
+   * insert an animation
+   * @var string
+   */
   $addAnimation =
     "
       INSERT INTO animation
@@ -32,6 +49,10 @@
       VALUES (?,?,?,DATE(NOW()),?,?,?,?,?,?,?,?)
     ";
 
+  /**
+   * get animation with code anim
+   * @var string
+   */
   $getCommonAnimations =
     "
       SELECT CODEANIM
@@ -39,6 +60,10 @@
       WHERE CODEANIM = ?
     ";
 
+  /**
+   * get an animation 
+   * @var string
+   */
   $getAnimation =
   "
     SELECT *, Nb_place_rest(CODEANIM) as places_restantes, TA.NOMTYPEANIM

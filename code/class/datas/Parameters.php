@@ -1,16 +1,23 @@
 <?php
 
+/**
+ * Class to manage superglobal value on the Request class
+ */
 class Parameters {
 
     private $parameter;
 
+    /**
+     * default constructor
+     * @param  $parameter
+     */
     public function __construct($parameter) {
         $this->parameter = $parameter;
     }
 
     /**
-     * Retourne l'array associé à la variable super globale
-     * @return array le tableau associatif des données de la variable super globale traitée par l'objet Parameters
+     * Return array associatedin the superglobal variable
+     * @return array the associative array of the data of the super global variable processed by the Parameters object
      */
     public function getArray() {
       $tab = array();
@@ -21,9 +28,10 @@ class Parameters {
     }
 
     /**
-     * Récupère la valeur d'une partie d'un paramètre en fonction de sa clé (tableau associatif)
-     * @param  string $name la clé associée à une valeur du tableau associatif du paramètre
-     * @return sometype       la valeur associé à la clé du tableau associatif du paramètre
+     * Retrieves the value of part of a parameter according to its key (associative array)
+     * @param  string $name the key associated with a value of the associative array of the parameter
+     * @return sometype the value associated with the key of the associative array of the parameter
+
      */
     public function get($name) {
         if(isset($this->parameter[$name]))
@@ -31,7 +39,7 @@ class Parameters {
     }
 
     /**
-     * Remplace la procédure unset pour l'objet Parameter
+     * Replace the unset procedure for Parameter object
      * @param  string $name la clé associée à une valeur du tableau associatif du paramètre
      * @return void
      */
@@ -42,9 +50,9 @@ class Parameters {
     }
 
     /**
-     * Change la valeur d'une partie du paramètre en fonction de sa clé associée
-     * @param string $name  une clé associée à la valeur du paramètre
-     * @param sometype $value une valeur qui va remplacer la valeur initiale qui est associé à la clé du tableau associatif
+     * Changes the value of part of the parameter according to its associated key
+     * @param string $name  a key associated with the value of the parameter
+     * @param sometype $value a value which will replace the initial value which is associated with the key of the associative array
      */
     public function set($name, $value) {
         $this->parameter[$name] = $value;
