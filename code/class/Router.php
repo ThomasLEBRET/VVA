@@ -41,6 +41,7 @@ class Router {
     $codeAnim = $this->request->getGet()->get('codeAnimation');
 
     $post = $this->request->getPost();
+    $get = $this->request->getGet();
     try {
       if($page) {
         switch($page) {
@@ -55,6 +56,9 @@ class Router {
             break;
           case 'addActivite':
             $this->activiteController->addActivite($post);
+            break;
+          case 'tryRegister':
+            $this->activiteController->addInscription($get);
             break;
           case 'activite':
             $this->activiteController->getAllByCodeAnim($codeAnim);
@@ -72,7 +76,7 @@ class Router {
       }
     }
     catch (Exception $e) {
-      $this->errorController->errorServer();
+      $this->errorController->errorServer($e);
     }
   }
 }
