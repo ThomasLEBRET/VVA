@@ -18,7 +18,17 @@
       <li class="list-group-item">Heure de début : <?= $activite->getHrdebutact() ?></li>
       <li class="list-group-item">Heure de fin : <?= $activite->getHrfinact() ?></li>
     </ul>
+    <br>
+    <form action="index.php?page=tryRegister&noact=<?= $activite->getNoact() ?>" method="post">
 
+    <?php
+      if($this->activite->isAlreadyRegistered($activite->getNoact())) {
+          if(isset($btnUnregister)) { echo $btnUnregister; }
+      } else {
+          if(isset($btnRegister)) { echo $btnRegister; }
+      }
+     ?>
+   </form>
   </div>
 
 <?php endforeach ?>
