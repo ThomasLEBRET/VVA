@@ -26,6 +26,9 @@
       $codesEtatAct = $this->activite->getAllCodeEtatAct();
       if(Session::get('typeprofil') == 'EN') {
         require_once('view/activite/form/formAddActivite.php');
+      } else {
+        require_once('view/activite/components/registerButton.php');
+        require_once('view/activite/components/unregisteredButton.php');
       }
       if(!isset($codeAnimation)) {
         require_once("view/activite/errors/errorCodeAnimation.php");
@@ -58,6 +61,23 @@
         }
       } else {
         require_once("view/activite/errors/errorInsertActivite.php");
+      }
+    }
+
+    /**
+     * route to control datas to register on an activity
+     * @param Parameters $get an $_GET array
+     */
+    public function addInscription($get) {
+      $noact = $get->get('noact');
+      $activite = $this->activite->get($noact);
+      if($activite->isAlreadyRegistered($noact) == false) {
+        require_once('view/activite/errors/errorAlreayRegistered.php');
+      } else {
+        if($activite->inscription($noact)) {
+          require_once('view/activite/components/bannerSuccess.php');
+          header('Location: index.php?page=activite');
+        }
       }
     }
 
