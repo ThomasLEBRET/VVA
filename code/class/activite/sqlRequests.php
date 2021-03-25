@@ -75,6 +75,7 @@
       AND I.NOACT = A.NOACT
       AND A.NOACT = ?
       AND C.USER = ?
+      AND I.DATEANNULE IS NULL
   ";
 
   /**
