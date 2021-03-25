@@ -2,11 +2,13 @@
 
   require_once("Activite.php");
   require_once("class/animation/Animation.php");
+  require_once("class/inscription/Inscription.php");
 
   class ActiviteController extends Activite {
 
     private $activite;
     private $animation;
+    private $inscription;
 
     /**
      * default constructor
@@ -14,6 +16,7 @@
     public function __construct() {
       $this->activite = new Activite();
       $this->animation = new Animation();
+      $this->inscription = new Inscription();
     }
 
     /**
@@ -71,9 +74,23 @@
     public function addInscription($get) {
       $noact = $get->get('noact');
       $activite = $this->activite->get($noact);
-      if($activite->isAlreadyRegistered($noact) == false) {
+      if($activite->isAlreadyRegistered($noact)) {
         require_once('view/activite/errors/errorAlreayRegistered.php');
       } else {
+        $user = Session::get('user');
+        $noact = $activite->getNoact();
+
+        $inscription = $this->inscription->get($user, $noact);
+        if($inscription->getDateannule() == NULL) {
+          require_once('view/activite/errors/errorAlreayRegistered.php');
+        } else {
+          
+          /*
+          * Récupère l'inscription (créer class)
+          * vérifier la date d'annulation
+          * si null, erreur, sinon, update
+           */
+        }
         if($activite->inscription($noact)) {
           require_once('view/activite/components/bannerSuccess.php');
           header('Location: index.php?page=activite');
