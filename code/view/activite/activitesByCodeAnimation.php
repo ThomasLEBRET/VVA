@@ -3,6 +3,7 @@
 <?php ob_start(); ?>
 
 <?php if(isset($formAddActivite)) { echo $formAddActivite; } ?>
+<?php if(isset($alertSuccess)) { echo $alertSuccess; } ?>
 
 
 <?php foreach ($activites as $activite) : ?>
@@ -19,16 +20,25 @@
       <li class="list-group-item">Heure de fin : <?= $activite->getHrfinact() ?></li>
     </ul>
     <br>
+    <form action="index.php?page=unscribeRegister&noact=<?= $activite->getNoact() ?>"  method="post">
+
+      <?php
+      if($this->activite->isAlreadyRegistered($activite->getNoact())) {
+        if(isset($btnUnregister)) { echo $btnUnregister; }
+      }
+      ?>
+    </form>
+
     <form action="index.php?page=tryRegister&noact=<?= $activite->getNoact() ?>" method="post">
 
     <?php
-      if($this->activite->isAlreadyRegistered($activite->getNoact())) {
-          if(isset($btnUnregister)) { echo $btnUnregister; }
-      } else {
-          if(isset($btnRegister)) { echo $btnRegister; }
-      }
-     ?>
-   </form>
+    if(!$this->activite->isAlreadyRegistered($activite->getNoact())) {
+      if(isset($btnRegister)) { echo $btnRegister; }
+    }
+    ?>
+
+    </form>
+
   </div>
 
 <?php endforeach ?>
