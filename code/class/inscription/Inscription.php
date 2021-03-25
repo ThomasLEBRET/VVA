@@ -31,6 +31,17 @@
       return $this->select($getInscription, [$user, $noact], 'Inscription', 1);
     }
 
+    public function unscribeActRegisteredUser($noinscrip) {
+      global $unscribeUserForActivite;
+      $this->update($unscribeUserForActivite, [$noinscrip]);
+    }
+
+    public function againRegister($noinscrip) {
+      global $registerAgainUser;
+      
+      $this->update($registerAgainUser, [$noinscrip]);
+    }
+
     /**
      * Get the value of Noinscrip
      *

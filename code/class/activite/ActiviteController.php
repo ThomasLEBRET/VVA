@@ -74,28 +74,43 @@
     public function addInscription($get) {
       $noact = $get->get('noact');
       $activite = $this->activite->get($noact);
-      if($activite->isAlreadyRegistered($noact)) {
-        require_once('view/activite/errors/errorAlreayRegistered.php');
-      } else {
-        $user = Session::get('user');
-        $noact = $activite->getNoact();
+      $user = Session::get('user');
 
+      if($activite->isAlreadyRegistered($noact)) {
         $inscription = $this->inscription->get($user, $noact);
-        if($inscription->getDateannule() == NULL) {
-          require_once('view/activite/errors/errorAlreayRegistered.php');
-        } else {
-          
-          /*
-          * Récupère l'inscription (créer class)
-          * vérifier la date d'annulation
-          * si null, erreur, sinon, update
-           */
+        if($inscription->getNoinscrip() != "null") {
+          if($inscription->getDateannule() == "null") {
+            require_once('view/activite/errors/errorAlreayRegistered.php');
+          } else  {
+            $this->inscription->againRegister($inscription->getNoinscrip());
+          }
         }
-        if($activite->inscription($noact)) {
-          require_once('view/activite/components/bannerSuccess.php');
-          header('Location: index.php?page=activite');
+      } else {
+        $inscription = $this->inscription->get($user, $noact);
+        if($inscription->getNoinscrip() == "null") {
+          $activite->inscription($noact);
+          header('Location: index.php?page=animation');
+        } else {
+          $this->inscription->againRegister($inscription->getNoinscrip());
+          header('Location: index.php?page=animation');
         }
       }
+    }
+
+    public function unscribeActRegister($get) {
+      $user = Session::get('user');
+      $noact = $get->get('noact');
+
+      $inscription = $this->inscription->get($user, $noact);
+      if($inscription->getNoinscrip() != "null" && $inscription->getDateannule() == NULL) {
+        $this->inscription->unscribeActRegisteredUser($inscription->getNoinscrip());
+        header('Location: index.php?page=animation');
+      } else {
+        require_once('view/activite/errors/errorAlreayRegistered.php');
+      }
+      //si déjà inscrit, récupère l'inscription de l'utilisateur
+      //génère un objet Inscription
+      //appelle la fonction unscribeActRegisteredUser()
     }
 
   }

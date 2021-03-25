@@ -81,5 +81,16 @@ class Database
     $req = $this->prepare($stmt, $attr);
     //$req->debugDumpParams();
   }
+
+  /**
+   * request to update data into gatci database
+   * @param  string $stmt an sql request
+   * @param  array $attr a list of attributes for SQL request
+   * @return void
+   */
+  public function update($stmt, $attr) {
+    $req = $this->prepare($stmt, $attr);
+    //$req->debugDumpParams();
+  }
 }
 ?>

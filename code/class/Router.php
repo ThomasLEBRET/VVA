@@ -60,6 +60,9 @@ class Router {
           case 'tryRegister':
             $this->activiteController->addInscription($get);
             break;
+          case 'unscribeRegister':
+            $this->activiteController->unscribeActRegister($get);
+            break;
           case 'activite':
             $this->activiteController->getAllByCodeAnim($codeAnim);
             break;
