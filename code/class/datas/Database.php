@@ -60,7 +60,7 @@ class Database
     //$req->debugDumpParams();
     $req->setFetchMode(PDO::FETCH_ASSOC);
     if($one) {
-      $array = $req->fetch();
+      $array = (array)$req->fetch();
       $objects = $this->hydrate($array, $class_name);
     } else {
       $objs = $req->fetchAll();
@@ -75,7 +75,7 @@ class Database
    * request to insert data into gatci database
    * @param  string $stmt an sql request
    * @param  array $attr a list of attributes for SQL request
-   * @return void  
+   * @return void
    */
   public function insert($stmt, $attr) {
     $req = $this->prepare($stmt, $attr);

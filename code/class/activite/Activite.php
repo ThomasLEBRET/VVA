@@ -74,6 +74,17 @@ class Activite extends Database {
   }
 
   /**
+   * function to get an activity with his activity code
+   * @param  int $noact the number of activity
+   * @return Activite  an activity object
+   */
+  public function get($noact) {
+    global $getActivite;
+
+    return $this->select($getActivite, [$noact], 'Activite', 1);
+  }
+
+  /**
    * get all code activity state
    * @return array activity code exists
    */
@@ -134,6 +145,29 @@ class Activite extends Database {
     } else {
       return false;
     }
+  }
+
+  /**
+   * verify if a user is registered for an activity
+   * @param int $noact a PK activity number
+   */
+  public function isAlreadyRegistered($noact) {
+    global $isRegisteredUser;
+
+    $user = Session::get('user');
+    $activite = $this->select($isRegisteredUser, [$noact, $user], 'Activite');
+    if($this->select($isRegisteredUser, [$noact, $user], 'Activite') == NULL)  {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public function inscription($noact) {
+    global $addInscriptionInActivity;
+
+    $user = Session::get('user');
+    $this->insert($addInscriptionInActivity,[$user, $noact]);
   }
 
 
