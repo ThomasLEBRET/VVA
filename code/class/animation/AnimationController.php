@@ -25,6 +25,8 @@ class AnimationController extends Animation {
     if(Session::get('typeprofil') == 'EN') {
       $codesTypeAnimation = $this->animation->getCodesTypeAnimations();
     }
+    if($animations == NULL)
+      $animations = [];
     require_once("view/animation/allAnimations.php");
   }
 
