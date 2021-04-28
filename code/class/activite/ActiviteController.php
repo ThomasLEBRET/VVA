@@ -27,8 +27,12 @@
     public function getAllByCodeAnim($codeAnimation) {
       $animation = $this->animation->get($codeAnimation);
       $codesEtatAct = $this->activite->getAllCodeEtatAct();
+
       if(Session::get('typeprofil') == 'EN') {
-        require_once('view/activite/form/formAddActivite.php');
+        if($this->animation->get($codeAnimation)->getCodeanim() == $codeAnimation) {
+          require_once('view/activite/form/formAddActivite.php');
+          require_once('view/activite/components/cancelButton.php');
+        }
       } else {
         require_once('view/activite/components/registerButton.php');
         require_once('view/activite/components/unregisteredButton.php');
@@ -56,9 +60,10 @@
         $hrrdvact = new DateTime($post->get('hrrdvact'));
         $hrdebutact = new DateTime($post->get('hrdebutact'));
         if($hrrdvact <= $hrdebutact) {
-          //add method in activite
           $animation = $this->animation->get($codeanim);
-          $this->activite->add($animation, $post);
+          if($this->activite->add($animation, $post)) {
+            header('Location: index.php?page=animation');
+          }
         } else {
           require_once("view/activite/errors/errorInsertActivite.php");
         }
@@ -97,6 +102,11 @@
       }
     }
 
+    /**
+     * Annule une inscription d'un utilisateur à une activité
+     * @param  Parameters $get la variable superglobal $_GET passé dans l'objet Parameters
+     * @return mixed
+     */
     public function unscribeActRegister($get) {
       $user = Session::get('user');
       $noact = $get->get('noact');
@@ -108,9 +118,31 @@
       } else {
         require_once('view/activite/errors/errorAlreayRegistered.php');
       }
-      //si déjà inscrit, récupère l'inscription de l'utilisateur
-      //génère un objet Inscription
-      //appelle la fonction unscribeActRegisteredUser()
+    }
+
+    /**
+     * Annule une activité
+     * @param Parameters $post la variable superglobal $_POST passé dans l'objet Parameters
+     */
+    public function tryCancelActivity($get) {
+      $typeProfil = Session::get('typeprofil');
+      $noAct = $get->get('noAct');
+
+      if(isset($typeProfil)) {
+        if($typeProfil == "EN") {
+          if($this->activite->cancel($noAct)) {
+            $msgCancelAct = "L'activité ".$noAct." a bien été annulée";
+            header('Location: index.php?page=animation');
+          } else {
+            $msgCancelAct = "Une erreur s'est produite lors de l'annulation de l'activité ".$noAct;
+            header('Location: index.php?page=animation');
+          }
+        } else {
+          require_once("view/activite/errors/errorNotAutorizedUser.php");
+        }
+      } else {
+        require_once("view/activite/errors/errorNotAutorizedUser.php");
+      }
     }
 
   }

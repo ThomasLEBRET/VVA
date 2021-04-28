@@ -373,7 +373,7 @@ class Animation extends Database {
       $dateNow = new DateTime(date("Y-m-d"));
 
       $ageUser = $dateNow->diff($dateNaiss);
-      $animations = $this->select($getAllValides, [$ageUser->y], 'Animation');
+      $animations = $this->select($getAllValides, [$ageUser->y, $dtDebSej, $dtFinSej], 'Animation');
     }
     return $animations;
   }

@@ -99,4 +99,11 @@
       VALUES(?,?,DATE(NOW()),NULL)
   ";
 
+  $cancelActivity = 
+  "
+      UPDATE activite
+      SET CODEETATACT = 'N'
+      WHERE NOACT = ?
+  ";
+
 ?>

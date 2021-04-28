@@ -57,7 +57,6 @@ class Database
    */
   public function select($stmt, $attr, $class_name, $one = false) {
     $req = $this->prepare($stmt, $attr);
-    //$req->debugDumpParams();
     $req->setFetchMode(PDO::FETCH_ASSOC);
     if($one) {
       $array = (array)$req->fetch();
@@ -79,7 +78,6 @@ class Database
    */
   public function insert($stmt, $attr) {
     $req = $this->prepare($stmt, $attr);
-    //$req->debugDumpParams();
   }
 
   /**
@@ -90,7 +88,6 @@ class Database
    */
   public function update($stmt, $attr) {
     $req = $this->prepare($stmt, $attr);
-    //$req->debugDumpParams();
   }
 }
 ?>

@@ -14,6 +14,14 @@
 }
 ?>
 
+<?php
+  if(count($animations) == 0) {
+?>
+  <h2 style="text-align:center;">Aucune activité n'est disponible pour votre séjour</h2>
+<?php } ?>
+
+<?php if(!empty($msgCancelAct)) echo $msgCancelAct; ?>
+
 <div class="card">
 <?php foreach ($animations as $animation) : ?>
 

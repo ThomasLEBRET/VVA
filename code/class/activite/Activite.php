@@ -170,7 +170,11 @@ class Activite extends Database {
     $this->insert($addInscriptionInActivity,[$user, $noact]);
   }
 
+  public function cancel($noact) {
+    global $cancelActivity;
 
+    $this->update($cancelActivity, [$noact]);
+  }
 
   /**
    * Get the value of Class to manage activity object
