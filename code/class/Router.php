@@ -66,6 +66,9 @@ class Router {
           case 'activite':
             $this->activiteController->getAllByCodeAnim($codeAnim);
             break;
+          case 'cancelActivity':
+            $this->activiteController->tryCancelActivity($get);
+            break;
           case 'deconnexion':
               Session::stop();
               header('Location: index.php?page=accueil');
