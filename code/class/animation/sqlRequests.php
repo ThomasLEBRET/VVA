@@ -25,8 +25,7 @@
       AND Nb_place_rest(AN.CODEANIM) > 0
       AND A.DATEANNULEACT IS NULL
       AND A.CODEETATACT = 'O'
-      AND A.DATEACT >= ?
-      AND A.DATEACT <= ?
+      AND A.DATEACT >= NOW()
       GROUP BY AN.CODEANIM
     ";
 
