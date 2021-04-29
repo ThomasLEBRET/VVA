@@ -42,11 +42,13 @@
     <form action="index.php?page=cancelActivity&noAct=<?= $activite->getNoact() ?>" method="post">
 
     <?php
-      if(isset($btnCancel) && $activite->getCodeetatact() != 'N') { 
-        echo $btnCancel; 
-      } else {
-        echo "L'activité a été annulée";
-      }
+        if(isset($btnCancel) && $activite->getCodeetatact() != 'N') { 
+          echo $btnCancel; 
+        } else {
+          if($activite->getCodeetatact() == 'N') {
+            echo "L'activité a été annulée";
+          }
+        }
     ?>
 
     </form>
