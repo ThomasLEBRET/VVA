@@ -239,7 +239,7 @@ class User extends Database {
   /**
    * Get all user accounts
    */
-    public function getAllAccounts() {
+  public function getAllAccounts() {
     global $selectAllUsers;
 
     $users = $this->select($selectAllUsers, [], 'User', false);
@@ -247,15 +247,43 @@ class User extends Database {
     return $users;
   }
 
-  public function getActiviteEnCharge() {
+  public function getNbActivitesEnCharge() {
     global $countActivitesEncadrant;
 
     $n = $this->count($countActivitesEncadrant, 
-    [
-      $this->nomcompte, 
-      $this->prenomcompte
-    ]);
+      [
+        $this->nomcompte, 
+        $this->prenomcompte
+      ]);
     return $n;
+  }
+
+  public function getActivitesSousEncadrant() {
+    global $activitesSousEncadrant;
+
+    $activites = $this->select($activitesSousEncadrant, 
+      [
+      Session::get('nomcompte'),
+      Session::get('prenomcompte')
+      ],
+      'Activite',
+      false
+  );
+    return $activites;
+  }
+
+  public function getActivitesValidesVacancier() {
+    global $activitesValidesVacancier;
+
+    $activites = $this->select($activitesValidesVacancier, 
+      [
+      Session::get('user')
+      ],
+      'Activite',
+      false
+  );
+    return $activites;
+    
   }
 
   /**
