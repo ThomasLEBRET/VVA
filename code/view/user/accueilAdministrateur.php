@@ -58,7 +58,7 @@
         <?php 
             break;
         case 'EN': ?>
-          <p class="card-text">Nombre d'activités en charge :  <?= $account->getActiviteEnCharge(); ?></p>
+          <p class="card-text">Nombre d'activités en charge :  <?= $account->getNbActivitesEnCharge(); ?></p>
         <?php 
            break;
         }
