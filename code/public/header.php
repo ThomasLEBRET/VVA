@@ -14,9 +14,6 @@
               <li class="nav-item <?php if($page == 'animation') echo "active" ?>">
                   <a class="nav-link" href="index.php?page=animation">Animations</a>
               </li>
-                <li class="nav-item <?php if($page == 'compte') echo "active" ?>">
-                    <a class="nav-link" href="index.php?page=compte">Mon compte</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?page=deconnexion">Déconnexion</a>
                 </li>
