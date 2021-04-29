@@ -70,6 +70,11 @@ class Database
     return $objects;
   }
 
+  public function count($stmt, $attr) {
+    $req = $this->prepare($stmt, $attr);
+    return $req->fetchColumn();
+  }
+
   /**
    * request to insert data into gatci database
    * @param  string $stmt an sql request
