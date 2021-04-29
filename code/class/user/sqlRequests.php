@@ -17,9 +17,28 @@
   $countActivitesEncadrant = 
   "
   SELECT COUNT(*)
-  FROM activite A 
-  WHERE A.NOMRESP = ?
-  AND A.PRENOMRESP = ?
+  FROM activite
+  WHERE NOMRESP = ?
+  AND PRENOMRESP = ?
   ";
+
+  
+  $activitesSousEncadrant = 
+  "
+  SELECT *
+  FROM activite 
+  WHERE NOMRESP = ?
+  AND PRENOMRESP = ?
+  AND DATEACT >= NOW()
+  ";
+
+  $activitesValidesVacancier =
+  "
+  SELECT A.*
+  FROM activite A, inscription I
+  WHERE A.NOACT = I.NOACT
+  AND I.USER = ?
+  AND I.DATEANNULE IS NULL
+  "
 
 ?>
