@@ -11,5 +11,15 @@
     WHERE USER = ?
     AND MDP = ?
     ";
+  
+  $selectAllUsers = "SELECT * FROM compte";
+
+  $countActivitesEncadrant = 
+  "
+  SELECT COUNT(*)
+  FROM activite A 
+  WHERE A.NOMRESP = ?
+  AND A.PRENOMRESP = ?
+  ";
 
 ?>
