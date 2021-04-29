@@ -22,7 +22,7 @@ class AnimationController extends Animation {
    */
   public function allAnimations() {
     $animations = $this->animation->getAll();
-    if(Session::get('typeprofil') == 'EN') {
+    if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
       $codesTypeAnimation = $this->animation->getCodesTypeAnimations();
     }
     if($animations == NULL)

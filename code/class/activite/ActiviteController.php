@@ -28,14 +28,18 @@
       $animation = $this->animation->get($codeAnimation);
       $codesEtatAct = $this->activite->getAllCodeEtatAct();
 
-      if(Session::get('typeprofil') == 'EN') {
+      if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
         if($this->animation->get($codeAnimation)->getCodeanim() == $codeAnimation) {
-          require_once('view/activite/form/formAddActivite.php');
+          if(Session::get('typeprofil') == 'EN') {
+            require_once('view/activite/form/formAddActivite.php');
+          }
           require_once('view/activite/components/cancelButton.php');
         }
       } else {
-        require_once('view/activite/components/registerButton.php');
-        require_once('view/activite/components/unregisteredButton.php');
+        if(Session::get('typeprofil') == 'VA') {
+          require_once('view/activite/components/registerButton.php');
+           require_once('view/activite/components/unregisteredButton.php');
+        }
       }
       if(!isset($codeAnimation)) {
         require_once("view/activite/errors/errorCodeAnimation.php");

@@ -49,7 +49,7 @@ class Activite extends Database {
     global $getAllActivitesForVacancier;
     global $getAllActivitesForEncadrant;
 
-    if(Session::get('typeprofil') == 'EN') {
+    if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
       $activites = $this->select
       (
         $getAllActivitesForEncadrant,
