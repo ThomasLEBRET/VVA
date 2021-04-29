@@ -1,6 +1,7 @@
 <?php
 
 require_once("User.php");
+require_once("class/animation/Animation.php");
 
 class UserController extends User {
 
@@ -8,6 +9,7 @@ class UserController extends User {
 
   public function __construct() {
     $this->user = new User();
+    $this->animation = new Animation();
   }
 
   /**
@@ -16,34 +18,38 @@ class UserController extends User {
    * @return void just required associate view
    */
   public function home($post) {
-    if(!empty(Session::get("user"))) {
-      switch (Session::get('typeprofil')) {
-        case 'VA':
-          require_once("view/user/accueilVacancier.php");
-          break;
-        case 'EN':
-          require_once("view/user/accueilEncadrant.php");
-          break;
-        }
-    } else {
-      if(empty($post->getArray())) {
-        include_once("view/user/accueil.php");
+    if(empty($post->getArray())) {
+      if(Session::get("user") != null) {
+        $this->chooseView();
       } else {
-        if($this->user->connexion($post)) {
-          switch (Session::get('typeprofil')) {
-            case 'VA':
-              require_once("view/user/accueilVacancier.php");
-              break;
-            case 'EN':
-              require_once("view/user/accueilEncadrant.php");
-              break;
-          }
-        } else {
-          require_once("view/user/error/errorLogin.php");
-        }
+        require_once("view/user/accueil.php");
+      }
+    } else {
+      if($this->user->connexion($post)) {
+        header('Location: index.php?page=accueil');
+      } else {
+        require_once("view/user/error/errorlogin.php");
       }
     }
   }
+
+  private function chooseView() {
+    switch (Session::get('typeprofil')) {
+      case 'VA':
+        $activites = $this->user->getActivitesValidesVacancier();
+        require_once("view/user/accueilVacancier.php");
+        break;
+      case 'EN':
+        $activites = $this->user->getActivitesSousEncadrant();
+        require_once("view/user/accueilEncadrant.php");
+        break;
+      case 'AM':
+        $listAccounts = $this->user->getAllAccounts();
+        require_once("view/user/accueilAdministrateur.php");
+        break;
+      }
+  }
+
 
 }
 ?>

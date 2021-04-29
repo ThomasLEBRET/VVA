@@ -108,7 +108,8 @@ class User extends Database {
    * @return date
    */
   public function getDateinscrip(){
-    return $this->dateinscrip;
+    $date = new DateTime($this->dateinscrip);
+    return $date->format('d/m/Y');
   }
 
   /**
@@ -124,7 +125,8 @@ class User extends Database {
    * @return date
    */
   public function getDateferme(){
-    return $this->dateferme;
+    $date = new DateTime($this->dateferme);
+    return $date->format('d/m/Y');
   }
 
   /**
@@ -156,7 +158,8 @@ class User extends Database {
    * @return date
    */
   public function getDatedebsejour(){
-    return $this->datedebsejour;
+    $date = new DateTime($this->datedebsejour);
+    return $date->format('d/m/Y');
   }
 
   /**
@@ -172,7 +175,8 @@ class User extends Database {
    * @return date $datefinsejour
    */
   public function getDatefinsejour(){
-    return $this->datefinsejour;
+    $date = new DateTime($this->datefinsejour);
+    return $date->format('d/m/Y');
   }
 
   /**
@@ -188,7 +192,8 @@ class User extends Database {
    * @return date
    */
   public function getDatenaiscompte(){
-    return $this->datenaiscompte;
+    $date = new DateTime($this->datenaiscompte);
+    return $date->format('d/m/Y');
   }
 
   /**
@@ -232,6 +237,56 @@ class User extends Database {
   }
 
   /**
+   * Get all user accounts
+   */
+  public function getAllAccounts() {
+    global $selectAllUsers;
+
+    $users = $this->select($selectAllUsers, [], 'User', false);
+
+    return $users;
+  }
+
+  public function getNbActivitesEnCharge() {
+    global $countActivitesEncadrant;
+
+    $n = $this->count($countActivitesEncadrant, 
+      [
+        $this->nomcompte, 
+        $this->prenomcompte
+      ]);
+    return $n;
+  }
+
+  public function getActivitesSousEncadrant() {
+    global $activitesSousEncadrant;
+
+    $activites = $this->select($activitesSousEncadrant, 
+      [
+      Session::get('nomcompte'),
+      Session::get('prenomcompte')
+      ],
+      'Activite',
+      false
+  );
+    return $activites;
+  }
+
+  public function getActivitesValidesVacancier() {
+    global $activitesValidesVacancier;
+
+    $activites = $this->select($activitesValidesVacancier, 
+      [
+      Session::get('user')
+      ],
+      'Activite',
+      false
+  );
+    return $activites;
+    
+  }
+
+  /**
    * function to login user where he valid login form
    * @param  Parameters $params a $_POST array issue from the Parameters class
    * @return bool       true if success login, false otherwise
@@ -242,7 +297,7 @@ class User extends Database {
     $login = $params->get("login");
     $password = $params->get("password");
     $user = $this->select($selectUser, [$login, $password], 'User', true);
-    if(empty($user)) {
+    if($user->user == "null") {
       return false;
     } else {
       foreach ($user as $key => $value) {
