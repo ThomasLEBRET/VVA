@@ -34,6 +34,7 @@ class AnimationController extends Animation {
    * @param Parameters $post a $_POST Parameters
    */
   public function addAnimation($post) {
+    var_dump($post);
     if(Session::get('typeprofil') == 'EN') {
       $allIsset = true;
       foreach ($post->getArray() as $key => $value) {
@@ -41,13 +42,17 @@ class AnimationController extends Animation {
           $allIsset = false;
         }
       }
-      if($allIsset && ORMAnimation::isValid($post->get('codeanim'))) {
-        if(ORMAnimation::add($post)) {
-          $addSuccess = "L'animation a bien été ajoutée";
-          $animations = ORMAnimation::getAll();
-          require_once("view/animation/allAnimations.php");
+      if($allIsset && !ORMAnimation::isValid($post->get('codeanim'))) {
+        if($post->get('dureeanim') > 0 && $post->get('limiteage') >= 0 && $post->get('nbreplaceanim') > 0) {
+          if(ORMAnimation::add($post)) {
+            $addSuccess = "L'animation a bien été ajoutée";
+            $animations = ORMAnimation::getAll();
+            header('Location: index.php?page=animation')
+          } else {
+            require_once("view/animation/error/errorAdd.php");
+          }
         } else {
-          require_once("view/animation/error/errorAdd.php");
+          echo "Vérifiez vos informations svp";
         }
       } else {
         require_once("view/animation/error/errorAdd.php");

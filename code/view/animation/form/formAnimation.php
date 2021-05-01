@@ -21,7 +21,7 @@
   <div class="form-row">
     <div class="col-md-3 mb-3">
       <label for="datevalidite">Date de validité de l'animation</label>
-      <input name="datevalidanim" type="date" min="<?= date('Y-m-d'); ?>" class="form-control" id="datevalidite" required>
+      <input name="datevaliditeanim" type="date" min="<?= date('Y-m-d'); ?>" class="form-control" id="datevalidite" required>
     </div>
     <div class="col-md-3 mb-3">
       <label for="dureeanim">Durée de l'animation</label>
@@ -39,7 +39,7 @@
   <div class="form-row">
     <div class="col-md-3 mb-3">
       <label for="nbrplaces">Nombre de place disponible</label>
-      <input name="nbreplacedispo" min="1" type="number" class="form-control" id="nbrplaces" required>
+      <input name="nbreplaceanim" min="1" type="number" class="form-control" id="nbrplaces" required>
     </div>
     <div class="col-md-3 mb-3">
       <label for="dureeanim">Description de l'animation</label>

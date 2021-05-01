@@ -62,21 +62,20 @@ class ORMAnimation extends Database {
     global $addAnimation;
 
     if(self::insert(
-      [
-      $addAnimation, 
+    $addAnimation, 
+    [
+      $post->get('codeanim'),
       $post->get('codetypeanim'),
       $post->get('nomanim'),
       $post->get('datevaliditeanim'),
       $post->get('dureeanim'),
       $post->get('limiteage'),
       $post->get('tarifanim'),
-      $post->get('nbreplacedispo'),
+      $post->get('nbreplaceanim'),
       $post->get('descriptanim'),
       $post->get('commentanim'),
-      $post->get('difficulteanim'),
-      $post->get('codeanim')
-      ]) 
-      == 1)
+      $post->get('difficulteanim')
+    ]) == 1)
       return true;
 
     return false;
@@ -108,7 +107,7 @@ class ORMAnimation extends Database {
   }
 
   /**
-  * Verify if an animation is valid (not exist in database yet)
+  * Verify if an animation is valid (exist in database yet)
   * @param  string  $codeAnim an animation code
   * @return bool true if can select animations, false also
   */
