@@ -84,6 +84,7 @@ class Database
    */
   public static function insert($stmt, $attr) {
     $req = self::prepare($stmt, $attr);
+    return $req->rowCount();
   }
 
   /**
@@ -94,6 +95,7 @@ class Database
    */
   public static function update($stmt, $attr) {
     $req = self::prepare($stmt, $attr);
+    return $req->rowCount();
   }
 }
 ?>
