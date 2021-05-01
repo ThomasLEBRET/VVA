@@ -72,4 +72,20 @@
     WHERE AN.CODETYPEANIM = TA.CODETYPEANIM
     AND CODEANIM = ?
   ";
+
+  $updateAnimation = 
+  "
+    UPDATE animation
+    SET CODETYPEANIM = ?,
+        NOMANIM = ?,
+        DATEVALIDITEANIM = ?,
+        DUREEANIM = ?,
+        LIMITEAGE = ?,
+        TARIFANIM = ?,
+        NBREPLACEANIM = ?,
+        DESCRIPTANIM = ?,
+        COMMENTANIM = ?,
+        DIFFICULTEANIM = ?
+    WHERE CODEANIM = ?
+  ";
 ?>

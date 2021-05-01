@@ -40,6 +40,9 @@
     <li class="list-group-item">Prix : <?= $prix ?></li>
   </ul>
   <div class="card-body">
+  <?php if(Session::get('typeprofil') == 'EN') { ?>
+    <a href="index.php?page=seeUpdateAnimation&codeAnimation=<?= $animation->getCodeanim() ?>" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Modifier l'animation</a>
+  <?php } ?>
     <a href="index.php?page=activite&codeAnimation=<?=$animation->getCodeanim()?>" class="card-link">Voir les activités pour l'animation <?= $animation->NOMANIM ?></a>
   </div>
 </div>

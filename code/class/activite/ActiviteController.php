@@ -27,7 +27,7 @@
       $animation = ORMAnimation::get($codeAnimation);
       $codesEtatAct = ORMActivite::getAllCodeEtatAct();
 
-      if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
+      if(Session::get('typeprofil') == 'EN') {
         if(ORMAnimation::get($codeAnimation)->getCodeanim() == $codeAnimation) {
           if(Session::get('typeprofil') == 'EN') {
             require_once('view/activite/form/formAddActivite.php');
@@ -133,7 +133,7 @@
       $noAct = $get->get('noAct');
 
       if(isset($typeProfil)) {
-        if($typeProfil == "EN" || $typeProfil == "AM") {
+        if($typeProfil == "EN") {
           if(ORMActivite::cancel($noAct)) {
             $msgCancelAct = "L'activité ".$noAct." a bien été annulée";
             header('Location: index.php?page=animation');
