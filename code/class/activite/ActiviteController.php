@@ -133,7 +133,7 @@
       $noAct = $get->get('noAct');
 
       if(isset($typeProfil)) {
-        if($typeProfil == "EN") {
+        if($typeProfil == "EN" || $typeProfil == "AM") {
           if(ORMActivite::cancel($noAct)) {
             $msgCancelAct = "L'activité ".$noAct." a bien été annulée";
             header('Location: index.php?page=animation');

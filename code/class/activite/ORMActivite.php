@@ -150,7 +150,10 @@ class ORMActivite extends Database {
   public function cancel($noact) {
     global $cancelActivity;
 
-    self::update($cancelActivity, [$noact]);
+    if(self::update($cancelActivity, [$noact])) {
+      return true;
+    }
+    return false;
   }
 
       /**
