@@ -61,15 +61,50 @@ class ORMAnimation extends Database {
   public function add($post) {
     global $addAnimation;
 
-    $datas = $post->getArray();
-    foreach ($datas as $val) {
-      $data[] = $val;
-    }
-
-    if(self::insert($addAnimation, $data) == 1)
+    if(self::insert(
+      [
+      $addAnimation, 
+      $post->get('codetypeanim'),
+      $post->get('nomanim'),
+      $post->get('datevaliditeanim'),
+      $post->get('dureeanim'),
+      $post->get('limiteage'),
+      $post->get('tarifanim'),
+      $post->get('nbreplacedispo'),
+      $post->get('descriptanim'),
+      $post->get('commentanim'),
+      $post->get('difficulteanim'),
+      $post->get('codeanim')
+      ]) 
+      == 1)
       return true;
 
     return false;
+  }
+
+  public static function updateAnim($post) {
+    global $updateAnimation;
+
+    if(self::update($updateAnimation, 
+    [
+      $post->get('codetypeanim'),
+      $post->get('nomanim'),
+      $post->get('datevaliditeanim'),
+      $post->get('dureeanim'),
+      $post->get('limiteage'),
+      $post->get('tarifanim'),
+      $post->get('nbreplaceanim'),
+      $post->get('descriptanim'),
+      $post->get('commentanim'),
+      $post->get('difficulteanim'),
+      $post->get('codeanim')
+    ]
+    ) == 1) {
+      return true;
+    }
+
+    return false;
+    
   }
 
   /**
@@ -77,12 +112,12 @@ class ORMAnimation extends Database {
   * @param  string  $codeAnim an animation code
   * @return bool true if can select animations, false also
   */
-  public function isValid($codeAnim) {
+  public static function isValid($codeAnim) {
     global $getCommonAnimations;
 
     $data = self::select($getCommonAnimations, [$codeAnim], 'Animation');
 
-    if(!isset($data))
+    if(isset($data))
       return true;
 
     return false;

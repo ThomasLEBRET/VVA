@@ -75,6 +75,12 @@ class Router {
           case 'updateActivite':
             $this->activiteController->updateActivite($post);
             break;
+          case 'seeUpdateAnimation':
+            $this->animationController->trySeeUpdateAnimation($get);
+            break;
+          case 'tryUpdateAnimation':
+            $this->animationController->updateAnimation($post);
+            break;
           case 'deconnexion':
             Session::stop();
             header('Location: index.php?page=accueil');

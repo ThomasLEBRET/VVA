@@ -57,6 +57,47 @@ class AnimationController extends Animation {
     }
   }
 
+  public function trySeeUpdateAnimation($get) {
+    if(Session::get('typeprofil') == 'EN') {
+      $codesTypeAnimation = ORMAnimation::getCodesTypeAnimations();
+
+      $animation = ORMAnimation::get($get->get('codeAnimation'));
+      if($animation->getCodeanim() != "null") {
+        require_once("view/animation/form/formUpdateAnimation.php");
+      } else {
+        echo "L'activité n'existe pas !";
+      }
+    } else {
+      echo "Not authorized user !";
+    }
+  }
+
+  public function updateAnimation($post) {
+    if(Session::get('typeprofil') == 'EN') {
+      $allIsset = true;
+      foreach ($post->getArray() as $key => $value) {
+        if(empty($value)) {
+          $allIsset = false;
+        }
+      }
+      if($allIsset && ORMAnimation::isValid($post->get('codeanim'))) {
+        if($post->get('dureeanim') > 0 && $post->get('limiteage') >= 0 && $post->get('nbreplaceanim') > 0) {
+          if(ORMAnimation::updateAnim($post)) {
+            echo "L'animation a été mise à jour";
+          } else {
+            echo "L'animation n'a pas pu être mise à jour";
+          }
+        } else {
+          echo "Informations non valides !";
+        }
+      } else {
+        echo "Veuillez remplir toutes les données svp";
+      }
+    } else {
+      echo "Not authorized user !";
+    }
+  }
+
 }
 
 ?>
