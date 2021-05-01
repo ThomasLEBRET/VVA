@@ -121,4 +121,12 @@
       WHERE NOACT = ?
   ";
 
+  $cancelActivityLastInserted = 
+  "
+  SELECT MAX(NOACT) as  maxNum FROM activite;
+  UPDATE activite 
+        SET DATEANNULE = NOW()
+        WHERE NOACT =maxNum
+  ";
+
 ?>

@@ -5,17 +5,18 @@
  */
 class Database
 {
+  private static $connection = null;
   /**
    * get connexion into the database class
    * @return PDO a PDO object
    */
   private function getConnection() {
-    if($this->connection === null) {
+    if(self::$connection === null) {
       $connection = new PDO('mysql:host=db;dbname=gatci;charset=utf8', 'root', 'root');
       $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $this->connection = $connection;
+      self::$connection = $connection;
     }
-    return $this->connection;
+    return self::$connection;
   }
 
   /**
@@ -25,7 +26,7 @@ class Database
    * @return PDOStatement  a PDOStatement object with query SQL string
    */
   private function prepare($stmt, $attr) {
-    $req = $this->getConnection()->prepare($stmt);
+    $req = self::getConnection()->prepare($stmt);
     $req->execute($attr);
     return $req;
   }
@@ -42,6 +43,9 @@ class Database
         $method ='set'.ucfirst(strtolower($key));
         if(method_exists($instance, $method)) {
             $instance->$method($val);
+            if($object == 'User' && count($_SESSION) < count($datas)) {
+              Session::set(strtolower($key), $val);
+            }
         }
     }
     return $instance;
@@ -55,23 +59,23 @@ class Database
    * @param  bool $one       number ofdata returned (false by default to return with fetchAll). If true, he return just one data wth a fetch request
    * @return object          the hydrated object $class_name
    */
-  public function select($stmt, $attr, $class_name, $one = false) {
-    $req = $this->prepare($stmt, $attr);
+  public static function select($stmt, $attr, $class_name, $one = false) {
+    $req = self::prepare($stmt, $attr);
     $req->setFetchMode(PDO::FETCH_ASSOC);
     if($one) {
       $array = (array)$req->fetch();
-      $objects = $this->hydrate($array, $class_name);
+      $objects = self::hydrate($array, $class_name);
     } else {
       $objs = $req->fetchAll();
       foreach ($objs as $o) {
-        $objects[] = $this->hydrate($o, $class_name);
+        $objects[] = self::hydrate($o, $class_name);
       }
     }
     return $objects;
   }
 
-  public function count($stmt, $attr) {
-    $req = $this->prepare($stmt, $attr);
+  public static function count($stmt, $attr) {
+    $req = self::prepare($stmt, $attr);
     return $req->fetchColumn();
   }
 
@@ -81,8 +85,9 @@ class Database
    * @param  array $attr a list of attributes for SQL request
    * @return void
    */
-  public function insert($stmt, $attr) {
-    $req = $this->prepare($stmt, $attr);
+  public static function insert($stmt, $attr) {
+    $req = self::prepare($stmt, $attr);
+    return $req->rowCount();
   }
 
   /**
@@ -91,8 +96,9 @@ class Database
    * @param  array $attr a list of attributes for SQL request
    * @return void
    */
-  public function update($stmt, $attr) {
-    $req = $this->prepare($stmt, $attr);
+  public static function update($stmt, $attr) {
+    $req = self::prepare($stmt, $attr);
+    return $req->rowCount();
   }
 }
 ?>

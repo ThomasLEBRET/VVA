@@ -19,7 +19,7 @@
   <div class="form-row">
     <div class="col-md-3 mb-3">
       <label for="dateact">Date de l'activité</label>
-      <input name="dateact" type="date" min="<?= date('Y-m-d') ?>" max=<?= $animation->getDatevaliditeanim(); ?> class="form-control" id="dateact" required>
+      <input name="dateact" type="date" min="<?= date('Y-m-d') ?>" max=<?= date('Y-m-d', strtotime($animation->getDatevaliditeanim())) ?> class="form-control" id="dateact" required>
     </div>
     <div class="col-md-3 mb-3">
       <label for="hrrdvact">Heure rdv activité</label>

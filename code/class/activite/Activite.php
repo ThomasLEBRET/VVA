@@ -1,246 +1,66 @@
 <?php
-require_once("class/datas/Database.php");
-include("sqlRequests.php");
-
 require_once("class/animation/Animation.php");
 
 /**
 * Class to manage activity object
 */
-class Activite extends Database {
+class Activite {
 
-  private $noact;
-  private	$codeanim;
-  private	$codeetatact;
-  private $dateact;
-  private $hrrdvact;
-  private	$prixact;
-  private $hrdebutact;
-  private	$hrfinact;
+  private int $noact;
+  private string $codeanim;
+  private string $codeetatact;
+  private DateTime $dateact;
+  private DateTime $hrrdvact;
+  private float $prixact;
+  private DateTime $hrdebutact;
+  private DateTime $hrfinact;
   private $dateannuleact;
-  private	$nomresp;
-  private	$prenomresp;
+  private string $nomresp;
+  private string $prenomresp;
 
   /**
   * default constructor
   */
   public function __construct() {
-    $this->noact = "null";
+    $this->noact = 0;
     $this->codeanim = "null";
     $this->codeetatact = "null";
-    $this->dateact = "null";
-    $this->hrrdvact = "null";
-    $this->prixact = "null";
-    $this->hrdebutact = "null";
-    $this->hrfinact = "null";
-    $this->dateannuleact = "null";
+    $this->dateact = new DateTime();
+    $this->hrrdvact = new DateTime();
+    $this->prixact = 0;
+    $this->hrdebutact = new DateTime();
+    $this->hrfinact = new DateTime();
+    $this->dateannuleact = null;
     $this->nomresp = "null";
     $this->prenomresp = "null";
   }
 
 
   /**
-   * get all activity for an animation
-   * @param  string $codeAnimation an animation code
-   * @return array  an array contain Activite objects
-   */
-  public function getAll($codeAnimation) {
-
-    global $getAllActivitesForVacancier;
-    global $getAllActivitesForEncadrant;
-
-    if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
-      $activites = $this->select
-      (
-        $getAllActivitesForEncadrant,
-        [
-          $codeAnimation
-        ],
-        'Activite'
-      );
-    } else {
-      $activites = $this->select
-      (
-        $getAllActivitesForVacancier,
-        [
-          $codeAnimation,
-          Session::get('datedebsejour')
-        ],
-        'Activite'
-      );
-    }
-    return $activites;
-
-  }
-
-  /**
-   * function to get an activity with his activity code
-   * @param  int $noact the number of activity
-   * @return Activite  an activity object
-   */
-  public function get($noact) {
-    global $getActivite;
-
-    return $this->select($getActivite, [$noact], 'Activite', 1);
-  } 
-
-  /**
-   * get all code activity state
-   * @return array activity code exists
-   */
-  public function getAllCodeEtatAct() {
-    global $getAllCodeEtatAct;
-
-    $pre_datas = $this->select($getAllCodeEtatAct, [], 'Activite');
-    $datas = [];
-    foreach ($pre_datas as $data) {
-      $datas[] = $data->codeetatact;
-    }
-    return $datas;
-  }
-
-  /**
-   * Add an activity
-   * @param Animation $animation an animation object
-   * @param Parameters $post      the array data post $_POST superglobal variables
-   */
-  public function add($animation, $post) {
-    global $addActivite;
-
-    $codeanim = $animation->getCodeanim();
-    $codeetatact = $post->get('codeetatact');
-    $dateact = $post->get('dateact');
-    $hrrdvact = $post->get('hrrdvact');
-    $prixact = $post->get('prixact');
-    $hrdebutact = $post->get('hrdebutact');
-    $hrfinact = date($post->get('hrrdvact'), strtotime('+'.$animation->getDureeanim().' day'));
-    $nomresp = Session::get('nomcompte');
-    $prenomresp = Session::get('prenomcompte');
-
-    $this->insert($addActivite,
-    [
-      $codeanim,
-      $codeetatact,
-      $dateact,
-      $hrrdvact,
-      $prixact,
-      $hrdebutact,
-      $hrfinact,
-      $nomresp,
-      $prenomresp
-    ]);
-  }
-
-  
-    /**
-   * Update an activity
-   * @param Animation $animation an animation object
-   * @param Parameters $post      the array data post $_POST superglobal variables
-   */
-  public function updateAct($animation, $post) {
-    global $updateActivite;
-    global $cancelActivity;
-
-    
-    $noact = $post->get('noact');
-
-    $codeetatact = $post->get('codeetatact');
-    $prixact = $post->get('prixact');
-    $dateact = $post->get('dateact');
-    $hrrdvact = $post->get('hrrdvact');
-    $hrdebutact = $post->get('hrdebutact');
-    $hrfinact = date($post->get('hrrdvact'), strtotime('+'.$animation->getDureeanim().' day'));
-
-    $this->update($updateActivite,
-    [
-      $codeetatact,
-      $prixact,
-      $dateact,
-      $hrrdvact,
-      $hrdebutact,
-      $hrfinact, 
-      $noact
-    ]);
-
-    if($codeetatact == 'N') {
-      $this->update($cancelActivity, [$noact]);
-    }
-  }
-
-
-  /**
-   * Verify if activity we are insert already exist in the same day
-   * @param  string $codeanim an animation code
-   * @param  date $dateact  a date for insert activity
-   * @return bool  true if not exist false also
-   */
-  public function noExistActiviteInSameDayForAnimation($codeanim, $dateact) {
-    global $countActiviteInSameDayForAnimation;
-
-    if($this->select($countActiviteInSameDayForAnimation, [$codeanim, $dateact], 'Activite') === NULL) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * verify if a user is registered for an activity
-   * @param int $noact a PK activity number
-   */
-  public function isAlreadyRegistered($noact) {
-    global $isRegisteredUser;
-
-    $user = Session::get('user');
-    $activite = $this->select($isRegisteredUser, [$noact, $user], 'Activite');
-    if($this->select($isRegisteredUser, [$noact, $user], 'Activite') == NULL)  {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  public function inscription($noact) {
-    global $addInscriptionInActivity;
-
-    $user = Session::get('user');
-    $this->insert($addInscriptionInActivity,[$user, $noact]);
-  }
-
-  public function cancel($noact) {
-    global $cancelActivity;
-
-    $this->update($cancelActivity, [$noact]);
-  }
-
-  /**
    * Get the value of Class to manage activity object
    *
-   * @return mixed
+   * @return int
    */
   public function getNoact()
   {
-      return $this->noact;
+      return intval($this->noact);
   }
 
   /**
    * Set the value of Class to manage activity object
    *
-   * @param mixed $noact
+   * @param int $noact
    *
-   * @return self
    */
-  public function setNoact($noact)
+  public function setNoact(int $noact)
   {
-      $this->noact = $noact;
-
-      return $this;
+      $this->noact = intval($noact);
   }
 
   /**
    * Get the value of Class to manage activity object
    *
-   * @return mixed
+   * @return string
    */
   public function getCodeanim()
   {
@@ -250,21 +70,18 @@ class Activite extends Database {
   /**
    * Set the value of codeanim
    *
-   * @param mixed $codeanim
+   * @param string $codeanim
    *
-   * @return self
    */
-  public function setCodeanim($codeanim)
+  public function setCodeanim(string $codeanim)
   {
       $this->codeanim = $codeanim;
-
-      return $this;
   }
 
   /**
    * Get the value of Codeetatact
    *
-   * @return mixed
+   * @return string
    */
   public function getCodeetatact()
   {
@@ -274,25 +91,22 @@ class Activite extends Database {
   /**
    * Set the value of Codeetatact
    *
-   * @param mixed $codeetatact
+   * @param string $codeetatact
    *
-   * @return self
    */
-  public function setCodeetatact($codeetatact)
+  public function setCodeetatact(string $codeetatact)
   {
       $this->codeetatact = $codeetatact;
-
-      return $this;
   }
 
     /**
      * Get the value of Dateact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getDateact()
     {
-        return $this->dateact;
+        return $this->dateact->format('d/m/Y');
     }
 
     /**
@@ -300,23 +114,21 @@ class Activite extends Database {
      *
      * @param mixed $dateact
      *
-     * @return self
      */
     public function setDateact($dateact)
     {
-        $this->dateact = date('d/m/Y', strtotime($dateact));
-
-        return $this;
+        $this->dateact = new DateTime($dateact);
+        $this->dateact->format('d/m/Y');
     }
 
     /**
      * Get the value of Hrrdvact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getHrrdvact()
     {
-        return $this->hrrdvact;
+        return $this->hrrdvact->format("H:i:s");
     }
 
     /**
@@ -324,23 +136,21 @@ class Activite extends Database {
      *
      * @param mixed $hrrdvact
      *
-     * @return self
      */
     public function setHrrdvact($hrrdvact)
     {
-        $this->hrrdvact = $hrrdvact;
-
-        return $this;
+        $this->hrrdvact = new DateTime($hrrdvact);
+        $this->hrrdvact->format("H:i:s");
     }
 
     /**
      * Get the value of Prixact
      *
-     * @return mixed
+     * @return float
      */
     public function getPrixact()
     {
-        return $this->prixact;
+        return (float)$this->prixact;
     }
 
     /**
@@ -348,23 +158,20 @@ class Activite extends Database {
      *
      * @param mixed $getPrixact
      *
-     * @return self
      */
     public function setPrixact($prixact)
     {
-        $this->prixact = $prixact;
-
-        return $this;
+        $this->prixact = (float)$prixact;
     }
 
     /**
      * Get the value of Hrdebutact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getHrdebutact()
     {
-        return $this->hrdebutact;
+        return $this->hrdebutact->format("H:i:s");
     }
 
     /**
@@ -372,23 +179,22 @@ class Activite extends Database {
      *
      * @param mixed $hrdebutact
      *
-     * @return self
+     * @return DateTime
      */
     public function setHrdebutact($hrdebutact)
     {
-        $this->hrdebutact = $hrdebutact;
-
-        return $this;
+        $this->hrdebutact = new DateTime($hrdebutact);
+        $this->hrdebutact->format("H:i:s");
     }
 
     /**
      * Get the value of Hrfinact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getHrfinact()
     {
-        return $this->hrfinact;
+        return $this->hrfinact->format("H:i:s");
     }
 
     /**
@@ -400,18 +206,19 @@ class Activite extends Database {
      */
     public function setHrfinact($hrfinact)
     {
-        $this->hrfinact = $hrfinact;
-
-        return $this;
+        $this->hrfinact = new DateTime($hrfinact);
+        $this->hrfinact->format("H:i:s");
     }
 
     /**
      * Get the value of Dateannuleact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getDateannuleact()
     {
+        if($this->dateannuleact != NULL) 
+            return $this->dateannuleact->format('d/m/Y');
         return $this->dateannuleact;
     }
 
@@ -420,19 +227,21 @@ class Activite extends Database {
      *
      * @param mixed $dateannuleact
      *
-     * @return self
      */
     public function setDateannuleact($dateannuleact)
     {
-        $this->dateannuleact = date('d/m/Y', strtotime($dateannuleact));
-
-        return $this;
+        if($dateannuleact != NULL) {
+            $this->dateannuleact = new DateTime($dateannuleact);
+            $this->dateannuleact->format('d/m/Y');
+        } else {
+            $this->dateannule = $dateannule;
+        }
     }
 
     /**
      * Get the value of Prenomresp
      *
-     * @return mixed
+     * @return string
      */
     public function getPrenomresp()
     {
@@ -444,19 +253,16 @@ class Activite extends Database {
      *
      * @param mixed $prenomresp
      *
-     * @return self
      */
     public function setPrenomresp($prenomresp)
     {
         $this->prenomresp = $prenomresp;
-
-        return $this;
     }
 
     /**
      * Get the value of Prenomresp
      *
-     * @return mixed
+     * @return string
      */
     public function getNomresp()
     {
@@ -466,15 +272,12 @@ class Activite extends Database {
     /**
      * Set the value of Nomresp
      *
-     * @param mixed $nomresp
+     * @param string $nomresp
      *
-     * @return self
      */
     public function setNomresp($nomresp)
     {
         $this->nomresp = $nomresp;
-
-        return $this;
     }
 
 }

@@ -11,9 +11,8 @@
 </div>
 <?php if($activites != NULL) { ?>
 <?php foreach($activites as $activite):  ?>
-  <?php $animation = $this->animation->get($activite->getCodeanim()) ?>
+  <?php $animation = ORMAnimation::get($activite->getCodeanim()) ?>
 
-  
   <div class="card" style="width: 18rem; margin: 0 auto; margin-bottom: .3em;">
   <div class="card-body">
     <h5 class="card-title"><?= $animation->getNomanim() ?></h5>
@@ -25,5 +24,6 @@
 </div>
 <?php endforeach ?>
 <?php } ?>
+
 <?php $content = ob_get_clean(); ?>
 <?php require("view/template.php"); ?>

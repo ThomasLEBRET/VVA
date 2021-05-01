@@ -22,7 +22,7 @@
     <form action="index.php?page=unscribeRegister&noact=<?= $activite->getNoact() ?>"  method="post">
 
       <?php
-      if($this->activite->isAlreadyRegistered($activite->getNoact())) {
+      if(ORMActivite::isAlreadyRegistered($activite->getNoact())) {
         if(isset($btnUnregister)) { echo $btnUnregister; }
       }
       ?>
@@ -31,7 +31,7 @@
     <form action="index.php?page=tryRegister&noact=<?= $activite->getNoact() ?>" method="post">
 
     <?php
-    if(!$this->activite->isAlreadyRegistered($activite->getNoact())) {
+    if(!ORMActivite::isAlreadyRegistered($activite->getNoact())) {
       if(isset($btnRegister)) { echo $btnRegister; }
     }
     ?>

@@ -9,7 +9,7 @@
 </div>
 
 <?php foreach($activites as $activite):  ?>
-  <?php $animation = $this->animation->get($activite->getCodeanim()) ?>
+  <?php $animation = ORMAnimation::get($activite->getCodeanim()) ?>
 
   <?php 
   if($activite->getCodeetatact() == 'O') {
