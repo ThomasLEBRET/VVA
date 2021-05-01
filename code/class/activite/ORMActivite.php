@@ -72,6 +72,7 @@ class ORMActivite extends Database {
    */
   public static function add($animation, $post) {
     global $addActivite;
+    global $cancelActivityLastInserted;
 
     $codeanim = $animation->getCodeanim();
     $codeetatact = $post->get('codeetatact');
@@ -95,10 +96,17 @@ class ORMActivite extends Database {
       $nomresp,
       $prenomresp
     ])) {
-      return true;
-    } else {
-      return false;
+      if($codeetatact == 'N') {
+        if(self::update($cancelActivityLastInserted, [])) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
     }
+    return false;
   }
 
   /**
