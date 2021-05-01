@@ -82,7 +82,7 @@ class Activite extends Database {
     global $getActivite;
 
     return $this->select($getActivite, [$noact], 'Activite', 1);
-  }
+  } 
 
   /**
    * get all code activity state
@@ -130,6 +130,43 @@ class Activite extends Database {
       $prenomresp
     ]);
   }
+
+  
+    /**
+   * Update an activity
+   * @param Animation $animation an animation object
+   * @param Parameters $post      the array data post $_POST superglobal variables
+   */
+  public function updateAct($animation, $post) {
+    global $updateActivite;
+    global $cancelActivity;
+
+    
+    $noact = $post->get('noact');
+
+    $codeetatact = $post->get('codeetatact');
+    $prixact = $post->get('prixact');
+    $dateact = $post->get('dateact');
+    $hrrdvact = $post->get('hrrdvact');
+    $hrdebutact = $post->get('hrdebutact');
+    $hrfinact = date($post->get('hrrdvact'), strtotime('+'.$animation->getDureeanim().' day'));
+
+    $this->update($updateActivite,
+    [
+      $codeetatact,
+      $prixact,
+      $dateact,
+      $hrrdvact,
+      $hrdebutact,
+      $hrfinact, 
+      $noact
+    ]);
+
+    if($codeetatact == 'N') {
+      $this->update($cancelActivity, [$noact]);
+    }
+  }
+
 
   /**
    * Verify if activity we are insert already exist in the same day
