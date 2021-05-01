@@ -1,22 +1,21 @@
 <?php
 
-  require_once("ORMActivite.php");
-  require_once("class/animation/ORMAnimation.php");
   require_once("Activite.php");
+  require_once("ORMActivite.php");
+
   require_once("class/animation/Animation.php");
+  require_once("class/animation/ORMAnimation.php");
   require_once("class/inscription/Inscription.php");
+  require_once("class/inscription/ORMInscription.php");
 
   class ActiviteController extends Activite {
 
-    private $animation;
-    private $inscription;
 
     /**
      * default constructor
      */
     public function __construct() {
-      $this->animation = new Animation();
-      $this->inscription = new Inscription();
+
     }
 
     /**
@@ -60,12 +59,12 @@
     public function addActivite($post) {
       $codeanim = $post->get('codeanim');
       $dateact = $post->get('dateact');
-      if($this->activite->noExistActiviteInSameDayForAnimation($codeanim, $dateact)) {
+      if(ORMActivite::noExistActiviteInSameDayForAnimation($codeanim, $dateact)) {
         $hrrdvact = new DateTime($post->get('hrrdvact'));
         $hrdebutact = new DateTime($post->get('hrdebutact'));
         if($hrrdvact <= $hrdebutact) {
-          $animation = $this->animation->get($codeanim);
-          if($this->activite->add($animation, $post)) {
+          $animation = ORMAnimation::get($codeanim);
+          if(ORMActivite::add($animation, $post)) {
             header('Location: index.php?page=animation');
           }
         } else {
@@ -82,25 +81,25 @@
      */
     public function addInscription($get) {
       $noact = $get->get('noact');
-      $activite = $this->activite->get($noact);
+      $activite = ORMActivite::get($noact);
       $user = Session::get('user');
 
-      if($activite->isAlreadyRegistered($noact)) {
-        $inscription = $this->inscription->get($user, $noact);
+      if(ORMActivite::isAlreadyRegistered($noact)) {
+        $inscription = ORMInscription::get($user, $noact);
         if($inscription->getNoinscrip() != "null") {
           if($inscription->getDateannule() == "null") {
             require_once('view/activite/errors/errorAlreayRegistered.php');
           } else  {
-            $this->inscription->againRegister($inscription->getNoinscrip());
+            ORMInscription::againRegister($inscription->getNoinscrip());
           }
         }
       } else {
-        $inscription = $this->inscription->get($user, $noact);
-        if($inscription->getNoinscrip() == "null") {
-          $activite->inscription($noact);
+        $inscription = ORMInscription::get($user, $noact);
+        if($inscription->getNoinscrip() == 0) {
+          ORMActivite::inscription($noact);
           header('Location: index.php?page=animation');
         } else {
-          $this->inscription->againRegister($inscription->getNoinscrip());
+          ORMInscription::againRegister($inscription->getNoinscrip());
           header('Location: index.php?page=animation');
         }
       }
@@ -115,10 +114,11 @@
       $user = Session::get('user');
       $noact = $get->get('noact');
 
-      $inscription = $this->inscription->get($user, $noact);
-      if($inscription->getNoinscrip() != "null" && $inscription->getDateannule() == NULL) {
-        $this->inscription->unscribeActRegisteredUser($inscription->getNoinscrip());
-        header('Location: index.php?page=animation');
+      $inscription = ORMInscription::get($user, $noact);
+      if($inscription->getNoinscrip() != 0 && $inscription->getDateannule() == NULL) {
+        if(ORMInscription::unscribeActRegisteredUser($inscription->getNoinscrip())) {
+          header('Location: index.php?page=animation');
+        }
       } else {
         require_once('view/activite/errors/errorAlreayRegistered.php');
       }
@@ -134,7 +134,7 @@
 
       if(isset($typeProfil)) {
         if($typeProfil == "EN") {
-          if($this->activite->cancel($noAct)) {
+          if(ORMActivite::cancel($noAct)) {
             $msgCancelAct = "L'activité ".$noAct." a bien été annulée";
             header('Location: index.php?page=animation');
           } else {
@@ -151,11 +151,11 @@
 
     
     public function viewUpdateActivity($get) {
-      $this->activite = ORMActivite::get($get->get('noAct'));
-      $this->animation = ORMAnimation::get($this->activite->getCodeanim());
+      $activite = ORMActivite::get($get->get('noAct'));
+      $animation = ORMAnimation::get($activite->getCodeanim());
       $codesEtatAct = ORMActivite::getAllCodeEtatAct();
       
-      if(Session::get('typeprofil') == 'EN' && $this->activite->getNoact() != 0) {
+      if(Session::get('typeprofil') == 'EN' && $activite->getNoact() != 0) {
         require_once("view/activite/form/formUpdateActivity.php");
       } else {
         require_once("view/activite/errors/errorNotAutorizedUser.php");
@@ -164,9 +164,9 @@
 
     public function updateActivite($post) {
       if(Session::get('typeprofil') == 'EN') {
-        $this->activite = ORMActivite::get($post->get('noact'));
-        $hrrdvact = new DateTime($this->activite->getHrrdvact());
-        $hrdebutact = new DateTime($this->activite->getHrdebutact());
+        $activite = ORMActivite::get($post->get('noact'));
+        $hrrdvact = new DateTime($activite->getHrrdvact());
+        $hrdebutact = new DateTime($activite->getHrdebutact());
         if($hrrdvact <= $hrdebutact) {
           $allIsset = true;
           foreach ($post->getArray() as $key => $value) {
@@ -175,14 +175,14 @@
             }
           }
           if($allIsset) {
-            $this->animation = ORMAnimation::get($this->activite->getCodeanim());
-            $isUpdateAct = ORMActivite::updateAct($this->animation, $post);
+            $animation = ORMAnimation::get($activite->getCodeanim());
+            $isUpdateAct = ORMActivite::updateAct($animation, $post);
             if($isUpdateAct) {
               $msgUpdateAnim = "L'activité a bien été mise à jour"; 
             } else {
               $msgUpdateAnim = "L'activité n'a pas pu être mise à jour";
             }
-            header('Location: index.php?page=activite&codeAnimation='.$this->animation->getCodeAnim());
+            header('Location: index.php?page=activite&codeAnimation='.$animation->getCodeAnim());
           } else {
             require_once('view/activite/errors/errorUpdateActivite.php');
           }

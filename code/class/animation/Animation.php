@@ -6,7 +6,7 @@ include("sqlRequests.php");
 /**
 * Class to manage animations objects
 */
-class Animation extends Database {
+class Animation {
 
   private string $codeanim;
   private string $codetypeanim;

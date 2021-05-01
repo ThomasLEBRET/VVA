@@ -121,19 +121,18 @@ class ORMActivite extends Database {
    * verify if a user is registered for an activity
    * @param int $noact a PK activity number
    */
-  public function isAlreadyRegistered($noact) {
+  public static function isAlreadyRegistered($noact) {
     global $isRegisteredUser;
 
     $user = Session::get('user');
     $activite = self::select($isRegisteredUser, [$noact, $user], 'Activite');
-    if(self::select($isRegisteredUser, [$noact, $user], 'Activite') == NULL)  {
+    if(self::select($isRegisteredUser, [$noact, $user], 'Activite') == NULL) 
       return false;
-    } else {
-      return true;
-    }
+      
+    return true;
   }
 
-  public function inscription($noact) {
+  public static function inscription($noact) {
     global $addInscriptionInActivity;
 
     $user = Session::get('user');
@@ -151,7 +150,7 @@ class ORMActivite extends Database {
    * @param Animation $animation an animation object
    * @param Parameters $post      the array data post $_POST superglobal variables
    */
-  public function updateAct($animation, $post) {
+  public static function updateAct($animation, $post) {
     global $updateActivite;
     global $cancelActivity;
 

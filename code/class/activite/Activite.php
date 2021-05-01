@@ -4,7 +4,7 @@ require_once("class/animation/Animation.php");
 /**
 * Class to manage activity object
 */
-class Activite extends Database {
+class Activite {
 
   private int $noact;
   private string $codeanim;
@@ -14,7 +14,7 @@ class Activite extends Database {
   private float $prixact;
   private DateTime $hrdebutact;
   private DateTime $hrfinact;
-  private DateTime $dateannuleact;
+  private $dateannuleact;
   private string $nomresp;
   private string $prenomresp;
 
@@ -30,7 +30,7 @@ class Activite extends Database {
     $this->prixact = 0;
     $this->hrdebutact = new DateTime();
     $this->hrfinact = new DateTime();
-    $this->dateannuleact = new DateTime();
+    $this->dateannuleact = null;
     $this->nomresp = "null";
     $this->prenomresp = "null";
   }
@@ -217,7 +217,9 @@ class Activite extends Database {
      */
     public function getDateannuleact()
     {
-        return $this->dateannuleact->format('d/m/Y');
+        if($this->dateannuleact != NULL) 
+            return $this->dateannuleact->format('d/m/Y');
+        return $this->dateannuleact;
     }
 
     /**
@@ -228,8 +230,12 @@ class Activite extends Database {
      */
     public function setDateannuleact($dateannuleact)
     {
-        $this->dateannuleact = new DateTime($dateannuleact);
-        $this->dateannuleact->format('d/m/Y');
+        if($dateannuleact != NULL) {
+            $this->dateannuleact = new DateTime($dateannuleact);
+            $this->dateannuleact->format('d/m/Y');
+        } else {
+            $this->dateannule = $dateannule;
+        }
     }
 
     /**
