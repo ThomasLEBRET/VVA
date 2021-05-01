@@ -69,10 +69,16 @@ class Router {
           case 'cancelActivity':
             $this->activiteController->tryCancelActivity($get);
             break;
+          case 'redirectUpdateActivity':
+            $this->activiteController->viewUpdateActivity($get);
+            break;
+          case 'updateActivite':
+            $this->activiteController->updateActivite($post);
+            break;
           case 'deconnexion':
-              Session::stop();
-              header('Location: index.php?page=accueil');
-              break;
+            Session::stop();
+            header('Location: index.php?page=accueil');
+            break;
           default:
             $this->errorController->errorNotFound();
           break;
