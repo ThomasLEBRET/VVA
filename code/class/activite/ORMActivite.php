@@ -83,7 +83,7 @@ class ORMActivite extends Database {
     $nomresp = Session::get('nomcompte');
     $prenomresp = Session::get('prenomcompte');
 
-    self::insert($addActivite,
+    if(self::insert($addActivite,
     [
       $codeanim,
       $codeetatact,
@@ -94,7 +94,11 @@ class ORMActivite extends Database {
       $hrfinact,
       $nomresp,
       $prenomresp
-    ]);
+    ])) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**

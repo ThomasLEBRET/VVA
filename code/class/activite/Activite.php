@@ -6,31 +6,31 @@ require_once("class/animation/Animation.php");
 */
 class Activite extends Database {
 
-  private $noact;
-  private	$codeanim;
-  private	$codeetatact;
-  private $dateact;
-  private $hrrdvact;
-  private	$prixact;
-  private $hrdebutact;
-  private	$hrfinact;
-  private $dateannuleact;
-  private	$nomresp;
-  private	$prenomresp;
+  private int $noact;
+  private string $codeanim;
+  private string $codeetatact;
+  private DateTime $dateact;
+  private DateTime $hrrdvact;
+  private float $prixact;
+  private DateTime $hrdebutact;
+  private DateTime $hrfinact;
+  private DateTime $dateannuleact;
+  private string $nomresp;
+  private string $prenomresp;
 
   /**
   * default constructor
   */
   public function __construct() {
-    $this->noact = "null";
+    $this->noact = 0;
     $this->codeanim = "null";
     $this->codeetatact = "null";
-    $this->dateact = "null";
-    $this->hrrdvact = "null";
-    $this->prixact = "null";
-    $this->hrdebutact = "null";
-    $this->hrfinact = "null";
-    $this->dateannuleact = "null";
+    $this->dateact = new DateTime();
+    $this->hrrdvact = new DateTime();
+    $this->prixact = 0;
+    $this->hrdebutact = new DateTime();
+    $this->hrfinact = new DateTime();
+    $this->dateannuleact = new DateTime();
     $this->nomresp = "null";
     $this->prenomresp = "null";
   }
@@ -39,7 +39,7 @@ class Activite extends Database {
   /**
    * Get the value of Class to manage activity object
    *
-   * @return mixed
+   * @return int
    */
   public function getNoact()
   {
@@ -49,21 +49,18 @@ class Activite extends Database {
   /**
    * Set the value of Class to manage activity object
    *
-   * @param mixed $noact
+   * @param int $noact
    *
-   * @return self
    */
-  public function setNoact($noact)
+  public function setNoact(int $noact)
   {
       $this->noact = intval($noact);
-
-      return $this;
   }
 
   /**
    * Get the value of Class to manage activity object
    *
-   * @return mixed
+   * @return string
    */
   public function getCodeanim()
   {
@@ -73,21 +70,18 @@ class Activite extends Database {
   /**
    * Set the value of codeanim
    *
-   * @param mixed $codeanim
+   * @param string $codeanim
    *
-   * @return self
    */
-  public function setCodeanim($codeanim)
+  public function setCodeanim(string $codeanim)
   {
       $this->codeanim = $codeanim;
-
-      return $this;
   }
 
   /**
    * Get the value of Codeetatact
    *
-   * @return mixed
+   * @return string
    */
   public function getCodeetatact()
   {
@@ -97,25 +91,22 @@ class Activite extends Database {
   /**
    * Set the value of Codeetatact
    *
-   * @param mixed $codeetatact
+   * @param string $codeetatact
    *
-   * @return self
    */
-  public function setCodeetatact($codeetatact)
+  public function setCodeetatact(string $codeetatact)
   {
       $this->codeetatact = $codeetatact;
-
-      return $this;
   }
 
     /**
      * Get the value of Dateact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getDateact()
     {
-        return date('d/m/Y', strtotime($this->dateact));
+        return $this->dateact->format('d/m/Y');
     }
 
     /**
@@ -123,21 +114,21 @@ class Activite extends Database {
      *
      * @param mixed $dateact
      *
-     * @return self
      */
     public function setDateact($dateact)
     {
-        $this->dateact = date('d/m/Y', strtotime($dateact));
+        $this->dateact = new DateTime($dateact);
+        $this->dateact->format('d/m/Y');
     }
 
     /**
      * Get the value of Hrrdvact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getHrrdvact()
     {
-        return date("H:i:s", strtotime($this->hrrdvact));
+        return $this->hrrdvact->format("H:i:s");
     }
 
     /**
@@ -145,17 +136,17 @@ class Activite extends Database {
      *
      * @param mixed $hrrdvact
      *
-     * @return self
      */
     public function setHrrdvact($hrrdvact)
     {
-        $this->hrrdvact = date("H:i:s", strtotime($hrrdvact));
+        $this->hrrdvact = new DateTime($hrrdvact);
+        $this->hrrdvact->format("H:i:s");
     }
 
     /**
      * Get the value of Prixact
      *
-     * @return mixed
+     * @return float
      */
     public function getPrixact()
     {
@@ -167,7 +158,6 @@ class Activite extends Database {
      *
      * @param mixed $getPrixact
      *
-     * @return self
      */
     public function setPrixact($prixact)
     {
@@ -177,11 +167,11 @@ class Activite extends Database {
     /**
      * Get the value of Hrdebutact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getHrdebutact()
     {
-        return date("H:i:s", strtotime($this->hrdebutact));
+        return $this->hrdebutact->format("H:i:s");
     }
 
     /**
@@ -189,21 +179,22 @@ class Activite extends Database {
      *
      * @param mixed $hrdebutact
      *
-     * @return self
+     * @return DateTime
      */
     public function setHrdebutact($hrdebutact)
     {
-        $this->hrdebutact = date("H:i:s", strtotime($hrdebutact));
+        $this->hrdebutact = new DateTime($hrdebutact);
+        $this->hrdebutact->format("H:i:s");
     }
 
     /**
      * Get the value of Hrfinact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getHrfinact()
     {
-        return date("H:i:s", strtotime($this->hrfinact));
+        return $this->hrfinact->format("H:i:s");
     }
 
     /**
@@ -215,17 +206,18 @@ class Activite extends Database {
      */
     public function setHrfinact($hrfinact)
     {
-        $this->hrfinact = date("H:i:s", strtotime($hrfinact));
+        $this->hrfinact = new DateTime($hrfinact);
+        $this->hrfinact->format("H:i:s");
     }
 
     /**
      * Get the value of Dateannuleact
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getDateannuleact()
     {
-        return date('d/m/Y', strtotime($this->dateannuleact));
+        return $this->dateannuleact->format('d/m/Y');
     }
 
     /**
@@ -233,17 +225,17 @@ class Activite extends Database {
      *
      * @param mixed $dateannuleact
      *
-     * @return self
      */
     public function setDateannuleact($dateannuleact)
     {
-        $this->dateannuleact = date('d/m/Y', strtotime($dateannuleact));
+        $this->dateannuleact = new DateTime($dateannuleact);
+        $this->dateannuleact->format('d/m/Y');
     }
 
     /**
      * Get the value of Prenomresp
      *
-     * @return mixed
+     * @return string
      */
     public function getPrenomresp()
     {
@@ -255,19 +247,16 @@ class Activite extends Database {
      *
      * @param mixed $prenomresp
      *
-     * @return self
      */
     public function setPrenomresp($prenomresp)
     {
         $this->prenomresp = $prenomresp;
-
-        return $this;
     }
 
     /**
      * Get the value of Prenomresp
      *
-     * @return mixed
+     * @return string
      */
     public function getNomresp()
     {
@@ -277,15 +266,12 @@ class Activite extends Database {
     /**
      * Set the value of Nomresp
      *
-     * @param mixed $nomresp
+     * @param string $nomresp
      *
-     * @return self
      */
     public function setNomresp($nomresp)
     {
         $this->nomresp = $nomresp;
-
-        return $this;
     }
 
 }

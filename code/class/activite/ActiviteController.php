@@ -1,6 +1,7 @@
 <?php
 
   require_once("ORMActivite.php");
+  require_once("class/animation/ORMAnimation.php");
   require_once("Activite.php");
   require_once("class/animation/Animation.php");
   require_once("class/inscription/Inscription.php");
@@ -24,11 +25,11 @@
      * @return void
      */
     public function getAllByCodeAnim($codeAnimation) {
-      $animation = $this->animation->get($codeAnimation);
+      $animation = ORMAnimation::get($codeAnimation);
       $codesEtatAct = ORMActivite::getAllCodeEtatAct();
 
       if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
-        if($this->animation->get($codeAnimation)->getCodeanim() == $codeAnimation) {
+        if(ORMAnimation::get($codeAnimation)->getCodeanim() == $codeAnimation) {
           if(Session::get('typeprofil') == 'EN') {
             require_once('view/activite/form/formAddActivite.php');
           }
@@ -151,7 +152,7 @@
     
     public function viewUpdateActivity($get) {
       $this->activite = ORMActivite::get($get->get('noAct'));
-      $this->animation = $this->animation->get($this->activite->getCodeanim());
+      $this->animation = ORMAnimation::get($this->activite->getCodeanim());
       $codesEtatAct = ORMActivite::getAllCodeEtatAct();
       
       if(Session::get('typeprofil') == 'EN' && $this->activite->getNoact() != 0) {
@@ -174,10 +175,14 @@
             }
           }
           if($allIsset) {
-            $this->animation = $this->animation->get($this->activite->getCodeanim());
-            ORMActivite::updateAct($this->animation, $post);
-            $successUpdateAnim = "L'activité a bien été mise à jour";
-            header('Location: index.php?page=animation');
+            $this->animation = ORMAnimation::get($this->activite->getCodeanim());
+            $isUpdateAct = ORMActivite::updateAct($this->animation, $post);
+            if($isUpdateAct) {
+              $msgUpdateAnim = "L'activité a bien été mise à jour"; 
+            } else {
+              $msgUpdateAnim = "L'activité n'a pas pu être mise à jour";
+            }
+            header('Location: index.php?page=activite&codeAnimation='.$this->animation->getCodeAnim());
           } else {
             require_once('view/activite/errors/errorUpdateActivite.php');
           }
