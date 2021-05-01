@@ -1,15 +1,15 @@
 <?php
 
 require_once("User.php");
+require_once("ORMUser.php");
+
 require_once("class/animation/Animation.php");
+require_once("class/animation/ORMAnimation.php");
 
 class UserController extends User {
 
-  private $user;
-
   public function __construct() {
-    $this->user = new User();
-    $this->animation = new Animation();
+
   }
 
   /**
@@ -25,7 +25,7 @@ class UserController extends User {
         require_once("view/user/accueil.php");
       }
     } else {
-      if($this->user->connexion($post)) {
+      if(ORMUser::connexion($post)) {
         header('Location: index.php?page=accueil');
       } else {
         require_once("view/user/error/errorlogin.php");
@@ -36,15 +36,15 @@ class UserController extends User {
   private function chooseView() {
     switch (Session::get('typeprofil')) {
       case 'VA':
-        $activites = $this->user->getActivitesValidesVacancier();
+        $activites = ORMUser::getActivitesValidesVacancier();
         require_once("view/user/accueilVacancier.php");
         break;
       case 'EN':
-        $activites = $this->user->getActivitesSousEncadrant();
+        $activites = ORMUser::getActivitesSousEncadrant();
         require_once("view/user/accueilEncadrant.php");
         break;
       case 'AM':
-        $listAccounts = $this->user->getAllAccounts();
+        $listAccounts = ORMUser::getAllAccounts();
         require_once("view/user/accueilAdministrateur.php");
         break;
       }

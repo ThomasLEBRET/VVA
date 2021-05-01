@@ -58,7 +58,7 @@
         <?php 
             break;
         case 'EN': ?>
-          <p class="card-text">Nombre d'activités en charge :  <?= $account->getNbActivitesEnCharge(); ?></p>
+          <p class="card-text">Nombre d'activités en charge :  <?= ORMUser::getNbActivitesEnCharge(); ?></p>
         <?php 
            break;
         }

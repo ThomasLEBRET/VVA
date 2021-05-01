@@ -1,25 +1,22 @@
 <?php
 
-require_once("class/datas/Database.php");
-include("sqlRequests.php");
-
 /**
  * User : object class to create user and apply actions in a user
  */
-class User extends Database {
+class User {
 
-  private $user;
-  private $mdp;
-  private $nomcompte;
-  private $prenomcompte;
-  private $dateinscrip;
+  private string $user;
+  private string $mdp;
+  private string $nomcompte;
+  private string $prenomcompte;
+  private DateTime $dateinscrip;
   private $dateferme;
-  private $typeprofil;
-  private $datedebsejour;
-  private $datefinsejour;
-  private $datenaiscompte;
-  private $adrmailcompte;
-  private $notelcompte;
+  private string $typeprofil;
+  private DateTime $datedebsejour;
+  private DateTime $datefinsejour;
+  private DateTime $datenaiscompte;
+  private string $adrmailcompte;
+  private int $notelcompte;
 
   /**
    * Default constructor
@@ -29,14 +26,14 @@ class User extends Database {
     $this->mdp = "null";
     $this->nomcompte = "null";
     $this->prenomcompte = "null";
-    $this->dateinscrip = "null";
-    $this->dateferme = "null";
+    $this->dateinscrip = new DateTime();
+    $this->dateferme = null;
     $this->typeprofil = "null";
-    $this->datedebsejour = "null";
-    $this->datefinsejour = "null";
-    $this->datenaiscompte = "null";
+    $this->datedebsejour = new DateTime();
+    $this->datefinsejour = new DateTime();
+    $this->datenaiscompte = new DateTime;
     $this->adrmailcompte = "null";
-    $this->notelcompte = "null";
+    $this->notelcompte = 0;
   }
 
   /**
@@ -51,7 +48,7 @@ class User extends Database {
    * set a user login
    * @param string $user
    */
-  public function setUser($user){
+  public function setUser(string $user){
     $this->user = $user;
   }
 
@@ -67,7 +64,7 @@ class User extends Database {
    * set a user password
    * @param string $mdp
    */
-  public function setMdp($mdp){
+  public function setMdp(string $mdp){
     $this->mdp = $mdp;
   }
 
@@ -83,7 +80,7 @@ class User extends Database {
    * set an account name
    * @param string $nomcompte
    */
-  public function setNomcompte($nomcompte){
+  public function setNomcompte(string $nomcompte){
     $this->nomcompte = $nomcompte;
   }
 
@@ -99,42 +96,49 @@ class User extends Database {
    * set a surname account
    * @param string $prenomcompte
    */
-  public function setPrenomcompte($prenomcompte){
+  public function setPrenomcompte(string $prenomcompte){
     $this->prenomcompte = $prenomcompte;
   }
 
   /**
    * get an inscription date
-   * @return date
+   * @return DateTime
    */
   public function getDateinscrip(){
-    $date = new DateTime($this->dateinscrip);
-    return $date->format('d/m/Y');
+    return $this->dateinscrip->format('d/m/Y');
   }
 
   /**
    * set a inscription date
-   * @param date $dateinscrip
+   * @param mixed $dateinscrip
    */
   public function setDateinscrip($dateinscrip){
-    $this->dateinscrip = $dateinscrip;
+    $this->dateinscrip = new DateTime($dateinscrip);
+    $this->dateinscrip->format('d/m/Y');
   }
 
   /**
    * get a close date for a user account
-   * @return date
+   * @return DateTime
    */
   public function getDateferme(){
-    $date = new DateTime($this->dateferme);
-    return $date->format('d/m/Y');
+    if($this->dateferme != NULL) {
+      return $this->dateferme->format('d/m/Y');
+    }
+    return $this->dateferme;
   }
 
   /**
    * set a close date for a user account
-   * @param date $dateferme
+   * @param mixed $dateferme
    */
   public function setDateferme($dateferme){
-    $this->dateferme = $dateferme;
+    if($dateferme != NULL) {
+      $this->dateferme = new DateTime($dateferme);
+      $this->dateferme->format('d/m/Y');
+    } else {
+      $this->dateferme = $dateferme;
+    }
   }
 
   /**
@@ -149,17 +153,16 @@ class User extends Database {
    * set a type of user profil
    * @param string $typeprofil
    */
-  public function setTypeprofil($typeprofil){
+  public function setTypeprofil(string $typeprofil){
     $this->typeprofil = $typeprofil;
   }
 
   /**
    * get a start date stay
-   * @return date
+   * @return DateTime
    */
   public function getDatedebsejour(){
-    $date = new DateTime($this->datedebsejour);
-    return $date->format('d/m/Y');
+    return $this->datedebsejour->format('d/m/Y');
   }
 
   /**
@@ -167,41 +170,42 @@ class User extends Database {
    * @param date $datedebsejour
    */
   public function setDatedebsejour($datedebsejour){
-    $this->datedebsejour = $datedebsejour;
+    $this->datedebsejour = new DateTime($datedebsejour);
+    $this->datedebsejour->format('d/m/Y');
   }
 
   /**
    * get a end date stay
-   * @return date $datefinsejour
+   * @return DateTime $datefinsejour
    */
   public function getDatefinsejour(){
-    $date = new DateTime($this->datefinsejour);
-    return $date->format('d/m/Y');
+    return $this->datefinsejour->format('d/m/Y');
   }
 
   /**
    * set a end date stay
-   * @param date $datefinsejour
+   * @param DateTime $datefinsejour
    */
   public function setDatefinsejour($datefinsejour){
-    $this->datefinsejour = $datefinsejour;
+    $this->datefinsejour = new DateTime($datefinsejour);
+    $this->datefinsejour->format('d/m/Y');
   }
 
   /**
    * get birth date
-   * @return date
+   * @return DateTime
    */
   public function getDatenaiscompte(){
-    $date = new DateTime($this->datenaiscompte);
-    return $date->format('d/m/Y');
+    return $this->datenaiscompte->format('d/m/Y');
   }
 
   /**
    * set birth date
-   * @param date $datenaiscompte
+   * @param DateTime $datenaiscompte
    */
   public function setDatenaiscompte($datenaiscompte){
-    $this->datenaiscompte = $datenaiscompte;
+    $this->datenaiscompte = new DateTime($datenaiscompte);
+    $this->datenaiscompte->format('d/m/Y');
   }
 
   /**
@@ -225,86 +229,15 @@ class User extends Database {
    * @return int
    */
   public function getNotelcompte(){
-    return $this->notelcompte;
+    return intval($this->notelcompte);
   }
 
   /**
    * set an tel num
    * @param int $notelcompte
    */
-  public function setNotelcompte($notelcompte){
-    $this->notelcompte = $notelcompte;
-  }
-
-  /**
-   * Get all user accounts
-   */
-  public function getAllAccounts() {
-    global $selectAllUsers;
-
-    $users = $this->select($selectAllUsers, [], 'User', false);
-
-    return $users;
-  }
-
-  public function getNbActivitesEnCharge() {
-    global $countActivitesEncadrant;
-
-    $n = $this->count($countActivitesEncadrant, 
-      [
-        $this->nomcompte, 
-        $this->prenomcompte
-      ]);
-    return $n;
-  }
-
-  public function getActivitesSousEncadrant() {
-    global $activitesSousEncadrant;
-
-    $activites = $this->select($activitesSousEncadrant, 
-      [
-      Session::get('nomcompte'),
-      Session::get('prenomcompte')
-      ],
-      'Activite',
-      false
-  );
-    return $activites;
-  }
-
-  public function getActivitesValidesVacancier() {
-    global $activitesValidesVacancier;
-
-    $activites = $this->select($activitesValidesVacancier, 
-      [
-      Session::get('user')
-      ],
-      'Activite',
-      false
-  );
-    return $activites;
-    
-  }
-
-  /**
-   * function to login user where he valid login form
-   * @param  Parameters $params a $_POST array issue from the Parameters class
-   * @return bool       true if success login, false otherwise
-   */
-  public function connexion($params) {
-    global $selectUser;
-
-    $login = $params->get("login");
-    $password = $params->get("password");
-    $user = $this->select($selectUser, [$login, $password], 'User', true);
-    if($user->user == "null") {
-      return false;
-    } else {
-      foreach ($user as $key => $value) {
-        Session::set($key, $value);
-      }
-      return true;
-    }
+  public function setNotelcompte(int $notelcompte){
+    $this->notelcompte = intval($notelcompte);
   }
 
 }

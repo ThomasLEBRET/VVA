@@ -43,6 +43,9 @@ class Database
         $method ='set'.ucfirst(strtolower($key));
         if(method_exists($instance, $method)) {
             $instance->$method($val);
+            if($object == 'User' && count($_SESSION) < count($datas)) {
+              Session::set(strtolower($key), $val);
+            }
         }
     }
     return $instance;
