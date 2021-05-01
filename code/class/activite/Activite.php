@@ -1,7 +1,4 @@
 <?php
-require_once("class/datas/Database.php");
-include("sqlRequests.php");
-
 require_once("class/animation/Animation.php");
 
 /**
@@ -40,187 +37,13 @@ class Activite extends Database {
 
 
   /**
-   * get all activity for an animation
-   * @param  string $codeAnimation an animation code
-   * @return array  an array contain Activite objects
-   */
-  public function getAll($codeAnimation) {
-
-    global $getAllActivitesForVacancier;
-    global $getAllActivitesForEncadrant;
-
-    if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
-      $activites = $this->select
-      (
-        $getAllActivitesForEncadrant,
-        [
-          $codeAnimation
-        ],
-        'Activite'
-      );
-    } else {
-      $activites = $this->select
-      (
-        $getAllActivitesForVacancier,
-        [
-          $codeAnimation,
-          Session::get('datedebsejour')
-        ],
-        'Activite'
-      );
-    }
-    return $activites;
-
-  }
-
-  /**
-   * function to get an activity with his activity code
-   * @param  int $noact the number of activity
-   * @return Activite  an activity object
-   */
-  public function get($noact) {
-    global $getActivite;
-
-    return $this->select($getActivite, [$noact], 'Activite', 1);
-  } 
-
-  /**
-   * get all code activity state
-   * @return array activity code exists
-   */
-  public function getAllCodeEtatAct() {
-    global $getAllCodeEtatAct;
-
-    $pre_datas = $this->select($getAllCodeEtatAct, [], 'Activite');
-    $datas = [];
-    foreach ($pre_datas as $data) {
-      $datas[] = $data->codeetatact;
-    }
-    return $datas;
-  }
-
-  /**
-   * Add an activity
-   * @param Animation $animation an animation object
-   * @param Parameters $post      the array data post $_POST superglobal variables
-   */
-  public function add($animation, $post) {
-    global $addActivite;
-
-    $codeanim = $animation->getCodeanim();
-    $codeetatact = $post->get('codeetatact');
-    $dateact = $post->get('dateact');
-    $hrrdvact = $post->get('hrrdvact');
-    $prixact = $post->get('prixact');
-    $hrdebutact = $post->get('hrdebutact');
-    $hrfinact = date($post->get('hrrdvact'), strtotime('+'.$animation->getDureeanim().' day'));
-    $nomresp = Session::get('nomcompte');
-    $prenomresp = Session::get('prenomcompte');
-
-    $this->insert($addActivite,
-    [
-      $codeanim,
-      $codeetatact,
-      $dateact,
-      $hrrdvact,
-      $prixact,
-      $hrdebutact,
-      $hrfinact,
-      $nomresp,
-      $prenomresp
-    ]);
-  }
-
-  
-    /**
-   * Update an activity
-   * @param Animation $animation an animation object
-   * @param Parameters $post      the array data post $_POST superglobal variables
-   */
-  public function updateAct($animation, $post) {
-    global $updateActivite;
-    global $cancelActivity;
-
-    
-    $noact = $post->get('noact');
-
-    $codeetatact = $post->get('codeetatact');
-    $prixact = $post->get('prixact');
-    $dateact = $post->get('dateact');
-    $hrrdvact = $post->get('hrrdvact');
-    $hrdebutact = $post->get('hrdebutact');
-    $hrfinact = date($post->get('hrrdvact'), strtotime('+'.$animation->getDureeanim().' day'));
-
-    $this->update($updateActivite,
-    [
-      $codeetatact,
-      $prixact,
-      $dateact,
-      $hrrdvact,
-      $hrdebutact,
-      $hrfinact, 
-      $noact
-    ]);
-
-    if($codeetatact == 'N') {
-      $this->update($cancelActivity, [$noact]);
-    }
-  }
-
-
-  /**
-   * Verify if activity we are insert already exist in the same day
-   * @param  string $codeanim an animation code
-   * @param  date $dateact  a date for insert activity
-   * @return bool  true if not exist false also
-   */
-  public function noExistActiviteInSameDayForAnimation($codeanim, $dateact) {
-    global $countActiviteInSameDayForAnimation;
-
-    if($this->select($countActiviteInSameDayForAnimation, [$codeanim, $dateact], 'Activite') === NULL) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * verify if a user is registered for an activity
-   * @param int $noact a PK activity number
-   */
-  public function isAlreadyRegistered($noact) {
-    global $isRegisteredUser;
-
-    $user = Session::get('user');
-    $activite = $this->select($isRegisteredUser, [$noact, $user], 'Activite');
-    if($this->select($isRegisteredUser, [$noact, $user], 'Activite') == NULL)  {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  public function inscription($noact) {
-    global $addInscriptionInActivity;
-
-    $user = Session::get('user');
-    $this->insert($addInscriptionInActivity,[$user, $noact]);
-  }
-
-  public function cancel($noact) {
-    global $cancelActivity;
-
-    $this->update($cancelActivity, [$noact]);
-  }
-
-  /**
    * Get the value of Class to manage activity object
    *
    * @return mixed
    */
   public function getNoact()
   {
-      return $this->noact;
+      return intval($this->noact);
   }
 
   /**
@@ -232,7 +55,7 @@ class Activite extends Database {
    */
   public function setNoact($noact)
   {
-      $this->noact = $noact;
+      $this->noact = intval($noact);
 
       return $this;
   }
@@ -292,7 +115,7 @@ class Activite extends Database {
      */
     public function getDateact()
     {
-        return $this->dateact;
+        return date('d/m/Y', strtotime($this->dateact));
     }
 
     /**
@@ -305,8 +128,6 @@ class Activite extends Database {
     public function setDateact($dateact)
     {
         $this->dateact = date('d/m/Y', strtotime($dateact));
-
-        return $this;
     }
 
     /**
@@ -316,7 +137,7 @@ class Activite extends Database {
      */
     public function getHrrdvact()
     {
-        return $this->hrrdvact;
+        return date("H:i:s", strtotime($this->hrrdvact));
     }
 
     /**
@@ -328,9 +149,7 @@ class Activite extends Database {
      */
     public function setHrrdvact($hrrdvact)
     {
-        $this->hrrdvact = $hrrdvact;
-
-        return $this;
+        $this->hrrdvact = date("H:i:s", strtotime($hrrdvact));
     }
 
     /**
@@ -340,7 +159,7 @@ class Activite extends Database {
      */
     public function getPrixact()
     {
-        return $this->prixact;
+        return (float)$this->prixact;
     }
 
     /**
@@ -352,9 +171,7 @@ class Activite extends Database {
      */
     public function setPrixact($prixact)
     {
-        $this->prixact = $prixact;
-
-        return $this;
+        $this->prixact = (float)$prixact;
     }
 
     /**
@@ -364,7 +181,7 @@ class Activite extends Database {
      */
     public function getHrdebutact()
     {
-        return $this->hrdebutact;
+        return date("H:i:s", strtotime($this->hrdebutact));
     }
 
     /**
@@ -376,9 +193,7 @@ class Activite extends Database {
      */
     public function setHrdebutact($hrdebutact)
     {
-        $this->hrdebutact = $hrdebutact;
-
-        return $this;
+        $this->hrdebutact = date("H:i:s", strtotime($hrdebutact));
     }
 
     /**
@@ -388,7 +203,7 @@ class Activite extends Database {
      */
     public function getHrfinact()
     {
-        return $this->hrfinact;
+        return date("H:i:s", strtotime($this->hrfinact));
     }
 
     /**
@@ -400,9 +215,7 @@ class Activite extends Database {
      */
     public function setHrfinact($hrfinact)
     {
-        $this->hrfinact = $hrfinact;
-
-        return $this;
+        $this->hrfinact = date("H:i:s", strtotime($hrfinact));
     }
 
     /**
@@ -412,7 +225,7 @@ class Activite extends Database {
      */
     public function getDateannuleact()
     {
-        return $this->dateannuleact;
+        return date('d/m/Y', strtotime($this->dateannuleact));
     }
 
     /**
@@ -425,8 +238,6 @@ class Activite extends Database {
     public function setDateannuleact($dateannuleact)
     {
         $this->dateannuleact = date('d/m/Y', strtotime($dateannuleact));
-
-        return $this;
     }
 
     /**
