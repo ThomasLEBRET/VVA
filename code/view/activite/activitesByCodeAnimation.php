@@ -3,7 +3,6 @@
 <?php ob_start(); ?>
 
 <?php if(isset($formAddActivite)) { echo $formAddActivite; } ?>
-<?php if(isset($alertSuccess)) { echo $alertSuccess; } ?>
 
 
 <?php foreach ($activites as $activite) : ?>
@@ -52,6 +51,13 @@
     ?>
 
     </form>
+        <br>
+    <?php 
+      if(Session::get('typeprofil') == 'EN') { ?>
+      <a href="index.php?page=redirectUpdateActivity&noAct=<?= $activite->getNoact() ?>" class="btn btn-primary" role="button" data-bs-toggle="button">Modifier l'activité</a>
+      <?php 
+      }
+    ?>
 
   </div>
 
