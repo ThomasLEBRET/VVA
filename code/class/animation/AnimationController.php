@@ -1,19 +1,18 @@
 <?php
 
 require_once("Animation.php");
+require_once("ORMAnimation.php");
 
 /**
  * Class to control Animation datas
  */
 class AnimationController extends Animation {
 
-  private $animation;
-
   /**
    * default constructor
    */
   public function __construct() {
-    $this->animation = new Animation();
+
   }
 
   /**
@@ -21,9 +20,9 @@ class AnimationController extends Animation {
    * @return void
    */
   public function allAnimations() {
-    $animations = $this->animation->getAll();
+    $animations = ORMAnimation::getAll();
     if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
-      $codesTypeAnimation = $this->animation->getCodesTypeAnimations();
+      $codesTypeAnimation = ORMAnimation::getCodesTypeAnimations();
     }
     if($animations == NULL)
       $animations = [];
@@ -42,10 +41,10 @@ class AnimationController extends Animation {
           $allIsset = false;
         }
       }
-      if($allIsset && $this->animation->isValid($post->get('codeanim'))) {
-        if($this->animation->add($post)) {
+      if($allIsset && ORMAnimation::isValid($post->get('codeanim'))) {
+        if(ORMAnimation::add($post)) {
           $addSuccess = "L'animation a bien été ajoutée";
-          $animations = $this->animation->getAll();
+          $animations = ORMAnimation::getAll();
           require_once("view/animation/allAnimations.php");
         } else {
           require_once("view/animation/error/errorAdd.php");

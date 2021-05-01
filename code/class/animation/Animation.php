@@ -8,20 +8,20 @@ include("sqlRequests.php");
 */
 class Animation extends Database {
 
-  private $codeanim;
-  private $codetypeanim;
-  private $nomanim;
-  private $datecreationanim;
-  private $datevaliditeanim;
-  private $dureeanim;
-  private $limiteage;
-  private $tarifanim;
-  private $nbreplaceanim;
-  private $descriptanim;
-  private $commentanim;
+  private string $codeanim;
+  private string $codetypeanim;
+  private string $nomanim;
+  private DateTime $datecreationanim;
+  private DateTime $datevaliditeanim;
+  private int $dureeanim;
+  private int $limiteage;
+  private float $tarifanim;
+  private int $nbreplaceanim;
+  private string $descriptanim;
+  private string $commentanim;
 
-  private $nomtypeanim;
-  private $places_restantes;
+  private string $nomtypeanim;
+  private int $places_restantes;
 
   /**
   * default constructor
@@ -30,23 +30,24 @@ class Animation extends Database {
     $this->codeanim = "null";
     $this->codetypeanim = "null";
     $this->nomanim = "null";
-    $this->datecreationanim = "null";
-    $this->datevaliditeanim = "null";
-    $this->limiteage = "null";
-    $this->tarifanim = "null";
-    $this->nbreplaceanim = "null";
+    $this->datecreationanim = new DateTime();
+    $this->datevaliditeanim = new DateTime();
+    $this->dureeanim = 0;
+    $this->limiteage = 100;
+    $this->tarifanim = 0;
+    $this->nbreplaceanim = 0;
     $this->descriptanim = "null";
     $this->commentanim = "null";
 
     $this->nomtypeanim = "null";
-    $this->places_restantes = "null";
+    $this->places_restantes = 0;
   }
 
 
   /**
   * Get the value of Class to manage animations objects
   *
-  * @return mixed
+  * @return string
   */
   public function getCodeanim()
   {
@@ -56,21 +57,18 @@ class Animation extends Database {
   /**
   * Set the value of Class to manage animations objects
   *
-  * @param mixed $codeanim
+  * @param string $codeanim
   *
-  * @return self
   */
-  public function setCodeanim($codeanim)
+  public function setCodeanim(string $codeanim)
   {
     $this->codeanim = $codeanim;
-
-    return $this;
   }
 
   /**
   * Get the value of Codetypeanim
   *
-  * @return mixed
+  * @return string
   */
   public function getCodetypeanim()
   {
@@ -80,21 +78,18 @@ class Animation extends Database {
   /**
   * Set the value of Codetypeanim
   *
-  * @param mixed $codetypeanim
+  * @param string $codetypeanim
   *
-  * @return self
   */
-  public function setCodetypeanim($codetypeanim)
+  public function setCodetypeanim(string $codetypeanim)
   {
     $this->codetypeanim = $codetypeanim;
-
-    return $this;
   }
 
   /**
   * Get the value of Nomanim
   *
-  * @return mixed
+  * @return string
   */
   public function getNomanim()
   {
@@ -104,25 +99,22 @@ class Animation extends Database {
   /**
   * Set the value of Nomanim
   *
-  * @param mixed $nomanim
+  * @param string $nomanim
   *
-  * @return self
   */
   public function setNomanim($nomanim)
   {
     $this->nomanim = $nomanim;
-
-    return $this;
   }
 
   /**
   * Get the value of Datecreationanim
   *
-  * @return mixed
+  * @return DateTime
   */
   public function getDatecreationanim()
   {
-    return $this->datecreationanim;
+    return $this->datecreationanim->format('d/m/Y');
   }
 
   /**
@@ -130,23 +122,21 @@ class Animation extends Database {
   *
   * @param mixed $datecreationanim
   *
-  * @return self
   */
   public function setDatecreationanim($datecreationanim)
   {
-    $this->datecreationanim = date('d/m/Y', strtotime($datecreationanim));
-
-    return $this;
+    $this->datecreationanim = new DateTime($datecreationanim);
+    $this->datecreationanim->format('d/m/Y');
   }
 
   /**
   * Get the value of Datevaliditeanim
   *
-  * @return mixed
+  * @return DateTime
   */
   public function getDatevaliditeanim()
   {
-    return $this->datevaliditeanim;
+    return $this->datevaliditeanim->format('d/m/Y');
   }
 
   /**
@@ -154,115 +144,101 @@ class Animation extends Database {
   *
   * @param mixed $datevaliditeanim
   *
-  * @return self
   */
   public function setDatevaliditeanim($datevaliditeanim)
   {
-    $this->datevaliditeanim = date('d/m/Y', strtotime($datevaliditeanim));;
-
-    return $this;
+    $this->datevaliditeanim = new DateTime($datevaliditeanim);
+    $this->datevaliditeanim->format('d/m/Y');
   }
 
   /**
   * Get the value of Dureeanim
   *
-  * @return mixed
+  * @return int
   */
   public function getDureeanim()
   {
-    return $this->dureeanim;
+    return intval($this->dureeanim);
   }
 
   /**
   * Set the value of Dureeanim
   *
-  * @param mixed $dureeanim
+  * @param int $dureeanim
   *
-  * @return self
   */
-  public function setDureeanim($dureeanim)
+  public function setDureeanim(int $dureeanim)
   {
-    $this->dureeanim = $dureeanim;
-
-    return $this;
+    $this->dureeanim = intval($dureeanim);
   }
 
   /**
   * Get the value of Limiteage
   *
-  * @return mixed
+  * @return int
   */
   public function getLimiteage()
   {
-    return $this->limiteage;
+    return intval($this->limiteage);
   }
 
   /**
   * Set the value of Limiteage
   *
-  * @param mixed $limiteage
+  * @param int $limiteage
   *
-  * @return self
   */
-  public function setLimiteage($limiteage)
+  public function setLimiteage(int $limiteage)
   {
-    $this->limiteage = $limiteage;
-
-    return $this;
+    $this->limiteage = intval($limiteage);
   }
 
   /**
   * Get the value of Tarifanim
   *
-  * @return mixed
+  * @return float
   */
   public function getTarifanim()
   {
-    return $this->tarifanim;
+    return (float)$this->tarifanim;
   }
 
   /**
   * Set the value of Tarifanim
   *
-  * @param mixed $tarifanim
+  * @param float $tarifanim
   *
-  * @return self
   */
-  public function setTarifanim($tarifanim)
+  public function setTarifanim(float $tarifanim)
   {
-    $this->tarifanim = $tarifanim;
-
-    return $this;
+    $this->tarifanim = (float)$tarifanim;
   }
 
   /**
   * Get the value of Nbreplaceanim
   *
-  * @return mixed
+  * @return int
   */
   public function getNbreplaceanim()
   {
-    return $this->nbreplaceanim;
+    return intval($this->nbreplaceanim);
   }
 
   /**
   * Set the value of Nbreplaceanim
   *
-  * @param mixed $nbreplaceanim
+  * @param int $nbreplaceanim
   *
-  * @return self
   */
-  public function setNbreplaceanim($nbreplaceanim)
+  public function setNbreplaceanim(int $nbreplaceanim)
   {
-    $this->nbreplaceanim = $nbreplaceanim;
-
-    return $this;
+    $this->nbreplaceanim = intval($nbreplaceanim);
   }
 
   /**
   * Get the value of Descriptanim
   *
-  * @return mixed
+  * @return string
   */
   public function getDescriptanim()
   {
@@ -272,21 +248,18 @@ class Animation extends Database {
   /**
   * Set the value of Descriptanim
   *
-  * @param mixed $descriptanim
+  * @param string $descriptanim
   *
-  * @return self
   */
-  public function setDescriptanim($descriptanim)
+  public function setDescriptanim(string $descriptanim)
   {
     $this->descriptanim = $descriptanim;
-
-    return $this;
   }
 
   /**
   * Get the value of Commentanim
   *
-  * @return mixed
+  * @return string
   */
   public function getCommentanim()
   {
@@ -296,21 +269,18 @@ class Animation extends Database {
   /**
   * Set the value of Commentanim
   *
-  * @param mixed $commentanim
+  * @param string $commentanim
   *
-  * @return self
   */
-  public function setCommentanim($commentanim)
+  public function setCommentanim(string $commentanim)
   {
     $this->commentanim = $commentanim;
-
-    return $this;
   }
 
   /**
   * Get the value of Nomtypeanim
   *
-  * @return mixed
+  * @return string 
   */
   public function getNomtypeanim()
   {
@@ -320,124 +290,33 @@ class Animation extends Database {
   /**
   * Set the value of Nomtypeanim
   *
-  * @param mixed $nomtypeanim
+  * @param string $nomtypeanim
   *
-  * @return self
   */
-  public function setNomtypeanim($nomtypeanim)
+  public function setNomtypeanim(string $nomtypeanim)
   {
     $this->nomtypeanim = $nomtypeanim;
-
-    return $this;
   }
 
   /**
   * Get the value of Places Restantes
   *
-  * @return mixed
+  * @return int
   */
   public function getPlaces_restantes()
   {
-    return $this->places_restantes;
+    return intval($this->places_restantes);
   }
 
   /**
   * Set the value of Places Restantes
   *
-  * @param mixed $places_restantes
+  * @param int $places_restantes
   *
-  * @return self
   */
-  public function setPlaces_restantes($places_restantes)
+  public function setPlaces_restantes(int $places_restantes)
   {
-    $this->places_restantes = $places_restantes;
-
-    return $this;
-  }
-
-  /**
-  * get all animations
-  * @return array[Animation] an array contain Animation
-  */
-  public function getAll() {
-    global $getAll;
-    global $getAllValides;
-
-    if(Session::get('typeprofil') == 'EN') {
-      $animations = $this->select($getAll, [], 'Animation');
-    } else {
-      $dtFinSej = Session::get('datefinsejour');
-      $dtDebSej = Session::get('datedebsejour');
-
-      $dateNaiss = new DateTime(Session::get('datenaiscompte'));
-      $dateNow = new DateTime(date("Y-m-d"));
-
-      $ageUser = $dateNow->diff($dateNaiss);
-      $animations = $this->select($getAllValides, [$ageUser->y], 'Animation');
-    }
-    return $animations;
-  }
-
-  /**
-  * get an animation with his PK
-  * @param  string $codeAnimation a animation code
-  * @return Animation  an animation object
-  */
-  public function get($codeAnimation) {
-    global $getAnimation;
-
-    return $this->select($getAnimation, [$codeAnimation], 'Animation', 1);
-  }
-
-  /**
-  * get all codes type animation
-  * @return array an array contains all code type animations
-  */
-  public function getCodesTypeAnimations() {
-    global $getCodesTypeAnim;
-    $pre_datas = $this->select($getCodesTypeAnim, [], 'Animation');
-    $datas = [];
-    foreach ($pre_datas as $data) {
-      $datas[] = $data->codetypeanim;
-    }
-    return $datas;
-  }
-
-  /**
-  * add an animation
-  * @param Parameters $post a $_POST Parameters
-  */
-  public function add($post) {
-    global $addAnimation;
-
-    $datas = $post->getArray();
-    foreach ($datas as $val) {
-      $data[] = $val;
-    }
-
-    try {
-      $this->insert($addAnimation, $data);
-      return true;
-    } catch (\Exception $e) {
-      return false;
-    }
-
-  }
-
-  /**
-  * Verify if an animation is valid (not exist in database yet)
-  * @param  string  $codeAnim an animation code
-  * @return bool true if can select animations, false also
-  */
-  public function isValid($codeAnim) {
-    global $getCommonAnimations;
-
-    try {
-      $this->select($getCommonAnimations, [$codeAnim], 'Animation');
-      return true;
-    } catch (\Exception $e) {
-      return false;
-    }
+    $this->places_restantes = intval($places_restantes);
   }
 
 }
