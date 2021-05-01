@@ -3,73 +3,49 @@
   require_once("class/datas/Database.php");
   include("sqlRequests.php");
 
-  class Inscription extends Database {
-    private $noinscrip;
-    private $user;
-    private $noact;
-    private $dateinscrip;
+  class Inscription {
+    private int $noinscrip;
+    private string $user;
+    private int $noact;
+    private DateTime $dateinscrip;
     private $dateannule;
 
     /**
      * default constructor
      */
     public function __construct() {
-      $this->noinscrip = "null";
+      $this->noinscrip = 0;
       $this->user = "null";
-      $this->noact = "null";
-      $this->dateinscrip = "null";
-      $this->dateannule = "null";
-    }
-
-    /**
-     * get an Inscription object with his PK
-     * @return Inscription an Inscription object
-     */
-    public function get($user, $noact) {
-      global $getInscription;
-
-      return $this->select($getInscription, [$user, $noact], 'Inscription', 1);
-    }
-
-    public function unscribeActRegisteredUser($noinscrip) {
-      global $unscribeUserForActivite;
-      $this->update($unscribeUserForActivite, [$noinscrip]);
-    }
-
-    public function againRegister($noinscrip) {
-      global $registerAgainUser;
-      
-      $this->update($registerAgainUser, [$noinscrip]);
+      $this->noact = 0;
+      $this->dateinscrip = new DateTime();
+      $this->dateannule = null;
     }
 
     /**
      * Get the value of Noinscrip
      *
-     * @return mixed
+     * @return int
      */
     public function getNoinscrip()
     {
-        return $this->noinscrip;
+        return intval($this->noinscrip);
     }
 
     /**
      * Set the value of Noinscrip
      *
-     * @param mixed $noinscrip
+     * @param int $noinscrip
      *
-     * @return self
      */
-    public function setNoinscrip($noinscrip)
+    public function setNoinscrip(int $noinscrip)
     {
-        $this->noinscrip = $noinscrip;
-
-        return $this;
+        $this->noinscrip = intval($noinscrip);
     }
 
     /**
      * Get the value of User
      *
-     * @return mixed
+     * @return string
      */
     public function getUser()
     {
@@ -79,25 +55,23 @@
     /**
      * Set the value of User
      *
-     * @param mixed $user
+     * @param string $user
      *
      * @return self
      */
-    public function setUser($user)
+    public function setUser(string $user)
     {
         $this->user = $user;
-
-        return $this;
     }
 
     /**
      * Get the value of Noact
      *
-     * @return mixed
+     * @return int
      */
     public function getNoact()
     {
-        return $this->noact;
+        return intval($this->noact);
     }
 
     /**
@@ -105,23 +79,20 @@
      *
      * @param mixed $noact
      *
-     * @return self
      */
-    public function setNoact($noact)
+    public function setNoact(int $noact)
     {
-        $this->noact = $noact;
-
-        return $this;
+        $this->noact = intval($noact);
     }
 
     /**
      * Get the value of Dateinscrip
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getDateinscrip()
     {
-        return $this->dateinscrip;
+        return $this->dateinscrip->format('d/m/Y');
     }
 
     /**
@@ -129,13 +100,11 @@
      *
      * @param mixed $dateinscrip
      *
-     * @return self
      */
     public function setDateinscrip($dateinscrip)
     {
-        $this->dateinscrip = $dateinscrip;
-
-        return $this;
+        $this->dateinscrip = new DateTime($dateinscrip);
+        $this->dateinscrip->format('d/m/Y');
     }
 
     /**
@@ -153,13 +122,13 @@
      *
      * @param mixed $dateannule
      *
-     * @return self
      */
     public function setDateannule($dateannule)
     {
-        $this->dateannule = $dateannule;
-
-        return $this;
+        if($dateannule != NULL) {
+            $this->dateannule = new DateTime($dateannule);
+            $this->dateannule->format('d/m/Y');
+        }
     }
 }
 
