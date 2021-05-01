@@ -82,10 +82,10 @@
      */
     public function addInscription($get) {
       $noact = $get->get('noact');
-      $activite = $this->activite->get($noact);
+      $this->activite = $this->activite->get($noact);
       $user = Session::get('user');
 
-      if($activite->isAlreadyRegistered($noact)) {
+      if($this->activite->isAlreadyRegistered($noact)) {
         $inscription = $this->inscription->get($user, $noact);
         if($inscription->getNoinscrip() != "null") {
           if($inscription->getDateannule() == "null") {
@@ -95,12 +95,12 @@
           }
         }
       } else {
-        $inscription = $this->inscription->get($user, $noact);
-        if($inscription->getNoinscrip() == "null") {
-          $activite->inscription($noact);
+        $this->inscription = $this->inscription->get($user, $noact);
+        if($this->inscription->getNoinscrip() == "null") {
+          $this->activite->inscription($noact);
           header('Location: index.php?page=animation');
         } else {
-          $this->inscription->againRegister($inscription->getNoinscrip());
+          $this->inscription->againRegister($this->inscription->getNoinscrip());
           header('Location: index.php?page=animation');
         }
       }
@@ -115,9 +115,9 @@
       $user = Session::get('user');
       $noact = $get->get('noact');
 
-      $inscription = $this->inscription->get($user, $noact);
+      $this->inscription = $this->inscription->get($user, $noact);
       if($inscription->getNoinscrip() != "null" && $inscription->getDateannule() == NULL) {
-        $this->inscription->unscribeActRegisteredUser($inscription->getNoinscrip());
+        $this->inscription->unscribeActRegisteredUser($this->inscription->getNoinscrip());
         header('Location: index.php?page=animation');
       } else {
         require_once('view/activite/errors/errorAlreayRegistered.php');
@@ -131,18 +131,55 @@
     public function tryCancelActivity($get) {
       $typeProfil = Session::get('typeprofil');
       $noAct = $get->get('noAct');
-
+      $this->activite = $this->activite->get($noAct);
+      
       if(isset($typeProfil)) {
         if($typeProfil == "EN") {
-          if($this->activite->cancel($noAct)) {
-            $msgCancelAct = "L'activité ".$noAct." a bien été annulée";
-            header('Location: index.php?page=animation');
-          } else {
-            $msgCancelAct = "Une erreur s'est produite lors de l'annulation de l'activité ".$noAct;
-            header('Location: index.php?page=animation');
-          }
+          $this->activite->cancel($noAct);
+          header('Location: index.php?page=animation');
         } else {
           require_once("view/activite/errors/errorNotAutorizedUser.php");
+        }
+      } else {
+        require_once("view/activite/errors/errorNotAutorizedUser.php");
+      }
+    }
+
+    public function viewUpdateActivity($get) {
+      $this->activite = $this->activite->get($get->get('noAct'));
+      $this->animation = $this->animation->get($this->activite->getCodeanim());
+      $codesEtatAct = $this->activite->getAllCodeEtatAct();
+      
+      
+      if(Session::get('typeprofil') == 'EN' && $this->activite->getNoact() != "null") {
+        require_once("view/activite/form/formUpdateActivity.php");
+      } else {
+        require_once("view/activite/errors/errorNotAutorizedUser.php");
+      }
+    }
+
+    public function updateActivite($post) {
+      if(Session::get('typeprofil') == 'EN') {
+        $this->activite = $this->activite->get($post->get('noact'));
+        $hrrdvact = new DateTime($this->activite->getHrrdvact());
+        $hrdebutact = new DateTime($this->activite->getHrdebutact());
+        if($hrrdvact <= $hrdebutact) {
+          $allIsset = true;
+          foreach ($post->getArray() as $key => $value) {
+            if(empty($value)) {
+              $allIsset = false;
+            }
+          }
+          if($allIsset) {
+            $this->animation = $this->animation->get($this->activite->getCodeanim());
+            $this->activite->updateAct($this->animation, $post);
+            $successUpdateAnim = "L'activité a bien été mise à jour";
+            header('Location: index.php?page=animation');
+          } else {
+            require_once('view/activite/errors/errorUpdateActivite.php');
+          }
+        } else {
+          require_once('view/activite/errors/errorUpdateActivite.php');
         }
       } else {
         require_once("view/activite/errors/errorNotAutorizedUser.php");

@@ -50,6 +50,20 @@
     )
   ";
 
+  $updateActivite = 
+  "
+    UPDATE activite
+    SET CODEETATACT = ?,
+        PRIXACT = ?,
+        DATEACT = ?,
+        HRRDVACT = ?,
+        HRDEBUTACT = ?,
+        HRFINACT = ?, 
+        DATEANNULEACT = NULL
+    WHERE NOACT = ?
+
+  ";
+
   /**
    * count an activity where date is the same day as an other in the same animation
    * @var string
@@ -102,7 +116,8 @@
   $cancelActivity = 
   "
       UPDATE activite
-      SET CODEETATACT = 'N'
+      SET CODEETATACT = 'N', 
+          DATEANNULEACT = NOW()
       WHERE NOACT = ?
   ";
 
