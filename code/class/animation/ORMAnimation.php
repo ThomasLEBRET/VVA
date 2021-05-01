@@ -13,7 +13,7 @@ class ORMAnimation extends Database {
     global $getAll;
     global $getAllValides;
 
-    if(Session::get('typeprofil') == 'EN') {
+    if(Session::get('typeprofil') == 'EN' || Session::get('typeprofil') == 'AM') {
       $animations = self::select($getAll, [], 'Animation');
     } else {
       $dtFinSej = Session::get('datefinsejour');
