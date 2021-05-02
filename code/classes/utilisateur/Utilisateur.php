@@ -167,7 +167,7 @@ class Utilisateur {
 
   /**
    * Mutateur dateDebSejour
-   * @param date $datedebsejour
+   * @param mixed $datedebsejour
    */
   public function setDatedebsejour($datedebsejour){
     $this->datedebsejour = new DateTime($datedebsejour);
@@ -176,7 +176,7 @@ class Utilisateur {
 
   /**
    * Accesseur dateFinSejour
-   * @return DateTime $datefinsejour
+   * @return DateTime
    */
   public function getDatefinsejour(){
     return $this->datefinsejour->format('d/m/Y');

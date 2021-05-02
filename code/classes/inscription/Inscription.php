@@ -4,6 +4,9 @@
   
   include("requetesSQL.php");
 
+  /**
+   * Une classe objet Inscription représentant les inscriptions des utilisateurs à des activités
+   */
   class Inscription {
     private int $noinscrip;
     private string $user;
@@ -12,7 +15,7 @@
     private $dateannule;
 
     /**
-     * default constructor
+     * Constructeur par défaut
      */
     public function __construct() {
       $this->noinscrip = 0;
@@ -23,7 +26,7 @@
     }
 
     /**
-     * Get the value of Noinscrip
+     * Accesseur du noInscrip
      *
      * @return int
      */
@@ -33,7 +36,7 @@
     }
 
     /**
-     * Set the value of Noinscrip
+     * Mutateur du noInscrip
      *
      * @param int $noinscrip
      *
@@ -44,9 +47,9 @@
     }
 
     /**
-     * Get the value of User
+     * Accesseur de user 
      *
-     * @return string
+     * @return string 
      */
     public function getUser()
     {
@@ -54,11 +57,10 @@
     }
 
     /**
-     * Set the value of User
+     * Mutateur de user
      *
      * @param string $user
      *
-     * @return self
      */
     public function setUser(string $user)
     {
@@ -66,7 +68,7 @@
     }
 
     /**
-     * Get the value of Noact
+     * Accesseur du numéro d'activité
      *
      * @return int
      */
@@ -76,9 +78,9 @@
     }
 
     /**
-     * Set the value of Noact
+     * Mutateur du numéro d'activité
      *
-     * @param mixed $noact
+     * @param int $noact
      *
      */
     public function setNoact(int $noact)
@@ -87,7 +89,7 @@
     }
 
     /**
-     * Get the value of Dateinscrip
+     * Accesseur de la date d'inscription
      *
      * @return DateTime
      */
@@ -97,7 +99,7 @@
     }
 
     /**
-     * Set the value of Dateinscrip
+     * Mutateur de la date d'inscription
      *
      * @param mixed $dateinscrip
      *
@@ -109,17 +111,18 @@
     }
 
     /**
-     * Get the value of Dateannule
+     * Accesseur de la date d'annulation
      *
-     * @return mixed
+     * @return DateTime
      */
     public function getDateannule()
     {
+        $this->dateannule->format('d/m/Y');
         return $this->dateannule;
     }
 
     /**
-     * Set the value of Dateannule
+     * Mutateur de la date d'annulation
      *
      * @param mixed $dateannule
      *
