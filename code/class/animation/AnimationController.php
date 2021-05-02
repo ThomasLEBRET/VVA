@@ -47,7 +47,7 @@ class AnimationController extends Animation {
           if(ORMAnimation::add($post)) {
             $addSuccess = "L'animation a bien été ajoutée";
             $animations = ORMAnimation::getAll();
-            header('Location: index.php?page=animation')
+            header('Location: index.php?page=animation');
           } else {
             require_once("view/animation/error/errorAdd.php");
           }
