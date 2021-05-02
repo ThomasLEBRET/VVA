@@ -20,4 +20,13 @@
     SET DATEANNULE = NULL
     WHERE NOINSCRIP = ?
   ";
+
+  $getInscritsActivite = 
+  "
+    SELECT C.*
+    FROM inscription I, compte C
+    WHERE I.USER = C.USER
+    AND I.NOACT = ?
+    AND I.DATEANNULE IS NULL
+  ";
 ?>
