@@ -1,23 +1,24 @@
 <?php
 
 /**
- * Class to manage superglobal value on the Request class
+ * Classe static basée sur l'objet Superglobal permettant d'obtenir des informations sur ces variables là 
  */
 class InfoSuperglobal {
 
     private $superglobal;
 
     /**
-     * default constructor
-     * @param  $parameter
+     * Constructeur par défaut
+     * @param Superglobal un objet Superglobal
      */
     public function __construct($superglobal) {
         $this->superglobal = $superglobal;
     }
 
     /**
-     * Return array associatedin the superglobal variable
-     * @return array the associative array of the data of the super global variable processed by the superglobals object
+     * Retourne la variable superglobal sous forme de tableau associatif
+     * @param void
+     * @return array le tableau de Superglobal
      */
     public function getArray() {
       $tab = array();
@@ -28,19 +29,19 @@ class InfoSuperglobal {
     }
 
     /**
-     * Retrieves the value of part of a parameter according to its key (associative array)
-     * @param  string $name the key associated with a value of the associative array of the parameter
-     * @return sometype the value associated with the key of the associative array of the parameter
+     * Obtient le contenu d'une case du tableau associatif en fonction d'une clé
+     * @param  string la clé permettant d'accéder à la valeur du tableau
+     * @return mixed la valeur 
 
      */
-    public function get($name) {
+    public function get(string $name) {
         if(isset($this->superglobal[$name]))
             return $this->superglobal[$name];
     }
 
     /**
-     * Replace the unset procedure for Parameter object
-     * @param  string $name la clé associée à une valeur du tableau associatif du paramètre
+     * Détruit le contenu d'une variable à partir d'une clé 
+     * @param  string la clé associée à une valeur du tableau associatif du paramètre
      * @return void
      */
     public function destroy($name) {
@@ -50,9 +51,10 @@ class InfoSuperglobal {
     }
 
     /**
-     * Changes the value of part of the parameter according to its associated key
-     * @param string $name  a key associated with the value of the parameter
-     * @param sometype $value a value which will replace the initial value which is associated with the key of the associative array
+     * Change la valeur d'une case du tableau à partir de la clé permettant d'accéder à la valeur du tableau associatif
+     * @param string la clé
+     * @param mixed la nouvelle valeur
+     * @return void
      */
     public function set($name, $value) {
         $this->superglobal[$name] = $value;

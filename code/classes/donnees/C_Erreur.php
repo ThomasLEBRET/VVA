@@ -1,17 +1,20 @@
 <?php
 
 /**
- * Class to manage Error and send view in a controller
+ * Classe contrôleur objet pour gérer les erreurs HTTP 
  */
 class C_Erreur {
-  private $debug;
+  private bool $debug;
 
+  /**
+   * Constructeur par défaut
+   */
   public function __construct() {
     $this->debug = true;
   }
 
   /**
-   * Return error not found view
+   * Renvoi une vue préfabriquée d'erreur 404
    * @return void
    */
   public function nonTrouvee() {
@@ -26,7 +29,7 @@ class C_Erreur {
   }
 
   /**
-   * Return error server view (when SQL request fail for example)
+   * Renvoi une vue préfabriquée d'erreur 500
    * @return void
    */
   public function serveur($e) {

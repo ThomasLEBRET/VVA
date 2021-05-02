@@ -1,22 +1,22 @@
 <?php
 
 /**
- * static class to manage $_SESSION
+ * Classe static pour gérer la variable superglobale $_SESSION
  */
 class Session
 {
   private $session;
 
   /**
-   * default constructor
-   * @param array $session the $_SESSION value
+   * constructeur par défaut
+   * @param array La valeur de $_SESSION
    */
   public function __construct($session) {
     $this->session = $session;
   }
 
   /**
-   * start a session if not started the first time
+   * Démarre une session si elle n'est pas démarrée
    * @return void
    */
   public static function demarrer() {
@@ -26,18 +26,19 @@ class Session
   }
 
   /**
-   * set a new value on a Session
-   * @param string $name  the key name
-   * @param string $value the value associate to the key
+   * Change une valeur dans $_SESSION 
+   * @param string la clé du tableau de $_SESSION
+   * @param string La valeur associée à la clé 
+   * @return void
    */
   public static function set($name, $value) {
     $_SESSION[$name] = $value;
   }
 
   /**
-   * get a value by a key name
-   * @param  string $name a key name
-   * @return value  the value associate to the key
+   * Obtenir une valeur de $_SESSION
+   * @param  string la clé du tableau associatif $_SESSION
+   * @return mixed la valeur associée
    */
   public static function get($name) {
     if(isset($_SESSION[$name])) {
@@ -46,16 +47,16 @@ class Session
   }
 
   /**
-   * unset a case of Session array
-   * @param  string $name a key name
-   * @return voir   destroy value associated on the key name
+   * Détruit une case du tableau à partir de sa clé associative
+   * @param  string La clé associée à la valeur à détruire
+   * @return void détruit la valeur dans la session
    */
   public static function remove($name) {
     unset($_SESSION[$name]);
   }
 
   /**
-   * destroy session
+   * Détruit la session et l'arrête 
    * @return void
    */
   public function stop() {
