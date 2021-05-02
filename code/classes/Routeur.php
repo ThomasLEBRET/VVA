@@ -8,7 +8,7 @@ require_once("donnees/C_Erreur.php");
 require_once("donnees/Superglobal.php");
 
 /**
- * Class to redirect path on a data controller
+ * Classe routeur servant à rediriger l'utilisateur en fonction des actions qu'il entreprend sur le site
  */
 class Routeur {
 
@@ -20,7 +20,7 @@ class Routeur {
   private $superglobal;
 
   /**
-   * default constructor
+   * Constructeur par défaut
    */
   public function __construct() {
     $this->c_utilisateur = new C_Utilisateur();
@@ -32,9 +32,8 @@ class Routeur {
   }
 
   /**
-  * Distributes the use of data controllers according to the path taken by the user
-  * @return void  the data controller associated with the path chosen by the user
-  */
+   * Fonction démarrant le routeur
+   */
   public function demarrer()
   {
     $page = $this->superglobal->getGet()->get('page');

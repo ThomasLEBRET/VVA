@@ -6,12 +6,15 @@ require_once("Utilisateur.php");
 
 include("requetesSQL.php");
 
+    /**
+     * Classe static ORM pour la classe objet Utilisateur 
+     */
     class ORMUtilisateur extends Database {
                 
         /**
-         * Get all user accounts
+         * Retourne un tableau contenant l'ensemble des comptes sous forme d'objets Utilisateur
          */
-        public function getAllAccounts() {
+        public static function getAllAccounts() {
             global $selectAllUsers;
 
             $users = self::select($selectAllUsers, [], 'Utilisateur', false);
@@ -19,7 +22,10 @@ include("requetesSQL.php");
             return $users;
         }
 
-        public function getNbActivitesEnCharge() {
+        /**
+         * Retourne un entier représentant le nombre d'activité à charge pour un utilisateur en fonction de son nom de compte et de son mot de passe (s'applique pour un encadrant)
+         */
+        public static function getNbActivitesEnCharge() {
             global $countActivitesEncadrant;
 
             $n = self::count($countActivitesEncadrant, 
@@ -30,7 +36,13 @@ include("requetesSQL.php");
             return $n;
         }
 
-        public function getActivitesSousEncadrant() {
+        /**
+         * Retourne un tableau contenant les activités à la charge d'un encadrant en fonction de son nom de compte et de son prénom de compte
+         * sous la forme d'objet Activite
+         * @param void
+         * @return array Le tableau des activités
+         */
+        public static function getActivitesSousEncadrant() {
             global $activitesSousEncadrant;
 
             $activites = self::select($activitesSousEncadrant,
@@ -44,6 +56,11 @@ include("requetesSQL.php");
             return $activites;
         }
 
+        /**
+         * Retourne un tableau contenant des objets Activite où le vacancier possède une inscription non annulée
+         * @param void
+         * @return array Le tableau des activités
+         */
         public function getActivitesValidesVacancier() {
             global $activitesValidesVacancier;
 
@@ -59,9 +76,9 @@ include("requetesSQL.php");
         }
 
         /**
-         * function to login user where he valid login form
-         * @param  Parameters $params a $_POST array issue from the Parameters class
-         * @return bool       true if success login, false otherwise
+         * Connecte un utilisateur
+         * @param Superglobal Un objet Superglobal représentant la variable $_POST
+         * @return bool true si la connection s'est opérée pour l'utilisateur, false sinon
          */
         public function connexion($params) {
             global $selectUser;

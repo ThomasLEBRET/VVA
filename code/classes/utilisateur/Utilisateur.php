@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User : object class to create user and apply actions in a user
+ * Utilisateur : Classe modélisant un utilisateur
  */
 class Utilisateur {
 
@@ -19,7 +19,7 @@ class Utilisateur {
   private int $notelcompte;
 
   /**
-   * Default constructor
+   * Constructeur par défaut
    */
   public function __construct() {
     $this->user = "null";
@@ -37,7 +37,7 @@ class Utilisateur {
   }
 
   /**
-   * return a user login (PK)
+   * Accesseur user
    * @return string
    */
   public function getUser(){
@@ -45,7 +45,7 @@ class Utilisateur {
   }
 
   /**
-   * set a user login
+   * Mutateur user
    * @param string $user
    */
   public function setUser(string $user){
@@ -53,7 +53,7 @@ class Utilisateur {
   }
 
   /**
-   * get a user password
+   * Accesseur mdp
    * @return string
    */
   public function getMdp(){
@@ -61,7 +61,7 @@ class Utilisateur {
   }
 
   /**
-   * set a user password
+   * mutateur mdp
    * @param string $mdp
    */
   public function setMdp(string $mdp){
@@ -69,7 +69,7 @@ class Utilisateur {
   }
 
   /**
-   * get an account name
+   * Accesseur nomCompte
    * @return string
    */
   public function getNomcompte(){
@@ -77,7 +77,7 @@ class Utilisateur {
   }
 
   /**
-   * set an account name
+   * Mutateur nomCompte
    * @param string $nomcompte
    */
   public function setNomcompte(string $nomcompte){
@@ -85,7 +85,7 @@ class Utilisateur {
   }
 
   /**
-   * get a surname account
+   * Accesseur prenomComptes
    * @return string
    */
   public function getPrenomcompte(){
@@ -93,7 +93,7 @@ class Utilisateur {
   }
 
   /**
-   * set a surname account
+   * Mutateur prenomCompte
    * @param string $prenomcompte
    */
   public function setPrenomcompte(string $prenomcompte){
@@ -101,7 +101,7 @@ class Utilisateur {
   }
 
   /**
-   * get an inscription date
+   * Accesseur dateInscription
    * @return DateTime
    */
   public function getDateinscrip(){
@@ -109,7 +109,7 @@ class Utilisateur {
   }
 
   /**
-   * set a inscription date
+   * Mutateur dateInscription
    * @param mixed $dateinscrip
    */
   public function setDateinscrip($dateinscrip){
@@ -118,18 +118,18 @@ class Utilisateur {
   }
 
   /**
-   * get a close date for a user account
+   * Accesseur dateferme
    * @return DateTime
    */
   public function getDateferme(){
     if($this->dateferme != NULL) {
-      return $this->dateferme->format('d/m/Y');
+      $this->dateferme->format('d/m/Y');
     }
     return $this->dateferme;
   }
 
   /**
-   * set a close date for a user account
+   * Mutateur dateFerme
    * @param mixed $dateferme
    */
   public function setDateferme($dateferme){
@@ -142,7 +142,7 @@ class Utilisateur {
   }
 
   /**
-   * get type of user profil
+   * Accesseur typeProfil
    * @return string
    */
   public function getTypeprofil(){
@@ -150,7 +150,7 @@ class Utilisateur {
   }
 
   /**
-   * set a type of user profil
+   * Mutateur typeProfil
    * @param string $typeprofil
    */
   public function setTypeprofil(string $typeprofil){
@@ -158,7 +158,7 @@ class Utilisateur {
   }
 
   /**
-   * get a start date stay
+   * Accesseur dateDebSejour
    * @return DateTime
    */
   public function getDatedebsejour(){
@@ -166,7 +166,7 @@ class Utilisateur {
   }
 
   /**
-   * set a start date stay
+   * Mutateur dateDebSejour
    * @param date $datedebsejour
    */
   public function setDatedebsejour($datedebsejour){
@@ -175,7 +175,7 @@ class Utilisateur {
   }
 
   /**
-   * get a end date stay
+   * Accesseur dateFinSejour
    * @return DateTime $datefinsejour
    */
   public function getDatefinsejour(){
@@ -183,7 +183,7 @@ class Utilisateur {
   }
 
   /**
-   * set a end date stay
+   * Mutateur dateFinSejour
    * @param DateTime $datefinsejour
    */
   public function setDatefinsejour($datefinsejour){
@@ -192,7 +192,7 @@ class Utilisateur {
   }
 
   /**
-   * get birth date
+   * Accesseur dateNaisCompte
    * @return DateTime
    */
   public function getDatenaiscompte(){
@@ -200,7 +200,7 @@ class Utilisateur {
   }
 
   /**
-   * set birth date
+   * Mutateur dateNaisCompte
    * @param DateTime $datenaiscompte
    */
   public function setDatenaiscompte($datenaiscompte){
@@ -209,7 +209,7 @@ class Utilisateur {
   }
 
   /**
-   * get an e-mail adress
+   * Accesseur adrMailCompte
    * @return string
    */
   public function getAdrmailcompte(){
@@ -217,7 +217,7 @@ class Utilisateur {
   }
 
   /**
-   * set an e-mail adress
+   * Mutateur adrMailCompte
    * @param string $adrmailcompte
    */
   public function setAdrmailcompte($adrmailcompte){
@@ -225,7 +225,7 @@ class Utilisateur {
   }
 
   /**
-   * get an tel num
+   * Accesseur noTelCompte
    * @return int
    */
   public function getNotelcompte(){
@@ -233,7 +233,7 @@ class Utilisateur {
   }
 
   /**
-   * set an tel num
+   * Mutateur noTelCompte
    * @param int $notelcompte
    */
   public function setNotelcompte(int $notelcompte){

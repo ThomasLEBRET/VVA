@@ -1,8 +1,7 @@
 <?php
 
   /**
-   * sql request to select a user depending on his login USER and MDP 
-   * @var string
+   * Sélectionne un utilisateur en fonction de sa clé primaire et de son mot de passe
    */
   $selectUser =
     "
@@ -11,7 +10,9 @@
     WHERE USER = ?
     AND MDP = ?
     ";
-  
+  /**
+   * Sélectionne la tamble compte
+   */
   $selectAllUsers = "SELECT * FROM compte";
 
   $countActivitesEncadrant = 
@@ -21,8 +22,10 @@
   WHERE NOMRESP = ?
   AND PRENOMRESP = ?
   ";
-
   
+  /**
+   * Sélectionne les activités à la charge de l'encadrant avec une date d'activité supérieur ou égale à celle d'aujourd'hui (pour ne pas qu'il se trompe avec les activités passées)
+   */
   $activitesSousEncadrant = 
   "
   SELECT *
@@ -32,6 +35,9 @@
   AND DATEACT >= NOW()
   ";
 
+  /**
+   * Sélectionne les activités où le vacancier s'est inscrit
+   */
   $activitesValidesVacancier =
   "
   SELECT A.*

@@ -6,6 +6,9 @@ require_once("ORMUtilisateur.php");
 require_once("classes/animation/Animation.php");
 require_once("classes/animation/ORMAnimation.php");
 
+/**
+ * Classe contrôleur pour la classe objet Utilisateur
+ */
 class C_Utilisateur extends Utilisateur {
 
   public function __construct() {
@@ -13,9 +16,9 @@ class C_Utilisateur extends Utilisateur {
   }
 
   /**
-   * Redirect to the home page after a login user or whene a user start to navigate into the website
-   * @param  array $post a $_POST array issue from Parameters class
-   * @return void just required associate view
+   * Redirige l'utilisateur en fonction de l'état de la session et des données postée une fois arrivée sur le site
+   * @param  Superglobal $post la variable $_POST encapsulée dans l'objet Superglobal
+   * @return void la vue associée en fonction de l'état de la session et du contenu de $post
    */
   public function accueil($post) {
     if(empty($post->getArray())) {
@@ -37,6 +40,11 @@ class C_Utilisateur extends Utilisateur {
     }
   }
 
+  /**
+   * Fonction privée servant à retourner la vue associée au type de compte une fois la connexion réussie pour un utilisateur
+   * @param void
+   * @return void la vue associée au type de compte utilisateur contenu dans Session
+   */
   private function choixVue() {
     switch (Session::get('typeprofil')) {
       case 'VA':
