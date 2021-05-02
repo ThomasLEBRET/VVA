@@ -1,8 +1,8 @@
 <?php
 
   /**
-   * get all animation
-   * @var string
+   * Requête SQL permettant d'obtenir la liste des animations ainsi que le nombre de places restantes et le nom du type de l'animation
+   * @var string une requête SELECT
    */
   $getAll =
     "
@@ -12,8 +12,8 @@
     ";
 
   /**
-   * get just valid animations
-   * @var string
+   * Requête SQL permettant d'obtenir la liste des animations valides pour un vacancier avec la quantité de places restantes
+   * @var string une requête SELECT
    */
   $getAllValides =
     "
@@ -30,8 +30,8 @@
     ";
 
  /**
-  * get code type animation
-  * @var string
+  * Requête SQL permettant d'obtenir le code de type d'animation depuis la table type_anim
+  * @var string une requête SELECT
   */
   $getCodesTypeAnim =
     "
@@ -40,8 +40,8 @@
     ";
 
   /**
-   * insert an animation
-   * @var string
+   * Requête SQL permettant d'insérer une nouvelle animation
+   * @var string une requête INSERT
    */
   $addAnimation =
     "
@@ -51,8 +51,8 @@
     ";
 
   /**
-   * get animation with code anim
-   * @var string
+   * Requête SQL permettant d'obtenir le code d'animation d'une animation précise
+   * @var string une requête SELECT
    */
   $getCommonAnimations =
     "
@@ -62,8 +62,8 @@
     ";
 
   /**
-   * get an animation 
-   * @var string
+   * Requête SQL permettant d'obtenir une animation précise
+   * @var string une requête SELECT
    */
   $getAnimation =
   "
@@ -73,6 +73,10 @@
     AND CODEANIM = ?
   ";
 
+  /**
+   * Requête SQL permettant de mettre à jour une animation
+   * @var string une requête UPDATE
+   */
   $updateAnimation = 
   "
     UPDATE animation

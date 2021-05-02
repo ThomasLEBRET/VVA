@@ -5,7 +5,7 @@ require_once("classes/donnees/Database.php");
 include("requetesSQL.php");
 
 /**
-* Class to manage animations objects
+* Classe objet Animation
 */
 class Animation {
 
@@ -25,7 +25,7 @@ class Animation {
   private int $places_restantes;
 
   /**
-  * default constructor
+  * Constructeur par défaut
   */
   public function __construct() {
     $this->codeanim = "null";
@@ -46,7 +46,7 @@ class Animation {
 
 
   /**
-  * Get the value of Class to manage animations objects
+  * Accesseur codeAnim
   *
   * @return string
   */
@@ -56,7 +56,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Class to manage animations objects
+  * Mutateur codeAnim
   *
   * @param string $codeanim
   *
@@ -67,7 +67,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Codetypeanim
+  * Accesseur codeTypeAnim
   *
   * @return string
   */
@@ -77,7 +77,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Codetypeanim
+  * Mutateur codeTypeAnim
   *
   * @param string $codetypeanim
   *
@@ -88,7 +88,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Nomanim
+  * Accesseur nomAnim
   *
   * @return string
   */
@@ -98,7 +98,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Nomanim
+  * Mutateur nomAnim
   *
   * @param string $nomanim
   *
@@ -109,7 +109,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Datecreationanim
+  * Accesseur dateCreationAnim
   *
   * @return DateTime
   */
@@ -119,7 +119,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Datecreationanim
+  * Mutateur dateCreationAnim
   *
   * @param mixed $datecreationanim
   *
@@ -131,7 +131,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Datevaliditeanim
+  * Accesseur dateValiditeAnim
   *
   * @return DateTime
   */
@@ -142,7 +142,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Datevaliditeanim
+  * Mutateur dateValiditeAnim
   *
   * @param mixed $datevaliditeanim
   *
@@ -154,7 +154,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Dureeanim
+  * Accesseur dureeAnim
   *
   * @return int
   */
@@ -164,7 +164,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Dureeanim
+  * Mutateur dureeAnim
   *
   * @param int $dureeanim
   *
@@ -175,7 +175,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Limiteage
+  * Accesseur limiteAge
   *
   * @return int
   */
@@ -185,7 +185,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Limiteage
+  * Mutateur limiteAge
   *
   * @param int $limiteage
   *
@@ -196,7 +196,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Tarifanim
+  * Accesseur tarifAnim
   *
   * @return float
   */
@@ -206,7 +206,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Tarifanim
+  * Mutateur tarifAnim
   *
   * @param float $tarifanim
   *
@@ -217,7 +217,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Nbreplaceanim
+  * Accesseur NbrePlaceAnim
   *
   * @return int
   */
@@ -227,7 +227,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Nbreplaceanim
+  * Mutateur NbrePlaceAnim
   *
   * @param int $nbreplaceanim
   *
@@ -238,7 +238,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Descriptanim
+  * Accesseur descriptAnim
   *
   * @return string
   */
@@ -248,7 +248,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Descriptanim
+  * Mutateur descriptAnim
   *
   * @param string $descriptanim
   *
@@ -259,7 +259,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Commentanim
+  * Accesseur commentAnim
   *
   * @return string
   */
@@ -269,7 +269,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Commentanim
+  * Mutateur commentAnim
   *
   * @param string $commentanim
   *
@@ -280,7 +280,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Nomtypeanim
+  * Accesseur nomTypeAnim
   *
   * @return string 
   */
@@ -290,7 +290,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Nomtypeanim
+  * Mutateur nomTypeAnim
   *
   * @param string $nomtypeanim
   *
@@ -301,7 +301,7 @@ class Animation {
   }
 
   /**
-  * Get the value of Places Restantes
+  * Accesseur places_restantes
   *
   * @return int
   */
@@ -311,7 +311,7 @@ class Animation {
   }
 
   /**
-  * Set the value of Places Restantes
+  * Mutateur places_restantes
   *
   * @param int $places_restantes
   *

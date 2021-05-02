@@ -6,13 +6,16 @@ require_once("Animation.php");
 
 require_once("requetesSQL.php");
 
+/**
+ * La classe ORM de la classe objet Animation
+ */
 class ORMAnimation extends Database {
     
   /**
-  * get all animations
-  * @return array[Animation] an array contain Animation
+  * Renvoi la liste des animations pour un encadrant et administrateur, la liste des animations valides pour un vacancier
+  * @return array un tableau d'animations
   */
-  public function getAll() {
+  public static function getAll() {
     global $getAll;
     global $getAllValides;
 
@@ -32,21 +35,21 @@ class ORMAnimation extends Database {
   }
 
   /**
-  * get an animation with his PK
-  * @param  string $codeAnimation a animation code
-  * @return Animation  an animation object
+  * Renvoi une animatino
+  * @param  string un code d'animation
+  * @return Animation un objet Animatino
   */
-  public function get($codeAnimation) {
+  public static function get($codeAnimation) {
     global $getAnimation;
 
     return self::select($getAnimation, [$codeAnimation], 'Animation', 1);
   }
 
   /**
-  * get all codes type animation
-  * @return array an array contains all code type animations
+  * Renvoi un tableau contenant les codes des types des animations
+  * @return array la liste des codes des types des animations
   */
-  public function getCodesTypeAnimations() {
+  public static function getCodesTypeAnimations() {
     global $getCodesTypeAnim;
 
     $pre_datas = self::select($getCodesTypeAnim, [], 'Animation');
@@ -58,10 +61,11 @@ class ORMAnimation extends Database {
   }
 
   /**
-  * add an animation
-  * @param Parameters $post a $_POST Parameters
+  * Ajoute une animation
+  * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+  * @return bool true si l'insertion s'est bien déroulée, false sinon
   */
-  public function add($post) {
+  public static function add($post) {
     global $addAnimation;
 
     if(self::insert(
@@ -84,6 +88,12 @@ class ORMAnimation extends Database {
     return false;
   }
 
+
+  /**
+   * Met à jour une animation 
+   * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+   * @return bool true si la requête s'est bien passée, false sinon 
+   */
   public static function updateAnim($post) {
     global $updateAnimation;
 
@@ -110,9 +120,9 @@ class ORMAnimation extends Database {
   }
 
   /**
-  * Verify if an animation is valid (exist in database yet)
-  * @param  string  $codeAnim an animation code
-  * @return bool true if can select animations, false also
+  * Vérifie si une animation existe 
+  * @param  string un code d'animation
+  * @return bool true si une animation valide est renvoyée, false sinon
   */
   public static function exist($codeAnim) {
     global $getCommonAnimations;

@@ -4,19 +4,19 @@ require_once("Animation.php");
 require_once("ORMAnimation.php");
 
 /**
- * Class to control Animation datas
+ * Class contrôleur d'Animation
  */
 class C_Animation extends Animation {
 
   /**
-   * default constructor
+   * Constructeur par défaut
    */
   public function __construct() {
 
   }
 
   /**
-   * return all animations for Encadrant
+   * Page d'accueil des animations
    * @return void
    */
   public function voirAnimation() {
@@ -30,8 +30,8 @@ class C_Animation extends Animation {
   }
 
   /**
-   * route to add an animation after posting data in a form
-   * @param Parameters $post a $_POST Parameters
+   * Contrôle l'ajout d'une animation
+   * @param Superglobal $post a $_POST Parameters
    */
   public function ajouterAnimation($post) {
     if(Session::get('typeprofil') == 'EN') {
@@ -79,6 +79,10 @@ class C_Animation extends Animation {
     }
   }
 
+  /**
+   * Contrôle qui peut accéder à la vue de modification d'une animation
+   * * @param Superglobal le tableau $_GET encapsulé dans l'objet Superglobal
+   */
   public function vueModifierAnimation($get) {
     if(Session::get('typeprofil') == 'EN') {
       $codesTypeAnimation = ORMAnimation::getCodesTypeAnimations();
@@ -102,6 +106,10 @@ class C_Animation extends Animation {
     }
   }
 
+  /**
+   * Contrôle qui modifie une animation
+   * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+   */
   public function modifieranimation($post) {
     if(Session::get('typeprofil') == 'EN') {
       $allIsset = true;
