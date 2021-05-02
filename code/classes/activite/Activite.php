@@ -2,7 +2,7 @@
 require_once("classes/animation/Animation.php");
 
 /**
-* Class to manage activity object
+* Classe object permettant de gérer les Activite
 */
 class Activite {
 
@@ -19,7 +19,7 @@ class Activite {
   private string $prenomresp;
 
   /**
-  * default constructor
+  * Constructeur par défaut
   */
   public function __construct() {
     $this->noact = 0;
@@ -37,7 +37,7 @@ class Activite {
 
 
   /**
-   * Get the value of Class to manage activity object
+   * Accessuer noAct
    *
    * @return int
    */
@@ -47,7 +47,7 @@ class Activite {
   }
 
   /**
-   * Set the value of Class to manage activity object
+   * Mutateur noAct
    *
    * @param int $noact
    *
@@ -58,7 +58,7 @@ class Activite {
   }
 
   /**
-   * Get the value of Class to manage activity object
+   * Accessuer codeAnim
    *
    * @return string
    */
@@ -68,7 +68,7 @@ class Activite {
   }
 
   /**
-   * Set the value of codeanim
+   * Mutateur codeAnim
    *
    * @param string $codeanim
    *
@@ -79,7 +79,7 @@ class Activite {
   }
 
   /**
-   * Get the value of Codeetatact
+   * Accesseur codeEtatAct
    *
    * @return string
    */
@@ -89,7 +89,7 @@ class Activite {
   }
 
   /**
-   * Set the value of Codeetatact
+   * Mutateur codeEtatAct
    *
    * @param string $codeetatact
    *
@@ -100,7 +100,7 @@ class Activite {
   }
 
     /**
-     * Get the value of Dateact
+     * Accesseur dateAct
      *
      * @return DateTime
      */
@@ -111,7 +111,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Dateact
+     * Mutateur dateAct
      *
      * @param mixed $dateact
      *
@@ -123,7 +123,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Hrrdvact
+     * Accesseur hrRdvAct
      *
      * @return DateTime
      */
@@ -133,7 +133,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Hrrdvact
+     * Mutateur hrRdvAct
      *
      * @param mixed $hrrdvact
      *
@@ -145,7 +145,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Prixact
+     * Accesseur prixAct
      *
      * @return float
      */
@@ -155,7 +155,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Prixact
+     * Mutateur prixAct
      *
      * @param mixed $getPrixact
      *
@@ -166,7 +166,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Hrdebutact
+     * Accesseur hrDebutAct
      *
      * @return DateTime
      */
@@ -176,7 +176,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Hrdebutact
+     * Mutateur hrDebutAct
      *
      * @param mixed $hrdebutact
      *
@@ -189,7 +189,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Hrfinact
+     * Accessuer hrFinAct
      *
      * @return DateTime
      */
@@ -199,7 +199,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Hrfinact
+     * Mutateur hrFinAct
      *
      * @param mixed $hrfinact
      *
@@ -212,7 +212,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Dateannuleact
+     * Accesseur dateAnnuleAct
      *
      * @return DateTime
      */
@@ -224,7 +224,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Dateannuleact
+     * Mutateur dateAnnuleAct
      *
      * @param mixed $dateannuleact
      *
@@ -240,7 +240,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Prenomresp
+     * Accesseur prenomResp
      *
      * @return string
      */
@@ -250,7 +250,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Prenomresp
+     * Mutateur prenomResp
      *
      * @param mixed $prenomresp
      *
@@ -261,7 +261,7 @@ class Activite {
     }
 
     /**
-     * Get the value of Prenomresp
+     * Accesseur nomResp
      *
      * @return string
      */
@@ -271,7 +271,7 @@ class Activite {
     }
 
     /**
-     * Set the value of Nomresp
+     * Mutateur nomResp
      *
      * @param string $nomresp
      *

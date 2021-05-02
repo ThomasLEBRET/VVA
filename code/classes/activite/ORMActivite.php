@@ -10,9 +10,9 @@ class ORMActivite extends Database {
     
 
   /**
-   * get all activity for an animation
-   * @param  string $codeAnimation an animation code
-   * @return array  an array contain Activite objects
+   * Obtient la liste des activités en fonction du profil connecté
+   * @param  string un code d'animation
+   * @return array un tableau d'Animation
    */
   public static function getAll(string $codeAnimation) {
 
@@ -32,7 +32,8 @@ class ORMActivite extends Database {
         $getAllActivitesForVacancier,
         [
           $codeAnimation,
-          Session::get('datedebsejour')
+          Session::get('datedebsejour'),
+          Session::get('datefinsejour')
         ],
         'Activite'
       );
@@ -42,9 +43,9 @@ class ORMActivite extends Database {
   }
 
   /**
-   * function to get an activity with his activity code
-   * @param  int $noact the number of activity
-   * @return Activite  an activity object
+   * Obtient une Activite
+   * @param  int un numéro d'activité
+   * @return Activite un objet Activite
    */
   public static function get(int $noact) {
     global $getActivite;
@@ -53,8 +54,8 @@ class ORMActivite extends Database {
   }
 
   /**
-   * get all code activity state
-   * @return array activity code exists
+   * Obtient tous les codes d'activités qui existent
+   * @return array le tableau des codes d'activité
    */
   public static function getAllCodeEtatAct() {
     global $getAllCodeEtatAct;
@@ -68,9 +69,10 @@ class ORMActivite extends Database {
   }
 
   /**
-   * Add an activity
-   * @param Animation $animation an animation object
-   * @param Parameters $post      the array data post $_POST superglobal variables
+   * Ajoute une activité
+   * @param Animation un objet Animation
+   * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+   * @return bool true si l'insertion s'est bien déroulée, false sinon
    */
   public static function add($animation, $post) {
     global $addActivite;
@@ -112,10 +114,10 @@ class ORMActivite extends Database {
   }
 
   /**
-   * Verify if activity we are insert already exist in the same day
-   * @param  string $codeanim an animation code
-   * @param  date $dateact  a date for insert activity
-   * @return bool  true if not exist false also
+   * Vérifie si une activité issue de la même animation existe déjà pour la date de l'activité
+   * @param  string un code d'animation
+   * @param  DateTime une date d'activité
+   * @return bool  true si elle n'existe pas, false sinon
    */
   public static function noExistActiviteInSameDayForAnimation($codeanim, $dateact) {
     global $countActiviteInSameDayForAnimation;

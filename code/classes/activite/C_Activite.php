@@ -9,19 +9,22 @@
   require_once("classes/inscription/Inscription.php");
   require_once("classes/inscription/ORMInscription.php");
 
+  /**
+   * Le contrôleur de la classe objet Activite
+   */
   class C_Activite extends Activite {
 
 
     /**
-     * default constructor
+     * Constructeur par défaut
      */
     public function __construct() {
 
     }
 
     /**
-     * return view with all activity by a animation code
-     * @param  string $codeAnimation an animation code
+     * Page des activités pour une animation donnée
+     * @param  string le code d'animation
      * @return void
      */
     public function voirActivite($codeAnimation) {
@@ -56,8 +59,9 @@
     }
 
     /**
-     * route to add an activity
-     * @param Parameters $post a Parameters object contains a $_POST superglobal variable
+     * Contrôle l'ajoute d'une activité
+     * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+     * @return void
      */
     public function ajouterActivite($post) {
       $codeanim = $post->get('codeanim');
@@ -87,8 +91,9 @@
     }
 
     /**
-     * route to control datas to register on an activity
-     * @param Parameters $get an $_GET array
+     * Contrôle l'ajout d'une inscription à une activité
+     * @param Superglobal le tableau $_GET encapsulé dans l'objet Superglobal
+     * @return void
      */
     public function ajouterInscription($get) {
       $noact = $get->get('noact');
@@ -163,8 +168,8 @@
 
     /**
      * Annule une inscription d'un utilisateur à une activité
-     * @param  Parameters $get la variable superglobal $_GET passé dans l'objet Parameters
-     * @return mixed
+     * @param Superglobal le tableau $_GET encapsulé dans l'objet Superglobal
+     * @return void
      */
     public function annulerInscription($get) {
       $user = Session::get('user');
@@ -190,7 +195,8 @@
 
     /**
      * Annule une activité
-     * @param Parameters $post la variable superglobal $_POST passé dans l'objet Parameters
+     * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+     * @return void
      */
     public function annulerActivite($get) {
       $typeProfil = Session::get('typeprofil');
@@ -227,7 +233,11 @@
       }
     }
 
-    
+    /**
+     * Contrôle qui peut voir l'affichage permettant de modifier une activité
+     * @param Superglobal le tableau $_GET encapsulé dans l'objet Superglobal
+     * @return void
+     */
     public function vueModifierActivite($get) {
       $activite = ORMActivite::get($get->get('noAct'));
       $animation = ORMAnimation::get($activite->getCodeanim());
@@ -244,6 +254,11 @@
       }
     }
 
+    /**
+     * Contrôle qui peut modifier une activité
+     * @param Superglobal le tableau $_POST encapsulé dans l'objet Superglobal
+     * @return void
+     */
     public function modifierActivite($post) {
       if(Session::get('typeprofil') == 'EN') {
         $activite = ORMActivite::get($post->get('noact'));

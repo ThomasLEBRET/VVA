@@ -26,6 +26,7 @@
       AND A.DATEANNULEACT IS NULL
       AND A.CODEETATACT = 'O'
       AND A.DATEACT >= NOW()
+      AND NOW() <= ?
       GROUP BY AN.CODEANIM
     ";
 

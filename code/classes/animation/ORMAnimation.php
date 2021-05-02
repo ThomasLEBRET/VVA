@@ -29,7 +29,7 @@ class ORMAnimation extends Database {
       $dateNow = new DateTime(date("Y-m-d"));
 
       $ageUser = $dateNow->diff($dateNaiss);
-      $animations = self::select($getAllValides, [$ageUser->y], 'Animation');
+      $animations = self::select($getAllValides, [$ageUser->y, $dtFinSej], 'Animation');
     }
     return $animations;
   }

@@ -1,7 +1,7 @@
 <?php
 
  /**
-  * get activites for encadrant
+  * Requête SQL permettant d'obtenir la liste de toutes les activités pour un encadrant
   * @var string
   */
   $getAllActivitesForEncadrant =
@@ -13,9 +13,9 @@
   ";
 
   /**
-   * get all activities for a vacationer user
-   * @var string
-   */
+  * Requête SQL permettant d'obtenir la listes des activités ouvertes pour un vacancier
+  * @var string
+  */
   $getAllActivitesForVacancier =
   "
     SELECT *
@@ -24,10 +24,11 @@
     AND A.CODEANIM = ?
     AND A.CODEETATACT = 'O'
     AND A.DATEACT >= ?
+    AND NOW() <=  ?
   ";
 
   /**
-   * get all code activitie states
+   * Requête SQL permettant d'obtenir le contenu de la table etat_act
    * @var string
    */
   $getAllCodeEtatAct =
@@ -37,7 +38,7 @@
   ";
 
   /**
-   * request to add an activity
+   * Requête SQL permettant ajouter une activité en simulant l'auto incrément 
    * @var string
    */
   $addActivite =
@@ -50,6 +51,10 @@
     )
   ";
 
+  /**
+   * Requête SQL permettant de mettre à jour une activité
+   * @var string
+   */
   $updateActivite = 
   "
     UPDATE activite
@@ -65,7 +70,7 @@
   ";
 
   /**
-   * count an activity where date is the same day as an other in the same animation
+   * Requête SQL permettant d'obtenir les activités issues d'une animation en fonction d'une date d'activité
    * @var string
    */
   $countActiviteInSameDayForAnimation =
@@ -78,7 +83,7 @@
   ";
 
   /**
-   * return activity if user is registered in this activity
+   * Requête SQL permettant d'obtenir la liste des activités pour un utilisateur inscrit à celle ci
    * @var string
    */
   $isRegisteredUser =
@@ -93,7 +98,7 @@
   ";
 
   /**
-   * SQL request to get an activity with his number
+   * Requête SQL permettant d'obtenir une activité
    * @var string
    */
   $getActivite =
@@ -104,7 +109,7 @@
   ";
 
   /**
-   * add an inscription in an activity for a user if not registered
+   * Requête SQL permettant d'ajouter une inscription à une activité
    * @var string
    */
   $addInscriptionInActivity =
@@ -113,6 +118,9 @@
       VALUES(?,?,DATE(NOW()),NULL)
   ";
 
+  /**
+   * Requête SQL permettant d'annuler une activité
+   */
   $cancelActivity = 
   "
       UPDATE activite
@@ -121,12 +129,15 @@
       WHERE NOACT = ?
   ";
 
+  /**
+   * Requête SQL permettant d'annuler la dernière activité insérée
+   */
   $cancelActivityLastInserted = 
   "
-  SELECT MAX(NOACT) as  maxNum FROM activite;
+  SELECT MAX(NOACT) as maxNum FROM activite;
   UPDATE activite 
         SET DATEANNULE = NOW()
-        WHERE NOACT =maxNum
+        WHERE NOACT = maxNum
   ";
 
 ?>
