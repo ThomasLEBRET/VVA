@@ -14,7 +14,7 @@
   <div class="card" style="width: 18rem; margin: 0 auto; margin-bottom: .3em;">
   <div class="card-body">
     <h5 class="card-title"><?= $animation->getNomanim() ?></h5>
-    <h6 class="card-subtitle mb-2">Activité prévu le <?= $activite->getDateact() ?></h6>
+    <h6 class="card-subtitle mb-2">Activité prévu le <?= $activite->getDateact()->format('d/m/Y') ?></h6>
     <form action="index.php?page=annulerInscription&noact=<?= $activite->getNoact() ?>" method="post">
       <input type="submit" class="btn btn-secondary" name="unregistered" value="Désinscription">
     </form>
