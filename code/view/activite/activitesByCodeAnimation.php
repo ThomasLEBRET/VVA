@@ -19,6 +19,17 @@
       <li class="list-group-item">Heure de fin : <?= $activite->getHrfinact() ?></li>
     </ul>
     <br>
+
+    <?php 
+    $listUsersInscrits = ORMInscription::getInscritsActivite($activite->getNoact());
+    if(isset($listUsersInscrits) && Session::get('typeprofil') == 'EN') { 
+    ?>
+      <?php foreach(ORMInscription::getInscritsActivite($activite->getNoact()) as $user): ?>
+        <li><?= $user->getPrenomcompte()." ".$user->getNomcompte()?></li>
+      <?php endforeach ?>
+      </ul>
+    <?php } ?>
+    <br>
     <form action="index.php?page=unscribeRegister&noact=<?= $activite->getNoact() ?>"  method="post">
 
       <?php

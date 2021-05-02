@@ -3,6 +3,7 @@
 require_once("class/datas/Database.php");
 include("sqlRequests.php");
 require_once("Inscription.php");
+require_once("class/user/User.php");
 
 class ORMInscription extends Database {
 
@@ -33,6 +34,12 @@ class ORMInscription extends Database {
             return true;
 
         return false;
+    }
+
+    public static function getInscritsActivite(int $noAct) {
+        global $getInscritsActivite;
+
+        return self::select($getInscritsActivite, [$noAct], 'User', false);
     }
 
 }
