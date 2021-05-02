@@ -117,7 +117,9 @@
      */
     public function getDateannule()
     {
-        $this->dateannule->format('d/m/Y');
+        if($this->dateannule != null) {
+            $this->dateannule->format('d/m/Y');
+        }
         return $this->dateannule;
     }
 
