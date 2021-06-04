@@ -101,9 +101,7 @@ class ORMActivite extends Database {
       $prenomresp
     ])) {
       if($codeetatact == 'N') {
-        if(self::update($cancelActivityLastInserted, [])) {
-          return true;
-        } else {
+        if(self::update($cancelActivityLastInserted, []) == false) {
           return false;
         }
       } else {
@@ -196,6 +194,13 @@ class ORMActivite extends Database {
        }
     }
     return false;
+  }
+
+  public static function getNbInscrits(int $n)
+  {
+    global $nbInscritsActivity;
+    $num = self::select($nbInscritsActivity, [$n], 'Activite', 1);
+    return $num;
   }
 
 }

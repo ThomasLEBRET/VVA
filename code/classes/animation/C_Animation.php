@@ -95,7 +95,7 @@ class C_Animation extends Animation {
         $subTitle = "Nous n'avons pas trouvé cette animation";
         $description = "Veuillez choisir une autre animation";
       
-        require_once("vues/erreur/erreursGlobales.php");
+        require_once("vues/templateMessage.php");
       }
     } else {
       $title = "Erreur d'accès";

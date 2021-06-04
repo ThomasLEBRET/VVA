@@ -30,31 +30,21 @@
     public function voirActivite($codeAnimation) {
       $animation = ORMAnimation::get($codeAnimation);
       $codesEtatAct = ORMActivite::getAllCodeEtatAct();
+      $activites = ORMActivite::getAll($codeAnimation);
 
       if(Session::get('typeprofil') == 'EN') {
-        if(ORMAnimation::get($codeAnimation)->getCodeanim() == $codeAnimation) {
-          if(Session::get('typeprofil') == 'EN') {
-            require_once('vues/activite/formulaires/ajouterActivite.php');
-          }
+        if($animation->getCodeanim() == $codeAnimation) {
+          require_once('vues/activite/formulaires/ajouterActivite.php');
         }
       }
-      if(!isset($codeAnimation)) {
-        $title = "Erreur";
-        $subTitle = "Code d'animation introuvable";
-        $description = "Veuillez chercher une animation valide svp";
-
-        require_once("vues/templateMessage.php");
-      } else {
-        $activites = ORMActivite::getAll($codeAnimation);
-        if(empty($activites)) {
+      if($animation->getCodeanim() == "null") {
           $title = "Erreur";
           $subTitle = "Code d'animation introuvable";
           $description = "Veuillez chercher une animation valide svp";
 
           require_once("vues/templateMessage.php");
-        } else {
-          require_once("vues/activite/v_Activites.php");
-        }
+      } else {
+        require_once("vues/activite/v_Activites.php");
       }
     }
 
@@ -71,7 +61,7 @@
         $hrdebutact = new DateTime($post->get('hrdebutact'));
         if($hrrdvact <= $hrdebutact) {
           $animation = ORMAnimation::get($codeanim);
-          if(ORMActivite::add($animation, $post)) {
+          if(ORMActivite::add($animation, $post) == 1) {
             header('Location: index.php?page=animation');
           }
         } else {

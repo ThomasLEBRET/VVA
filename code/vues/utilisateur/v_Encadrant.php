@@ -8,6 +8,7 @@
   </div>
 </div>
 
+<?php if($activite != null): ?>
 <?php foreach($activites as $activite):  ?>
   <?php $animation = ORMAnimation::get($activite->getCodeanim()) ?>
 
@@ -28,6 +29,7 @@
   </div>
 </div>
 <?php endforeach ?>
+<?php endif ?>
 
 
 <?php $content = ob_get_clean(); ?>

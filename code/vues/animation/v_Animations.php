@@ -38,6 +38,31 @@
     <li class="list-group-item">Limite d'âge : <?= $animation->getLimiteage() ?> ans</li>
     <li class="list-group-item">Nombre de places restantes : <?= $animation->getPlaces_restantes() ?></li>
     <li class="list-group-item">Prix : <?= $prix ?></li>
+        <!-- Etape 2 : La moyenne des taux de remplissages pour une animation -->
+    <?php
+      if(Session::get('typeprofil') == 'EN')
+      {
+        $activitesPourAvg = ORMActivite::getAll($animation->getCodeanim());
+        
+        $cpt = 0;
+        $txRemp = 0;
+        foreach($activitesPourAvg as $a)
+        {
+          
+          $nbInscritsAct = ORMActivite::getNbInscrits($a->getNoact());
+
+          $txRemp = $txRemp + ( (float)$nbInscritsAct->getNbinscrit() / (float)$animation->getNbreplaceanim() ) * 100;
+          //echo $txRemp."\n";
+          $cpt++;
+        }
+
+        if($cpt == 0)
+          $cpt = 1;
+
+        $txRemp = $txRemp / $cpt;
+        echo "Taux de remplissage moyen de l'animation : ".$txRemp."%";
+      }
+    ?>
   </ul>
   <div class="card-body">
   <?php if(Session::get('typeprofil') == 'EN') { ?>

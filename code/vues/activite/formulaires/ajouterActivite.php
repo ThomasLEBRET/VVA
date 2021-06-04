@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-<form class="justify" action="index.php?page=addActivite" method="POST">
+<form class="justify" action="index.php?page=ajouterActivite" method="POST">
   <h1>Créer une activite</h1>
   <div class="form-row">
     <div class="col-md-3 mb-3">

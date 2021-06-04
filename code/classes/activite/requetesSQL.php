@@ -43,8 +43,9 @@
    */
   $addActivite =
   "
-    SELECT @noact := (SELECT MAX(NOACT) +1 FROM activite);
-    INSERT INTO activite(NOACT, CODEANIM,	CODEETATACT,	DATEACT,	HRRDVACT,	PRIXACT,	HRDEBUTACT,	HRFINACT,	DATEANNULEACT,	NOMRESP,	PRENOMRESP)
+  SELECT @noact := (SELECT MAX(NOACT) +1 FROM activite);
+  SELECT IF(@noact IS NOT NULL, @noact := (SELECT MAX(NOACT) +1 FROM activite), @noact := (SELECT 1)); 
+  INSERT INTO activite(NOACT, CODEANIM,	CODEETATACT,	DATEACT,	HRRDVACT,	PRIXACT,	HRDEBUTACT,	HRFINACT,	DATEANNULEACT,	NOMRESP,	PRENOMRESP)
     VALUES
     (
       @noact,?,?,?,?,?,?,?,NULL,?,?
@@ -138,6 +139,22 @@
   UPDATE activite 
         SET DATEANNULE = NOW()
         WHERE NOACT = maxNum
+  ";
+
+  $nbInscritsActivity =
+  "
+  SELECT COUNT(*) as nbInscrits
+  FROM inscription
+  WHERE NOACT = ?
+  ";
+
+  $noactParNumMois = 
+  "
+  SELECT a.NOACT, a.DATEACT
+  FROM activite a, animation an
+  WHERE a.CODEANIM = an.CODEANIM
+  AND MONTH(a.DATEACT) = ?
+  GROUP BY a.NOACT
   ";
 
 ?>

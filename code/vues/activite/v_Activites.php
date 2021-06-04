@@ -4,8 +4,8 @@
 
 <?php if(isset($formAddActivite)) { echo $formAddActivite; } ?>
 
-
-<?php foreach ($activites as $activite) : ?>
+<?php if($activites != null): ?>
+<?php foreach ($activites as $activite): ?>
   <?php $prix = str_replace(".", "€", strval($activite->getPrixact())) ?>
 
   <div class="card justify">
@@ -19,6 +19,16 @@
       <li class="list-group-item">Heure de fin : <?= $activite->getHrfinact() ?></li>
     </ul>
     <br>
+
+    <!-- Etape 1 : Taux de remplissage d'une activité -->
+    <?php 
+      if(Session::get('typeprofil') == 'EN')
+      {
+        $nbInscritsAct = ORMActivite::getNbInscrits($activite->getNoact());
+        $txRemp = ( (float)$nbInscritsAct->getNbinscrit() / (float)$animation->getNbreplaceanim() ) * 100;
+        echo "Taux de remplissage de l'activité : ".$txRemp."%";
+      }
+    ?>
 
     <?php 
     $listUsersInscrits = ORMInscription::getInscritsActivite($activite->getNoact());
@@ -71,6 +81,7 @@
   </div>
 
 <?php endforeach ?>
+<?php endif ?>
 
 <?php $content = ob_get_clean(); ?>
 <?php require("vues/template.php"); ?>

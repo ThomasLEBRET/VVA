@@ -17,6 +17,7 @@ class Activite {
   private $dateannuleact;
   private string $nomresp;
   private string $prenomresp;
+  private int $nbInscrits;
 
   /**
   * Constructeur par défaut
@@ -33,6 +34,17 @@ class Activite {
     $this->dateannuleact = null;
     $this->nomresp = "null";
     $this->prenomresp = "null";
+    $this->nbInscrits = 0;
+  }
+
+  public function getNbinscrit()
+  {
+      return intval($this->nbInscrits);
+  }
+
+  public function setNbinscrits(int $nbInscrits)
+  {
+      $this->nbInscrits = $nbInscrits;
   }
 
 
