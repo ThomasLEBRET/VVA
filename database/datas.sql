@@ -130,7 +130,7 @@ CREATE TABLE `compte` (
 
 INSERT INTO `compte` (`USER`, `MDP`, `NOMCOMPTE`, `PRENOMCOMPTE`, `DATEINSCRIP`, `DATEFERME`, `TYPEPROFIL`, `DATEDEBSEJOUR`, `DATEFINSEJOUR`, `DATENAISCOMPTE`, `ADRMAILCOMPTE`, `NOTELCOMPTE`) VALUES
 ('ALMA', 'admin', 'ALLIOT', 'Mathias', '2020-09-01', NULL, 'EN', '2020-02-03', '2021-02-03', '1999-07-05', 'mathias.alliot@vva.fr', '0102030405'),
-('THLB', 'test', 'LEBRET', 'Thomas', '2020-09-17', NULL, 'VA', '2020-12-20', '2021-04-10', '2000-03-02', 'th.lebret@outlook.fr', '0659819473');
+('THLB', 'test', 'LEBRET', 'Thomas', '2020-09-17', NULL, 'VA', '2020-12-20', '2021-04-10', '2000-03-02', 'ab@truc.fr', '0102030405');
 
 -- --------------------------------------------------------
 
